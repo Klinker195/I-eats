@@ -18,14 +18,17 @@ void printMainMenu(Choice_t ChoiceList[], int TotalChoices) {
 	
 	printf(ANSI_COLOR_CYAN " +----------------------------------------------------------------+\n");
 	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"                                                                "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"                                    ,,                          "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"         db                       `7MM                          "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"        ;MM:                        MM                          "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"       ,V^MM.    M\"\"\"MMV  ,6\"Yb.    MM  .gP\"Ya   ,6\"Yb.         "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"      ,M  `MM    '  AMV  8)   MM    MM ,M'   Yb 8)   MM         "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"      AbmmmqMA     AMV    ,pm9MM    MM 8M\"\"\"\"\"\"  ,pm9MM         "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"     A'     VML   AMV  , 8M   MM    MM YM.    , 8M   MM         "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"   .AMA.   .AMMA.AMMmmmM `Moo9^Yo..JMML.`Mbmmd' `Moo9^Yo.       "ANSI_COLOR_CYAN "|\n");
+	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET" ____       __________                                           "ANSI_COLOR_CYAN "|\n");
+	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET" `MM'       `MMMMMMMMM                                        "ANSI_COLOR_CYAN "|\n");
+	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM         MM      \           /                 "ANSI_COLOR_CYAN "|\n");
+	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM         MM           ___   /M       ____          "ANSI_COLOR_CYAN "|\n");
+	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM         MM    ,    6MMMMb /MMMMM   6MMMMb\        "ANSI_COLOR_CYAN "|\n");
+	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM         MMMMMMM   8M'  `Mb MM     MM'    `      "ANSI_COLOR_CYAN "|\n");
+	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM         MM    `       ,oMM MM     YM.           "ANSI_COLOR_CYAN "|\n");
+	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM MMMMMMM MM        ,6MM9'MM MM      YMMMMb         "ANSI_COLOR_CYAN "|\n");
+	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM         MM        MM'   MM MM          `Mb              "ANSI_COLOR_CYAN "|\n");
+	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM         MM      / MM.  ,MM YM.  , L    ,MM           "ANSI_COLOR_CYAN "|\n");
+	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET" _MM_       _MMMMMMMMM `YMMM9'Yb.YMMM9 MYMMMM9                "ANSI_COLOR_CYAN "|\n");
 	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"                                                                "ANSI_COLOR_CYAN "|\n");
 	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"   Utilizzare le frecce direzionali per muoversi nel software.  "ANSI_COLOR_CYAN "|\n");
 	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"                                                                "ANSI_COLOR_CYAN "|\n");
