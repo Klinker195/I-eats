@@ -12,6 +12,11 @@ typedef struct {
 	String Password;
 } User_t;
 
+typedef struct {
+	unsigned int x;
+	unsigned int y;
+} IdPair_t;
+
 bool searchCF(FILE *fp, String CF);
 
 void error(int errorNumber);
