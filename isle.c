@@ -50,15 +50,15 @@ int isleStart(User_t *CurrentUser) {
 						Effettuata sul sito: https://patorjk.com/software/taag/
 						*/
 
-						printf(ANSI_COLOR_CYAN" +--------------------------------------+\n");
-						printf(" |    _                    _            |\n");
-						printf(" |   | |                  (_)           |\n");
-						printf(" |   | |      ___    __ _  _  _ __      |\n");
-						printf(" |   | |     / _ \\  / _` || || '_ \\     |\n");
-						printf(" |   | |____| (_) || (_| || || | | |    |\n");
-						printf(" |   \\_____/ \\___/  \\__, ||_||_| |_|    |\n");
-						printf(" |                   __/ |              |\n");
-						printf(" |                  |___/               |\n");
+						printf(ANSI_COLOR_BRIGHTRED" +--------------------------------------+\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"    _                    _            "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |                  (_)           "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |      ___    __ _  _  _ __      "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |     / _ \\  / _` || || '_ \\     "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |____| (_) || (_| || || | | |    "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   \\_____/ \\___/  \\__, ||_||_| |_|    "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                   __/ |              "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                  |___/               "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" +--------------------------------------+\n"ANSI_COLOR_RESET);
 
 						printf("\n\n");
@@ -122,15 +122,15 @@ int isleStart(User_t *CurrentUser) {
 						Effettuata sul sito: https://patorjk.com/software/taag/
 						*/
 
-						printf(ANSI_COLOR_CYAN" +--------------------------------------+\n");
-						printf(" |    _                    _            |\n");
-						printf(" |   | |                  (_)           |\n");
-						printf(" |   | |      ___    __ _  _  _ __      |\n");
-						printf(" |   | |     / _ \\  / _` || || '_ \\     |\n");
-						printf(" |   | |____| (_) || (_| || || | | |    |\n");
-						printf(" |   \\_____/ \\___/  \\__, ||_||_| |_|    |\n");
-						printf(" |                   __/ |              |\n");
-						printf(" |                  |___/               |\n");
+						printf(ANSI_COLOR_BRIGHTRED" +--------------------------------------+\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"    _                    _            "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |                  (_)           "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |      ___    __ _  _  _ __      "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |     / _ \\  / _` || || '_ \\     "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |____| (_) || (_| || || | | |    "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   \\_____/ \\___/  \\__, ||_||_| |_|    "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                   __/ |              "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                  |___/               "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" +--------------------------------------+\n"ANSI_COLOR_RESET);
 
 						printf("\n\n");
@@ -205,15 +205,15 @@ int isleStart(User_t *CurrentUser) {
 						Effettuata sul sito: https://patorjk.com/software/taag/
 						*/
 
-						printf(ANSI_COLOR_CYAN" +----------------------------------------------------+\n");
-						printf(" |   ______               _       _                   |\n");
-						printf(" |   | ___ \\             (_)     | |                  |\n");
-						printf(" |   | |_/ /  ___   __ _  _  ___ | |_   ___  _ __     |\n");
-						printf(" |   |    /  / _ \\ / _` || |/ __|| __| / _ \\| '__|    |\n");
-						printf(" |   | |\\ \\ |  __/| (_| || |\\__ \\| |_ |  __/| |       |\n");
-						printf(" |   \\_| \\_| \\___| \\__, ||_||___/ \\__| \\___||_|       |\n");
-						printf(" |                  __/ |                             |\n");
-						printf(" |                 |___/                              |\n");
+						printf(ANSI_COLOR_BRIGHTRED" +----------------------------------------------------+\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   ______               _       _                   "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | ___ \\             (_)     | |                  "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |_/ /  ___   __ _  _  ___ | |_   ___  _ __     "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   |    /  / _ \\ / _` || |/ __|| __| / _ \\| '__|    "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |\\ \\ |  __/| (_| || |\\__ \\| |_ |  __/| |       "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   \\_| \\_| \\___| \\__, ||_||___/ \\__| \\___||_|       "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                  __/ |                             "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                 |___/                              "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" +----------------------------------------------------+\n"ANSI_COLOR_RESET);
 
 						printf("\n\n");
@@ -293,15 +293,15 @@ int isleStart(User_t *CurrentUser) {
 						Effettuata sul sito: https://patorjk.com/software/taag/
 						*/
 
-						printf(ANSI_COLOR_CYAN" +----------------------------------------------------+\n");
-						printf(" |   ______               _       _                   |\n");
-						printf(" |   | ___ \\             (_)     | |                  |\n");
-						printf(" |   | |_/ /  ___   __ _  _  ___ | |_   ___  _ __     |\n");
-						printf(" |   |    /  / _ \\ / _` || |/ __|| __| / _ \\| '__|    |\n");
-						printf(" |   | |\\ \\ |  __/| (_| || |\\__ \\| |_ |  __/| |       |\n");
-						printf(" |   \\_| \\_| \\___| \\__, ||_||___/ \\__| \\___||_|       |\n");
-						printf(" |                  __/ |                             |\n");
-						printf(" |                 |___/                              |\n");
+						printf(ANSI_COLOR_BRIGHTRED" +----------------------------------------------------+\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   ______               _       _                   "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | ___ \\             (_)     | |                  "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |_/ /  ___   __ _  _  ___ | |_   ___  _ __     "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   |    /  / _ \\ / _` || |/ __|| __| / _ \\| '__|    "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |\\ \\ |  __/| (_| || |\\__ \\| |_ |  __/| |       "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   \\_| \\_| \\___| \\__, ||_||___/ \\__| \\___||_|       "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                  __/ |                             "ANSI_COLOR_BRIGHTRED"|\n");
+						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                 |___/                              "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" +----------------------------------------------------+\n"ANSI_COLOR_RESET);
 
 						int tmpLabKey;

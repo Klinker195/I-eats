@@ -15,25 +15,23 @@ void printMainMenu(Choice_t ChoiceList[], int TotalChoices) {
 	Effettuata sul sito: https://patorjk.com/software/taag/
 	*/
 	
-	String DateString = "";
-	
-	printf(ANSI_COLOR_CYAN " +----------------------------------------------------------------+\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"                                                                "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET" ____       __________                                           "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET" `MM'       `MMMMMMMMM                                        "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM         MM      \           /                 "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM         MM           ___   /M       ____          "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM         MM    ,    6MMMMb /MMMMM   6MMMMb\        "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM         MMMMMMM   8M'  `Mb MM     MM'    `      "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM         MM    `       ,oMM MM     YM.           "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM MMMMMMM MM        ,6MM9'MM MM      YMMMMb         "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM         MM        MM'   MM MM          `Mb              "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"  MM         MM      / MM.  ,MM YM.  , L    ,MM           "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET" _MM_       _MMMMMMMMM `YMMM9'Yb.YMMM9 MYMMMM9                "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"                                                                "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"   Utilizzare le frecce direzionali per muoversi nel software.  "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |"ANSI_COLOR_RESET"                                                                "ANSI_COLOR_CYAN "|\n");
-	printf(ANSI_COLOR_CYAN " |----------------------------------------------------------------|\n");
+	printf(ANSI_COLOR_BRIGHTRED " +----------------------------------------------------------------+\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"                                                                "ANSI_COLOR_BRIGHTRED "|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"         ____       __________                                  "ANSI_COLOR_BRIGHTRED "|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"         `MM'       `MMMMMMMMM                                  "ANSI_COLOR_BRIGHTRED "|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"          MM         MM      \\           /                      "ANSI_COLOR_BRIGHTRED "|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"          MM         MM           ___   /M       ____           "ANSI_COLOR_BRIGHTRED "|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"          MM         MM    ,    6MMMMb /MMMMM   6MMMMb\\         "ANSI_COLOR_BRIGHTRED "|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"          MM         MMMMMMM   8M'  `Mb MM     MM'    `         "ANSI_COLOR_BRIGHTRED "|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"          MM         MM    `       ,oMM MM     YM.              "ANSI_COLOR_BRIGHTRED "|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"          MM MMMMMMM MM        ,6MM9'MM MM      YMMMMb          "ANSI_COLOR_BRIGHTRED "|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"          MM         MM        MM'   MM MM          `Mb         "ANSI_COLOR_BRIGHTRED "|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"          MM         MM      / MM.  ,MM YM.  , L    ,MM         "ANSI_COLOR_BRIGHTRED "|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"         _MM_       _MMMMMMMMM `YMMM9'Yb.YMMM9 MYMMMM9          "ANSI_COLOR_BRIGHTRED "|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"                                                                "ANSI_COLOR_BRIGHTRED "|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"   Utilizzare le frecce direzionali per muoversi nel software.  "ANSI_COLOR_BRIGHTRED "|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"                                                                "ANSI_COLOR_BRIGHTRED "|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |----------------------------------------------------------------|\n");
 	
 	int i = 0;
 	
@@ -42,7 +40,7 @@ void printMainMenu(Choice_t ChoiceList[], int TotalChoices) {
 		if(ChoiceList[i].Selected) {
 			printf(" |                                                                |\n");
 			printf(" |             +-----------------------------------+              |\n");
-			printf(" |             |"ANSI_COLOR_RESET" > | %29s "ANSI_COLOR_CYAN"|              |\n", ChoiceList[i].Text);
+			printf(" |             |"ANSI_COLOR_BRIGHTYELLOW" > | %29s "ANSI_COLOR_BRIGHTRED"|              |\n", ChoiceList[i].Text);
 			printf(" |             +-----------------------------------+              |\n");
 			printf(" |                                                                |\n");
 		} else {
@@ -74,15 +72,15 @@ void printLoginChoice(Choice_t ChoiceList[], int TotalChoices) {
 	Effettuata sul sito: https://patorjk.com/software/taag/
 	*/
 	
-	printf(ANSI_COLOR_CYAN" +--------------------------------------+\n");
-	printf(" |    _                    _            |\n");
-	printf(" |   | |                  (_)           |\n");
-	printf(" |   | |      ___    __ _  _  _ __      |\n");
-	printf(" |   | |     / _ \\  / _` || || '_ \\     |\n");
-	printf(" |   | |____| (_) || (_| || || | | |    |\n");
-	printf(" |   \\_____/ \\___/  \\__, ||_||_| |_|    |\n");
-	printf(" |                   __/ |              |\n");
-	printf(" |                  |___/               |\n");
+	printf(ANSI_COLOR_BRIGHTRED" +--------------------------------------+\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"    _                    _            "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |                  (_)           "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |      ___    __ _  _  _ __      "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |     / _ \\  / _` || || '_ \\     "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |____| (_) || (_| || || | | |    "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"   \\_____/ \\___/  \\__, ||_||_| |_|    "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"                   __/ |              "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"                  |___/               "ANSI_COLOR_BRIGHTRED"|\n");
 	
 	int i = 0;
 	
@@ -92,7 +90,7 @@ void printLoginChoice(Choice_t ChoiceList[], int TotalChoices) {
 			printf(" |--------------------------------------|\n");
 			printf(" |                                      |\n");
 			printf(" |     +-------------------------+      |\n");
-			printf(" |     |"ANSI_COLOR_RESET" > | %19s "ANSI_COLOR_CYAN"|      |\n", ChoiceList[i].Text);
+			printf(" |     |"ANSI_COLOR_BRIGHTYELLOW" > | %19s "ANSI_COLOR_BRIGHTRED"|      |\n", ChoiceList[i].Text);
 			printf(" |     +-------------------------+      |\n");
 			printf(" |                                      |\n");
 		} else {
@@ -120,15 +118,15 @@ void printRegistrationChoice(Choice_t ChoiceList[], int TotalChoices) {
 	Effettuata sul sito: https://patorjk.com/software/taag/
 	*/
 	
-	printf(ANSI_COLOR_CYAN " +----------------------------------------------------+\n");
-	printf(" |   ______               _       _                   |\n");
-	printf(" |   | ___ \\             (_)     | |                  |\n");
-	printf(" |   | |_/ /  ___   __ _  _  ___ | |_   ___  _ __     |\n");
-	printf(" |   |    /  / _ \\ / _` || |/ __|| __| / _ \\| '__|    |\n");
-	printf(" |   | |\\ \\ |  __/| (_| || |\\__ \\| |_ |  __/| |       |\n");
-	printf(" |   \\_| \\_| \\___| \\__, ||_||___/ \\__| \\___||_|       |\n");
-	printf(" |                  __/ |                             |\n");
-	printf(" |                 |___/                              |\n");
+	printf(ANSI_COLOR_BRIGHTRED " +----------------------------------------------------+\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"   ______               _       _                   "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | ___ \\             (_)     | |                  "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |_/ /  ___   __ _  _  ___ | |_   ___  _ __     "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"   |    /  / _ \\ / _` || |/ __|| __| / _ \\| '__|    "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"   | |\\ \\ |  __/| (_| || |\\__ \\| |_ |  __/| |       "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"   \\_| \\_| \\___| \\__, ||_||___/ \\__| \\___||_|       "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"                  __/ |                             "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(" |"ANSI_COLOR_BRIGHTYELLOW"                 |___/                              "ANSI_COLOR_BRIGHTRED"|\n");
 	
 	int i = 0;
 	
@@ -138,7 +136,7 @@ void printRegistrationChoice(Choice_t ChoiceList[], int TotalChoices) {
 			printf(" |----------------------------------------------------|\n");
 			printf(" |                                                    |\n");
 			printf(" |            +-------------------------+             |\n");
-			printf(" |            |"ANSI_COLOR_RESET" > | %19s "ANSI_COLOR_CYAN"|             |\n", ChoiceList[i].Text);
+			printf(" |            |"ANSI_COLOR_BRIGHTYELLOW" > | %19s "ANSI_COLOR_BRIGHTRED"|             |\n", ChoiceList[i].Text);
 			printf(" |            +-------------------------+             |\n");
 			printf(" |                                                    |\n");
 		} else {
