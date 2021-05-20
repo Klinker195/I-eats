@@ -4,6 +4,7 @@
 #include "headers/cliui.h"
 
 Choice_t StartupChoiceList[STARTUPCHOICELIST_SIZE] = { {"Effettuare il login", false}, {"Effettuare una registrazione", false}, {"Esci dal software", false} };
+Choice_t LoginRegistrationChoiceList[LOGINREGISTRATIONCHOICELIST_SIZE] = { {"Driver", false}, {"Cliente", false} };
 
 void printMainMenu(Choice_t ChoiceList[], int TotalChoices) {
 	
@@ -52,6 +53,103 @@ void printMainMenu(Choice_t ChoiceList[], int TotalChoices) {
 	}
 	
 	printf(" +----------------------------------------------------------------+\n"ANSI_COLOR_RESET);
+	
+	
+}
+
+
+
+
+
+
+void printLoginChoice(Choice_t ChoiceList[], int TotalChoices) {
+	
+	system("cls");
+	
+	/*
+	ASCII Art Style = Doom
+	Effettuata sul sito: https://patorjk.com/software/taag/
+	*/
+	
+	printf(ANSI_COLOR_CYAN" +--------------------------------------+\n");
+	printf(" |    _                    _            |\n");
+	printf(" |   | |                  (_)           |\n");
+	printf(" |   | |      ___    __ _  _  _ __      |\n");
+	printf(" |   | |     / _ \\  / _` || || '_ \\     |\n");
+	printf(" |   | |____| (_) || (_| || || | | |    |\n");
+	printf(" |   \\_____/ \\___/  \\__, ||_||_| |_|    |\n");
+	printf(" |                   __/ |              |\n");
+	printf(" |                  |___/               |\n");
+	
+	int i = 0;
+	
+	for(i = 0; i < TotalChoices; i++) {
+		
+		if(ChoiceList[i].Selected) {
+			printf(" |--------------------------------------|\n");
+			printf(" |                                      |\n");
+			printf(" |     +-------------------------+      |\n");
+			printf(" |     |"ANSI_COLOR_RESET" > | %19s "ANSI_COLOR_CYAN"|      |\n", ChoiceList[i].Text);
+			printf(" |     +-------------------------+      |\n");
+			printf(" |                                      |\n");
+		} else {
+			printf(" |--------------------------------------|\n");
+			printf(" |                                      |\n");
+			printf(" |     +-------------------------+      |\n");
+			printf(" |     |   | %19s |      |\n", ChoiceList[i].Text);
+			printf(" |     +-------------------------+      |\n");
+			printf(" |                                      |\n");
+		}
+		
+	}
+	
+	printf(" +--------------------------------------+\n"ANSI_COLOR_RESET);
+	
+	
+}
+
+void printRegistrationChoice(Choice_t ChoiceList[], int TotalChoices) {
+	
+	system("cls");
+	
+	/*
+	ASCII Art Style = Doom
+	Effettuata sul sito: https://patorjk.com/software/taag/
+	*/
+	
+	printf(ANSI_COLOR_CYAN " +----------------------------------------------------+\n");
+	printf(" |   ______               _       _                   |\n");
+	printf(" |   | ___ \\             (_)     | |                  |\n");
+	printf(" |   | |_/ /  ___   __ _  _  ___ | |_   ___  _ __     |\n");
+	printf(" |   |    /  / _ \\ / _` || |/ __|| __| / _ \\| '__|    |\n");
+	printf(" |   | |\\ \\ |  __/| (_| || |\\__ \\| |_ |  __/| |       |\n");
+	printf(" |   \\_| \\_| \\___| \\__, ||_||___/ \\__| \\___||_|       |\n");
+	printf(" |                  __/ |                             |\n");
+	printf(" |                 |___/                              |\n");
+	
+	int i = 0;
+	
+	for(i = 0; i < TotalChoices; i++) {
+		
+		if(ChoiceList[i].Selected) {
+			printf(" |----------------------------------------------------|\n");
+			printf(" |                                                    |\n");
+			printf(" |            +-------------------------+             |\n");
+			printf(" |            |"ANSI_COLOR_RESET" > | %19s "ANSI_COLOR_CYAN"|             |\n", ChoiceList[i].Text);
+			printf(" |            +-------------------------+             |\n");
+			printf(" |                                                    |\n");
+		} else {
+			printf(" |----------------------------------------------------|\n");
+			printf(" |                                                    |\n");
+			printf(" |            +-------------------------+             |\n");
+			printf(" |            |   | %19s |             |\n", ChoiceList[i].Text);
+			printf(" |            +-------------------------+             |\n");
+			printf(" |                                                    |\n");
+		}
+		
+	}
+	
+	printf(" +----------------------------------------------------+\n"ANSI_COLOR_RESET);
 	
 	
 }

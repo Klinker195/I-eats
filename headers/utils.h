@@ -7,6 +7,8 @@
 
 typedef char String[STRING_LENGTH];
 
+extern const int labKey;
+
 typedef struct {
 	String CF;
 	String Password;

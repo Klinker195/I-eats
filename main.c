@@ -10,8 +10,21 @@
 #include "headers/datastructures.h"
 
 int main(void) {
+
+	User_t ConnectedUser;
 	
+	srand(time(NULL));
 	
+	int Modality = isleStart(&ConnectedUser);
+	
+	/*
+	if(Modality == 0) {
+		isleDriver(&ConnectedUser);
+	} else {
+		isleCustomer(&ConnectedUser);
+	}
+	*/
+	system("pause");
 	
 	return 0;
 }
