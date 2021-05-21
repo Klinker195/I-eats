@@ -59,7 +59,7 @@ int isleStart(User_t *CurrentUser) {
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   \\_____/ \\___/  \\__, ||_||_| |_|    "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                   __/ |              "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                  |___/               "ANSI_COLOR_BRIGHTRED"|\n");
-						printf(" +--------------------------------------+\n"ANSI_COLOR_RESET);
+						printf(" +--------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
 
 						printf("\n\n");
 						printf(" Inserisci il tuo codice fiscale: ");
@@ -131,7 +131,7 @@ int isleStart(User_t *CurrentUser) {
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   \\_____/ \\___/  \\__, ||_||_| |_|    "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                   __/ |              "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                  |___/               "ANSI_COLOR_BRIGHTRED"|\n");
-						printf(" +--------------------------------------+\n"ANSI_COLOR_RESET);
+						printf(" +--------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
 
 						printf("\n\n");
 						printf(" Inserisci il tuo codice fiscale: ");
@@ -214,7 +214,7 @@ int isleStart(User_t *CurrentUser) {
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   \\_| \\_| \\___| \\__, ||_||___/ \\__| \\___||_|       "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                  __/ |                             "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                 |___/                              "ANSI_COLOR_BRIGHTRED"|\n");
-						printf(" +----------------------------------------------------+\n"ANSI_COLOR_RESET);
+						printf(" +----------------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
 
 						printf("\n\n");
 						printf(" Inserisci il tuo codice fiscale: ");
@@ -302,7 +302,7 @@ int isleStart(User_t *CurrentUser) {
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"   \\_| \\_| \\___| \\__, ||_||___/ \\__| \\___||_|       "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                  __/ |                             "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                 |___/                              "ANSI_COLOR_BRIGHTRED"|\n");
-						printf(" +----------------------------------------------------+\n"ANSI_COLOR_RESET);
+						printf(" +----------------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
 
 						int tmpLabKey;
 
