@@ -14,6 +14,7 @@
 int isleStart(User_t *CurrentUser) {
 
 	int i = 0;
+	int k = 0;
 
 	char clearBuffer;
 
@@ -99,20 +100,24 @@ int isleStart(User_t *CurrentUser) {
 						}
 						
 						// TODO: Do login #1
-						/*
-						if(loginStandardUser(&User))  {
+						
+						if((k=driverLogin(User))==1)  {
 							loginDone = true;
 							*CurrentUser = User;
+							printf("Login eseguito con successo.\n");
+							system("pause");
 							return 0;
-						} else {
+						} 
+						
+						 else {
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 
 							printf("\n\n");
 							printf(" Login fallito, reindirizzamento al menu' principale...");
-							sleep(2);
+							sleep(3);
 						}
-						*/
+						
 						break;
 					case 1:
 						system("cls");
@@ -172,7 +177,7 @@ int isleStart(User_t *CurrentUser) {
 						
 						// TODO: Do login #2
 						/*
-						if(loginStandardUser(&User))  {
+						if(clientLogin(&User))  {
 							loginDone = true;
 							*CurrentUser = User;
 							return 1;
@@ -259,8 +264,10 @@ int isleStart(User_t *CurrentUser) {
 						gets(User.Password);
 						
 						// TODO: Do register #1
-						/*
-						if(strcmp(verifyPassword, User.Password) == 0 && registerStandardUser(&User))  {
+						
+						if(strcmp(verifyPassword, User.Password) == 0 ){
+							driverRegistration(User);
+							
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 							strcpy(verifyPassword, "");
@@ -270,10 +277,6 @@ int isleStart(User_t *CurrentUser) {
 							sleep(2);
 						} else {
 
-							if(strcmp(verifyPassword, User.Password) != 0) {
-								printf("\n\n Errore: Le due password inserite devono coincidere.");
-							}
-
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 							strcpy(verifyPassword, "");
@@ -282,7 +285,7 @@ int isleStart(User_t *CurrentUser) {
 							printf(" Registrazione fallita, reindirizzamento al menu' principale...");
 							sleep(3);
 						}
-						*/
+						
 						break;
 					case 1:
 
@@ -369,7 +372,7 @@ int isleStart(User_t *CurrentUser) {
 						
 						// TODO: Do register #2
 						/*
-						if(strcmp(verifyPassword, User.Password) == 0 && registerLabUser(&User))  {
+						if(strcmp(verifyPassword, User.Password) == 0 && clientRegistration(User))  {
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 							strcpy(verifyPassword, "");

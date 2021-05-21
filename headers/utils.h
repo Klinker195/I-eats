@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include <stdbool.h>
+#include <stdio.h>
 
 #define STRING_LENGTH 256
 
