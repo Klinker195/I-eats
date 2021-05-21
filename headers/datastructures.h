@@ -12,6 +12,7 @@ void swapNodeData(void **a, void **b);
 
 //#include "queue.h"
 #include "linkedlist.h"
+#include "graph.h"
 //#include "heap.h"
 
 #endif

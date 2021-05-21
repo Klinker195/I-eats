@@ -9,7 +9,59 @@
 
 
 
+void addVertex(Node_t *VertexList, Node_t *AdjacentVertices, Node_t *BridgeList, void *Data) {
+	Vertex_t *newVertex = malloc(sizeof(Vertex_t));
+	
+	if(!newVertex) error(1001);
+	
+	//AGGIUNTA COLLEGAMENTI E DATI
+	newVertex->ID = fetchID();
+	newVertex->Data = Data;
+	newVertex->AdjacentVertices = AdjacentVertices;
+	
+	if(!AdjacentVertices) {
+		checkAdjacentVertices(VertexList, BridgeList, AdjacentVertices, newVertex->ID);
+	}
+	
+}
 
+void linkVertices(Node_t *VertexList, Node_t *BridgeList, unsigned int FirstID, unsigned int SecondID) {
+	if(VertexList == NULL) return;
+	
+	Vertex_t *tmpVertex; //= malloc(sizeof(Vertex_t));
+	tmpVertex = VertexList->Data;
+	
+	if(tmpVertex->ID == SecondID) {
+		if(!checkVertexByID(tmpVertex->AdjacentVertices, FirstID)) {
+			endIns(&(tmpVertex->AdjacentVertices), &FirstID);
+		}	
+	}
+	
+	linkVertices(VertexList->next, BridgeList, FirstID, SecondID);
+	
+}
+
+bool checkVertexByID(Node_t *AdjacentVertices, unsigned int ID) {
+	if(AdjacentVertices == NULL) return false;
+	
+	unsigned int *tmpInt = AdjacentVertices->Data;
+	if(*tmpInt == ID) return true;
+	
+	checkVertexByID(AdjacentVertices->next, ID);
+}
+
+void checkAdjacentVertices(Node_t *VertexList, Node_t *BridgeList, Node_t *AdjacentVertices, unsigned int CurrentID) {
+	
+	if(AdjacentVertices == NULL) return;
+	
+	unsigned int *tmpInt;
+	tmpInt = AdjacentVertices->Data;
+	
+	linkVertices(VertexList, BridgeList, CurrentID, *tmpInt);
+	
+	checkAdjacentVertices(VertexList, BridgeList, AdjacentVertices->next, CurrentID);
+	
+}
 
 // Commento di riga 12
 

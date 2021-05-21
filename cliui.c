@@ -53,7 +53,7 @@ void printMainMenu(Choice_t ChoiceList[], int TotalChoices) {
 		
 	}
 	
-	printf(" +----------------------------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
+	printf(" +----------------------------------------------------------------+\n"ANSI_COLOR_RESET);
 	
 	
 }
@@ -104,7 +104,7 @@ void printLoginChoice(Choice_t ChoiceList[], int TotalChoices) {
 		
 	}
 	
-	printf(" +--------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
+	printf(" +--------------------------------------+\n"ANSI_COLOR_RESET);
 	
 	
 }
@@ -150,7 +150,7 @@ void printRegistrationChoice(Choice_t ChoiceList[], int TotalChoices) {
 		
 	}
 	
-	printf(" +----------------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
+	printf(" +----------------------------------------------------+\n"ANSI_COLOR_RESET);
 	
 	
 }
