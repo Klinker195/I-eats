@@ -18,6 +18,8 @@ void addVertex(Node_t *VertexList, Node_t *AdjacentVertices, Node_t *BridgeList,
 	newVertex->ID = fetchID();
 	newVertex->Data = Data;
 	newVertex->AdjacentVertices = AdjacentVertices;
+	newVertex->Explored = false;
+	newVertex->Visited = false;
 	
 	if(!AdjacentVertices) {
 		checkAdjacentVertices(VertexList, BridgeList, AdjacentVertices, newVertex->ID);

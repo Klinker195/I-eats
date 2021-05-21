@@ -7,6 +7,8 @@
 typedef struct {
 	unsigned int ID;
 	void *Data;
+	bool Explored;
+	bool Visited;
 	Node_t *AdjacentVertices;
 } Vertex_t;
 
