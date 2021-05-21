@@ -17,4 +17,6 @@ typedef struct {
 
 // TODO: Aggiungere prototipi funzioni grafi
 
+void addVertex(Node_t *VertexList, Node_t *AdjacentVertices, Node_t *BridgeList, void *Data);
+
 #endif

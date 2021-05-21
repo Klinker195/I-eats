@@ -15,6 +15,13 @@ int main(void) {
 	
 	srand(time(NULL));
 	
+	/*
+	int i = 0;
+	for(i = 0; i < 10; i++) {
+		printf("%u\n", fetchID());
+	}
+	*/
+	
 	int Modality = isleStart(&ConnectedUser);
 	
 	/*

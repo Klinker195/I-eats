@@ -6,7 +6,7 @@
 #include "headers/utils.h"
 #include "headers/cliui.h"
 
-const int labKey = 1000;
+const int adminKey = 1000;
 
 bool searchCF(FILE *fp, String CF) {
 	
@@ -112,3 +112,34 @@ bool checkCFValidity(String CF) {
 	
 	return check;
 }
+
+unsigned int fetchID() {
+
+	FILE *IsleIslandID;
+
+	IsleIslandID = fopen("./data/IslandIDs.isle", "r");
+
+	if(!IsleIslandID) {
+		fclose(IsleIslandID);
+		IsleIslandID = fopen("./data/IslandIDs.isle", "w");
+		fprintf(IsleIslandID, "1000\n");
+		fclose(IsleIslandID);
+		IsleIslandID = fopen("./data/IslandIDs.isle", "r");
+	}
+	
+	if(!IsleIslandID) error(1000);
+	
+	unsigned int newID = 0;
+	
+	fscanf(IsleIslandID, "%d", &newID);
+	
+	fclose(IsleIslandID);
+	IsleIslandID = fopen("./data/IslandIDs.isle", "w");
+	
+	fprintf(IsleIslandID, "%d\n", newID + 1);
+	
+	fclose(IsleIslandID);
+	
+	return newID;
+}
+

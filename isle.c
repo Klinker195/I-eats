@@ -304,17 +304,17 @@ int isleStart(User_t *CurrentUser) {
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                 |___/                              "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" +----------------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
 
-						int tmpLabKey;
+						int tmpAdminKey;
 
 						printf("\n\n");
 						printf(" Inserisci la chiave di sicurezza: ");
 						gets(intArg);
 
-						tmpLabKey = validateAtoi(intArg);
+						tmpAdminKey = validateAtoi(intArg);
 
 						printf("\n");
 
-						if(tmpLabKey != labKey) {
+						if(tmpAdminKey != adminKey) {
 							printf("\n\n Errore: La chiave di sicurezza non e' valida.");
 
 							strcpy(User.CF, "");
