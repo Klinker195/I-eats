@@ -283,7 +283,7 @@ int isleStart(User_t *CurrentUser) {
 						
 						// Registration driver 
 						
-						if(strcmp(verifyPassword, User.Password) == 0 && driverRegistration(User)){
+						if(strcmp(verifyPassword, User.Password) == 0 && driverRegistration(User)) {
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 							strcpy(verifyPassword, "");
@@ -370,7 +370,7 @@ int isleStart(User_t *CurrentUser) {
 						
 						// Registration customer 
 						
-						if(strcmp(verifyPassword, User.Password) == 0 && customerRegistration(User))  {
+						if(strcmp(verifyPassword, User.Password) == 0 && customerRegistration(User)) {
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 							strcpy(verifyPassword, "");
@@ -398,6 +398,9 @@ int isleStart(User_t *CurrentUser) {
 				}
 				break;
 			case 2:
+				// TODO: Debug mode
+				break;
+			case 3:
 				exit(0);
 				break;
 		}
@@ -406,3 +409,58 @@ int isleStart(User_t *CurrentUser) {
 
 	return -1;
 }
+
+
+void isleDriver(User_t *ConnectedUser) {
+	int menuChoice;
+
+	bool exitCheck = false;
+
+	do {
+
+		system("MODE 120,55");
+
+		menuChoice = getVerticalInput(DriverChoiceList, DRIVERCHOICELIST_SIZE, printDriverChoice);
+
+		switch(menuChoice) {
+			case 0:
+				// Option A
+				break;
+			case 1:
+				// Option B
+				break;
+			case 2:
+				exit(EXIT_SUCCESS);
+				break;
+		}
+
+	} while(!exitCheck);
+
+	return;
+}
+
+void isleCustomer(User_t *ConnectedUser) {
+	int menuChoice;
+
+	bool exitCheck = false;
+
+	do {
+
+		system("MODE 120,55");
+
+		menuChoice = getVerticalInput(CustomerChoiceList, CUSTOMERCHOICELIST_SIZE, printCustomerChoice);
+
+		switch(menuChoice) {
+			case 0:
+				// Option A
+				break;
+			case 1:
+				exit(EXIT_SUCCESS);
+				break;
+		}
+
+	} while(!exitCheck);
+
+	return;
+}
+

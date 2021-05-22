@@ -3,8 +3,11 @@
 #include <stdbool.h>
 #include "headers/cliui.h"
 
-Choice_t StartupChoiceList[STARTUPCHOICELIST_SIZE] = { {"Effettuare il login", false}, {"Effettuare una registrazione", false}, {"Esci dal software", false} };
+Choice_t StartupChoiceList[STARTUPCHOICELIST_SIZE] = { {"Effettuare il login", false}, {"Effettuare una registrazione", false}, {"Debug", false}, {"Esci dal software", false} };
 Choice_t LoginRegistrationChoiceList[LOGINREGISTRATIONCHOICELIST_SIZE] = { {"Driver", false}, {"Cliente", false} };
+Choice_t DriverChoiceList[DRIVERCHOICELIST_SIZE] = { {"Seleziona ordine", false}, {"Cambia informazioni veicolo", false}, {"Esci", false}};
+Choice_t CustomerChoiceList[CUSTOMERCHOICELIST_SIZE] = { {"Effettua ordine", false}, {"Esci", false} };
+
 
 void printMainMenu(Choice_t ChoiceList[], int TotalChoices) {
 	
@@ -151,6 +154,96 @@ void printRegistrationChoice(Choice_t ChoiceList[], int TotalChoices) {
 	}
 	
 	printf(" +----------------------------------------------------+\n"ANSI_COLOR_RESET);
+	
+	
+}
+
+void printDriverChoice(Choice_t ChoiceList[], int TotalChoices) {
+	
+	system("cls");
+	
+	/*
+	ASCII Art Style = Doom
+	Effettuata sul sito: https://patorjk.com/software/taag/
+	*/
+	
+	printf(ANSI_COLOR_BRIGHTRED " +-------------------------------------------------------------------+\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"      ______      _                 ______                _        "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"      |  _  \\    (_)                | ___ \\              | |       "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"      | | | |_ __ ___   _____ _ __  | |_/ /_ _ _ __   ___| |       "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"      | | | | '__| \\ \\ / / _ \\ '__| |  __/ _` | '_ \\ / _ \\ |       "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"      | |/ /| |  | |\\ V /  __/ |    | | | (_| | | | |  __/ |       "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"      |___/ |_|  |_| \\_/ \\___|_|    \\_|  \\__,_|_| |_|\\___|_|       "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"                                                                   "ANSI_COLOR_BRIGHTRED"|\n");
+	
+	int i = 0;
+	
+	for(i = 0; i < TotalChoices; i++) {
+		
+		if(ChoiceList[i].Selected) {
+			printf(" |-------------------------------------------------------------------|\n");
+			printf(" |                                                                   |\n");
+			printf(" |                +---------------------------------+                |\n");
+			printf(" |                |"ANSI_COLOR_BRIGHTYELLOW" > | %27s "ANSI_COLOR_BRIGHTRED"|                |\n", ChoiceList[i].Text);
+			printf(" |                +---------------------------------+                |\n");
+			printf(" |                                                                   |\n");
+		} else {
+			printf(" |-------------------------------------------------------------------|\n");
+			printf(" |                                                                   |\n");
+			printf(" |                +---------------------------------+                |\n");
+			printf(" |                |   | %27s |                |\n", ChoiceList[i].Text);
+			printf(" |                +---------------------------------+                |\n");
+			printf(" |                                                                   |\n");
+		}
+		
+	}
+	
+	printf(" +-------------------------------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
+	
+	
+}
+
+void printCustomerChoice(Choice_t ChoiceList[], int TotalChoices) {
+	
+	system("cls");
+	
+	/*
+	ASCII Art Style = Doom
+	Effettuata sul sito: https://patorjk.com/software/taag/
+	*/
+	
+	printf(ANSI_COLOR_BRIGHTRED " +-----------------------------------------------------------------------------------------+\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"          _____           _                             ______                _          "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"         /  __ \\         | |                            | ___ \\              | |         "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"         | /  \\/_   _ ___| |_ ___  _ __ ___   ___ _ __  | |_/ /_ _ _ __   ___| |         "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"         | |   | | | / __| __/ _ \\| '_ ` _ \\ / _ \\ '__| |  __/ _` | '_ \\ / _ \\ |         "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"         | \\__/\\ |_| \\__ \\ || (_) | | | | | |  __/ |    | | | (_| | | | |  __/ |         "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"          \\____/\\__,_|___/\\__\\___/|_| |_| |_|\\___|_|    \\_|  \\__,_|_| |_|\\___|_|         "ANSI_COLOR_BRIGHTRED"|\n");
+	printf(ANSI_COLOR_BRIGHTRED " |"ANSI_COLOR_BRIGHTYELLOW"                                                                                         "ANSI_COLOR_BRIGHTRED"|\n");
+	
+	int i = 0;
+	
+	for(i = 0; i < TotalChoices; i++) {
+		
+		if(ChoiceList[i].Selected) {
+			printf(" |-----------------------------------------------------------------------------------------|\n");
+			printf(" |                                                                                         |\n");
+			printf(" |                            +--------------------------------+                           |\n");
+			printf(" |                            |"ANSI_COLOR_BRIGHTYELLOW" > | %26s "ANSI_COLOR_BRIGHTRED"|                           |\n", ChoiceList[i].Text);
+			printf(" |                            +--------------------------------+                           |\n");
+			printf(" |                                                                                         |\n");
+		} else {
+			printf(" |-----------------------------------------------------------------------------------------|\n");
+			printf(" |                                                                                         |\n");
+			printf(" |                            +--------------------------------+                           |\n");
+			printf(" |                            |   | %26s |                           |\n", ChoiceList[i].Text);
+			printf(" |                            +--------------------------------+                           |\n");
+			printf(" |                                                                                         |\n");
+		}
+		
+	}
+	
+	printf(" +-----------------------------------------------------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
 	
 	
 }

@@ -16,6 +16,11 @@ typedef struct {
 } User_t;
 
 typedef struct {
+	String Model;
+	double Weight;
+} Vehicle_t;
+
+typedef struct {
 	unsigned int x;
 	unsigned int y;
 } IdPair_t;

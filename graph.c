@@ -7,8 +7,6 @@
 
 // TODO: Aggiungere funzioni grafi (aggiunta, visualizzazione e rimozione)
 
-
-
 void addVertex(Node_t *VertexList, Node_t *AdjacentVertices, Node_t *BridgeList, void *Data) {
 	Vertex_t *newVertex = malloc(sizeof(Vertex_t));
 	
@@ -20,6 +18,10 @@ void addVertex(Node_t *VertexList, Node_t *AdjacentVertices, Node_t *BridgeList,
 	newVertex->AdjacentVertices = AdjacentVertices;
 	newVertex->Explored = false;
 	newVertex->Visited = false;
+	
+	if(VertexList) {
+		// TODO: Controllare se esiste già il nodo
+	}
 	
 	if(!AdjacentVertices) {
 		checkAdjacentVertices(VertexList, BridgeList, AdjacentVertices, newVertex->ID);

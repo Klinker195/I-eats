@@ -5,4 +5,8 @@
 
 int isleStart(User_t *ConnectedUser);
 
+void isleDriver(User_t *ConnectedUser);
+
+void isleCustomer(User_t *ConnectedUser);
+
 #endif

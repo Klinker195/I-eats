@@ -16,8 +16,10 @@
 #define ANSI_COLOR_CYAN    "\x1b[36m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-#define STARTUPCHOICELIST_SIZE 3
+#define STARTUPCHOICELIST_SIZE 4
 #define LOGINREGISTRATIONCHOICELIST_SIZE 2
+#define DRIVERCHOICELIST_SIZE 3
+#define CUSTOMERCHOICELIST_SIZE 2
 
 typedef struct {
 	const String Text;
@@ -26,12 +28,18 @@ typedef struct {
 
 extern Choice_t StartupChoiceList[STARTUPCHOICELIST_SIZE];
 extern Choice_t LoginRegistrationChoiceList[LOGINREGISTRATIONCHOICELIST_SIZE];
+extern Choice_t DriverChoiceList[DRIVERCHOICELIST_SIZE];
+extern Choice_t CustomerChoiceList[CUSTOMERCHOICELIST_SIZE];
 
 void printMainMenu(Choice_t ChoiceList[], int TotalChoices);
 
 void printLoginChoice(Choice_t ChoiceList[], int TotalChoices);
 
 void printRegistrationChoice(Choice_t ChoiceList[], int TotalChoices);
+
+void printDriverChoice(Choice_t ChoiceList[], int TotalChoices);
+
+void printCustomerChoice(Choice_t ChoiceList[], int TotalChoices);
 
 void printVerticalOptions(Choice_t ChoiceList[], int TotalChoices);
 
