@@ -1,47 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 #include "headers/account.h"
 
-
-int clientLogin(User_t User)
-{
-	
-	
+bool customerLogin(User_t *User) {
+	// TODO: Customer Login
 }
 
-int driverLogin(User_t User)
-{
-int i=0;
-FILE* fp = NULL;	
-User_t UserCheck;	
+bool driverLogin(User_t *User) {
+	FILE *IsleDriverData = NULL;
+	User_t tmpUser;	
 	
-fp = fopen("Driverdata.txt", "r");	
-	
-while(fscanf(fp,"%s %s", UserCheck.CF, UserCheck.Password)==2)
-{
-	system("pause");
-	if(strcmp(User.CF, UserCheck.CF)==0 && strcmp(User.Password, UserCheck.Password)==0)
-	 i=1;
-	 system("pause");
-} 
+	IsleDriverData = fopen("./data/DriverLoginData.isle", "r");
 
-return i;	
+	if(!IsleDriverData) {
+		fclose(IsleDriverData);
+		IsleDriverData = fopen("./data/DriverLoginData.isle", "w");
+		fclose(IsleDriverData);
+		IsleDriverData = fopen("./data/DriverLoginData.isle", "r");
+	}
+	
+	if(!IsleDriverData) error(1000);	
+	
+	while(fscanf(fp,"%s %s", tmpUser.CF, tmpUser.Password) == 2) {
+		if(strncmp(User->CF, tmpUser.CF, 16) == 0 && strcmp(User->Password, tmpUser.Password) == 0) {
+			fclose(IsleDriverData);
+			return true;
+		}
+	}
+	
+	fclose(IsleDriverData);
+	return false;
 }
 
-void clientRegistration(User_t User)
-{
-	
-	
-	
+void customerRegistration(User_t *User) {
+	// TODO: Customer Registration
 }
 
-void driverRegistration(User_t User)
-{
-FILE* fp = NULL;	
+void driverRegistration(User_t *User) {
+	FILE *IsleDriverData = NULL;
 	
-fp = fopen("Driverdata.txt", "a");
+	IsleDriverData = fopen("./data/DriverLoginData.isle", "a");
 
-fprintf(fp, "%s %s", User.CF, User.Password);
+	if(!IsleDriverData) error(1000);
+
+	fprintf(IsleDriverData, "%s %s\n", User->CF, User->Password);
 	
-fclose(fp);	
-	
+	fclose(IsleDriverData);	
 }
 
