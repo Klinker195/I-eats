@@ -100,7 +100,7 @@ int isleStart(User_t *CurrentUser) {
 						
 						// Login driver
 						
-						if(driverLogin(&User)==true)  {
+						if(driverLogin(&User))  {
 							loginDone = true;
 							*CurrentUser = User;
 							printf("Login eseguito con successo.\n");
@@ -176,7 +176,7 @@ int isleStart(User_t *CurrentUser) {
 						
 						//Login customer
 						
-						if(customerLogin(&User)==true)  {
+						if(customerLogin(&User))  {
 							loginDone = true;
 							*CurrentUser = User;
 							printf("Login eseguito con successo.\n");
@@ -263,11 +263,9 @@ int isleStart(User_t *CurrentUser) {
 						printf(" Verifica la tua password: ");
 						gets(User.Password);
 						
-						//Registration driver 
+						// Registration driver 
 						
-						if(strcmp(verifyPassword, User.Password) == 0 ){
-							driverRegistration(User);
-							
+						if(strcmp(verifyPassword, User.Password) == 0 && driverRegistration(User)){
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 							strcpy(verifyPassword, "");
@@ -321,7 +319,7 @@ int isleStart(User_t *CurrentUser) {
 
 						printf("\n");
 
-						if(tmpAdminKey != 1000) {
+						if(tmpAdminKey != adminKey) {
 							printf("\n\n Errore: La chiave di sicurezza non e' valida.");
 
 							strcpy(User.CF, "");
@@ -374,11 +372,9 @@ int isleStart(User_t *CurrentUser) {
 						printf(" Verifica la tua password: ");
 						gets(User.Password);
 						
-						//Registration customer 
+						// Registration customer 
 						
-						if(strcmp(verifyPassword, User.Password) == 0)  {
-							customerRegistration(User);
-							
+						if(strcmp(verifyPassword, User.Password) == 0 && customerRegistration(User))  {
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 							strcpy(verifyPassword, "");
@@ -386,8 +382,7 @@ int isleStart(User_t *CurrentUser) {
 							printf("\n\n");
 							printf(" Registrazione riuscita, reindirizzamento al menu' principale...");
 							sleep(3);
-						} 
-						else {
+						} else {
 
 							if(strcmp(verifyPassword, User.Password) != 0) {
 								printf("\n\n Errore: Le due password inserite devono coincidere.");

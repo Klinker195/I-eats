@@ -6,6 +6,8 @@
 #include "headers/utils.h"
 #include "headers/cliui.h"
 
+const int adminKey = 1000;
+
 bool searchCF(FILE *fp, String CF) {
 	
 	String tmpCF;

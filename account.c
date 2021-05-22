@@ -12,13 +12,12 @@ bool customerLogin(User_t *User) {
 
 	if(!IsleCustomerData) {
 		fclose(IsleCustomerData);	
-		IsleCustomerData = fopen("./data/IslandIDs.isle", "a");
+		IsleCustomerData = fopen("./data/IslandIDs.isle", "w");
 		fclose(IsleCustomerData);
 		IsleCustomerData = fopen("./data/IslandIDs.isle", "r");
 	}
 	
-	if(!IsleCustomerData) 
-	error(1000);	
+	if(!IsleCustomerData) error(1000);	
 	
 	while(fscanf(IsleCustomerData,"%s %s", tmpUser.CF, tmpUser.Password) == 2) {
 		if(strncmp(User->CF, tmpUser.CF, 16) == 0 && strcmp(User->Password, tmpUser.Password) == 0) {
@@ -39,13 +38,12 @@ bool driverLogin(User_t *User) {
 
 	if(!IsleDriverData) {
 		fclose(IsleDriverData);	
-		IsleDriverData = fopen("./data/DriverLoginData.isle", "a");
+		IsleDriverData = fopen("./data/DriverLoginData.isle", "w");
 		fclose(IsleDriverData);
 		IsleDriverData = fopen("./data/DriverLoginData.isle", "r");
 	}
 	
-	if(!IsleDriverData) 
-	error(1000);	
+	if(!IsleDriverData) error(1000);	
 	
 	while(fscanf(IsleDriverData,"%s %s", tmpUser.CF, tmpUser.Password) == 2) {
 		if(strncmp(User->CF, tmpUser.CF, 16) == 0 && strcmp(User->Password, tmpUser.Password) == 0) {
@@ -63,8 +61,7 @@ void customerRegistration(User_t *User) {
 	
 	IsleCustomerData = fopen("./data/IslandIDs.isle", "a");
 
-	if(!IsleCustomerData) 
-	error(1000);
+	if(!IsleCustomerData) error(1000);
 
 	fprintf(IsleCustomerData, "%s %s\n", User->CF, User->Password);
 	
@@ -76,8 +73,7 @@ void driverRegistration(User_t *User) {
 	
 	IsleDriverData = fopen("./data/DriverLoginData.isle", "a");
 
-	if(!IsleDriverData) 
-	error(1000);
+	if(!IsleDriverData) error(1000);
 
 	fprintf(IsleDriverData, "%s %s\n", User->CF, User->Password);
 	

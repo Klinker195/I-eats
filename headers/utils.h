@@ -8,6 +8,8 @@
 
 typedef char String[STRING_LENGTH];
 
+extern const int adminKey;
+
 typedef struct {
 	String CF;
 	String Password;
