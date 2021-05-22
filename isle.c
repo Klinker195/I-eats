@@ -14,7 +14,6 @@
 int isleStart(User_t *CurrentUser) {
 
 	int i = 0;
-	int k = 0;
 
 	char clearBuffer;
 
@@ -99,9 +98,9 @@ int isleStart(User_t *CurrentUser) {
 							continue;
 						}
 						
-						// TODO: Do login #1
+						// Login driver
 						
-						if((k=driverLogin(User))==1)  {
+						if(driverLogin(&User)==true)  {
 							loginDone = true;
 							*CurrentUser = User;
 							printf("Login eseguito con successo.\n");
@@ -175,11 +174,12 @@ int isleStart(User_t *CurrentUser) {
 							continue;
 						}
 						
-						// TODO: Do login #2
-						/*
-						if(clientLogin(&User))  {
+						//Login customer
+						
+						if(customerLogin(&User)==true)  {
 							loginDone = true;
 							*CurrentUser = User;
+							printf("Login eseguito con successo.\n");
 							return 1;
 						} else {
 							strcpy(User.CF, "");
@@ -189,7 +189,7 @@ int isleStart(User_t *CurrentUser) {
 							printf(" Login fallito, reindirizzamento al menu' principale...");
 							sleep(2);
 						}
-						*/
+						
 						break;
 					default:
 
@@ -263,7 +263,7 @@ int isleStart(User_t *CurrentUser) {
 						printf(" Verifica la tua password: ");
 						gets(User.Password);
 						
-						// TODO: Do register #1
+						//Registration driver 
 						
 						if(strcmp(verifyPassword, User.Password) == 0 ){
 							driverRegistration(User);
@@ -274,8 +274,12 @@ int isleStart(User_t *CurrentUser) {
 
 							printf("\n\n");
 							printf(" Registrazione riuscita, reindirizzamento al menu' principale...");
-							sleep(2);
+							sleep(3);
 						} else {
+							
+							if(strcmp(verifyPassword, User.Password) != 0) {
+							printf("\n\n Errore: Le due password inserite devono coincidere.");
+							}
 
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
@@ -317,7 +321,7 @@ int isleStart(User_t *CurrentUser) {
 
 						printf("\n");
 
-						if(tmpAdminKey != adminKey) {
+						if(tmpAdminKey != 1000) {
 							printf("\n\n Errore: La chiave di sicurezza non e' valida.");
 
 							strcpy(User.CF, "");
@@ -370,17 +374,20 @@ int isleStart(User_t *CurrentUser) {
 						printf(" Verifica la tua password: ");
 						gets(User.Password);
 						
-						// TODO: Do register #2
-						/*
-						if(strcmp(verifyPassword, User.Password) == 0 && clientRegistration(User))  {
+						//Registration customer 
+						
+						if(strcmp(verifyPassword, User.Password) == 0)  {
+							customerRegistration(User);
+							
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 							strcpy(verifyPassword, "");
 
 							printf("\n\n");
 							printf(" Registrazione riuscita, reindirizzamento al menu' principale...");
-							sleep(2);
-						} else {
+							sleep(3);
+						} 
+						else {
 
 							if(strcmp(verifyPassword, User.Password) != 0) {
 								printf("\n\n Errore: Le due password inserite devono coincidere.");
@@ -395,7 +402,7 @@ int isleStart(User_t *CurrentUser) {
 							sleep(3);
 							break;
 						}
-						*/
+						
 						break;
 				}
 				break;
