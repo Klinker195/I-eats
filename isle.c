@@ -103,8 +103,6 @@ int isleStart(User_t *CurrentUser) {
 						if(driverLogin(&User))  {
 							loginDone = true;
 							*CurrentUser = User;
-							printf("Login eseguito con successo.\n");
-							system("pause");
 							return 0;
 						} 
 						
@@ -114,7 +112,7 @@ int isleStart(User_t *CurrentUser) {
 
 							printf("\n\n");
 							printf(" Login fallito, reindirizzamento al menu' principale...");
-							sleep(3);
+							sleep(2);
 						}
 						
 						break;
@@ -179,7 +177,6 @@ int isleStart(User_t *CurrentUser) {
 						if(customerLogin(&User))  {
 							loginDone = true;
 							*CurrentUser = User;
-							printf("Login eseguito con successo.\n");
 							return 1;
 						} else {
 							strcpy(User.CF, "");
@@ -220,8 +217,29 @@ int isleStart(User_t *CurrentUser) {
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                  __/ |                             "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                 |___/                              "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" +----------------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
+					
+						int tmpAdminKey;
 
 						printf("\n\n");
+						printf(" Inserisci la chiave di sicurezza: ");
+						gets(intArg);
+
+						tmpAdminKey = validateAtoi(intArg);
+
+						if(tmpAdminKey != adminKey) {
+							printf("\n\n Errore: La chiave di sicurezza non e' valida.");
+
+							strcpy(User.CF, "");
+							strcpy(User.Password, "");
+							strcpy(verifyPassword, "");
+
+							printf("\n\n");
+							printf(" Registrazione fallita, reindirizzamento al menu' principale...");
+							sleep(3);
+							break;
+						}
+						
+						printf("\n");
 						printf(" Inserisci il tuo codice fiscale: ");
 						gets(User.CF);
 
@@ -272,7 +290,7 @@ int isleStart(User_t *CurrentUser) {
 
 							printf("\n\n");
 							printf(" Registrazione riuscita, reindirizzamento al menu' principale...");
-							sleep(3);
+							sleep(2);
 						} else {
 							
 							if(strcmp(verifyPassword, User.Password) != 0) {
@@ -308,30 +326,8 @@ int isleStart(User_t *CurrentUser) {
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                  __/ |                             "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" |"ANSI_COLOR_BRIGHTYELLOW"                 |___/                              "ANSI_COLOR_BRIGHTRED"|\n");
 						printf(" +----------------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
-
-						int tmpAdminKey;
-
+						
 						printf("\n\n");
-						printf(" Inserisci la chiave di sicurezza: ");
-						gets(intArg);
-
-						tmpAdminKey = validateAtoi(intArg);
-
-						printf("\n");
-
-						if(tmpAdminKey != adminKey) {
-							printf("\n\n Errore: La chiave di sicurezza non e' valida.");
-
-							strcpy(User.CF, "");
-							strcpy(User.Password, "");
-							strcpy(verifyPassword, "");
-
-							printf("\n\n");
-							printf(" Registrazione fallita, reindirizzamento al menu' principale...");
-							sleep(3);
-							break;
-						}
-
 						printf(" Inserisci il tuo codice fiscale: ");
 						gets(User.CF);
 
@@ -381,7 +377,7 @@ int isleStart(User_t *CurrentUser) {
 
 							printf("\n\n");
 							printf(" Registrazione riuscita, reindirizzamento al menu' principale...");
-							sleep(3);
+							sleep(2);
 						} else {
 
 							if(strcmp(verifyPassword, User.Password) != 0) {

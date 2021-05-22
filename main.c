@@ -31,7 +31,7 @@ int main(void) {
 		isleCustomer(&ConnectedUser);
 	}
 	*/
-	system("pause");
+	//system("pause");
 	
 	return 0;
 }

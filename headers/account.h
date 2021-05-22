@@ -7,8 +7,8 @@ bool customerLogin(User_t *User);
 
 bool driverLogin(User_t *User);
 
-void customerRegistration(User_t *User);
+bool customerRegistration(User_t *User);
 
-void driverRegistration(User_t *User);
+bool driverRegistration(User_t *User);
 
 #endif

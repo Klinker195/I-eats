@@ -8,25 +8,42 @@ bool customerLogin(User_t *User) {
 	FILE *IsleCustomerData = NULL;
 	User_t tmpUser;	
 	
-	IsleCustomerData = fopen("./data/IslandIDs.isle", "r");
+	IsleCustomerData = fopen("./data/CustomerLoginData.isle", "r");
 
 	if(!IsleCustomerData) {
 		fclose(IsleCustomerData);	
-		IsleCustomerData = fopen("./data/IslandIDs.isle", "w");
+		IsleCustomerData = fopen("./data/CustomerLoginData.isle", "w");
 		fclose(IsleCustomerData);
-		IsleCustomerData = fopen("./data/IslandIDs.isle", "r");
+		IsleCustomerData = fopen("./data/CustomerLoginData.isle", "r");
 	}
 	
 	if(!IsleCustomerData) error(1000);	
 	
-	while(fscanf(IsleCustomerData,"%s %s", tmpUser.CF, tmpUser.Password) == 2) {
-		if(strncmp(User->CF, tmpUser.CF, 16) == 0 && strcmp(User->Password, tmpUser.Password) == 0) {
-			fclose(IsleCustomerData);
-			return true;
+	int i = 0;
+
+	for(i = 0; i < strlen(User->CF); i++) {
+		User->CF[i] = toupper(User->CF[i]);
+	}
+	
+	while(!feof(IsleCustomerData)) {
+		fscanf(IsleCustomerData, "%s %s", tmpUser.CF, tmpUser.Password);
+		if(strcmp(tmpUser.CF, User->CF) == 0) {
+			if(strcmp(tmpUser.Password, User->Password) == 0) {
+				fclose(IsleCustomerData);
+				return true;
+			}
+			break;
 		}
 	}
 	
 	fclose(IsleCustomerData);
+	
+	if(strcmp(tmpUser.CF, User->CF) == 0 && strcmp(tmpUser.Password, User->Password) != 0) {
+		printf("\n\n Errore: Password errata.");
+	} else {
+		printf("\n\n Errore: Utente inesistente.");
+	}
+
 	return false;
 }
 
@@ -45,38 +62,148 @@ bool driverLogin(User_t *User) {
 	
 	if(!IsleDriverData) error(1000);	
 	
-	while(fscanf(IsleDriverData,"%s %s", tmpUser.CF, tmpUser.Password) == 2) {
-		if(strncmp(User->CF, tmpUser.CF, 16) == 0 && strcmp(User->Password, tmpUser.Password) == 0) {
-			fclose(IsleDriverData);
-			return true;
+	int i = 0;
+
+	for(i = 0; i < strlen(User->CF); i++) {
+		User->CF[i] = toupper(User->CF[i]);
+	}
+	
+	while(!feof(IsleDriverData)) {
+		fscanf(IsleDriverData, "%s %s", tmpUser.CF, tmpUser.Password);
+		if(strcmp(tmpUser.CF, User->CF) == 0) {
+			if(strcmp(tmpUser.Password, User->Password) == 0) {
+				fclose(IsleDriverData);
+				return true;
+			}
+			break;
 		}
 	}
 	
 	fclose(IsleDriverData);
+	
+	if(strcmp(tmpUser.CF, User->CF) == 0 && strcmp(tmpUser.Password, User->Password) != 0) {
+		printf("\n\n Errore: Password errata.");
+	} else {
+		printf("\n\n Errore: Utente inesistente.");
+	}
+	
 	return false;
 }
 
-void customerRegistration(User_t *User) {
-    FILE *IsleCustomerData = NULL;
+bool customerRegistration(User_t *User) {
+    int i = 0;
+    
+	if(strlen(User->Password) == 0) {
+		printf("\n\n Errore: Password non valida.");
+		return false;
+	}
 	
-	IsleCustomerData = fopen("./data/IslandIDs.isle", "a");
+	for(i = 0; i < strlen(User->CF); i++) {
+		User->CF[i] = toupper(User->CF[i]);
+	}
+	
+	if(!checkCFValidity(User->CF)) {
+		printf("\n\n Errore: CF non valido.");
+		return false;
+	}
+
+	FILE *IsleCustomerData = fopen("./data/CustomerLoginData.isle", "r+");
+
+	if(!IsleCustomerData) {
+		fclose(IsleCustomerData);
+		IsleCustomerData = fopen("./data/CustomerLoginData.isle", "w");
+		fclose(IsleCustomerData);
+		IsleCustomerData = fopen("./data/CustomerLoginData.isle", "r+");
+	}
 
 	if(!IsleCustomerData) error(1000);
 
-	fprintf(IsleCustomerData, "%s %s\n", User->CF, User->Password);
+	String tmpCF;
+	String buff;
+
+	while(!feof(IsleCustomerData)) {
+		fscanf(IsleCustomerData, "%s %s", tmpCF, buff);
+		if(strcmp(tmpCF, User->CF) == 0) {
+			fclose(IsleCustomerData);
+			printf("\n\n Errore: Utente gia' esistente.");
+			return false;
+		}
+	}
 	
-	fclose(IsleCustomerData);	
+	fclose(IsleCustomerData);
+	
+	IsleCustomerData = fopen("./data/CustomerLoginData.isle", "a");
+	
+	if(!IsleCustomerData) error(1000);
+	
+	if(fprintf(IsleCustomerData, "%s %s\n", User->CF, User->Password) >= 0) {
+		fclose(IsleCustomerData);
+		return true;
+	} else {
+		fclose(IsleCustomerData);
+		return false;
+	}
+
+	fclose(IsleCustomerData);
+	return false;
 }
 
-void driverRegistration(User_t *User) {
-	FILE *IsleDriverData = NULL;
+bool driverRegistration(User_t *User) {
 	
-	IsleDriverData = fopen("./data/DriverLoginData.isle", "a");
+    int i = 0;
+    
+	if(strlen(User->Password) == 0) {
+		printf("\n\n Errore: Password non valida.");
+		return false;
+	}
+	
+	for(i = 0; i < strlen(User->CF); i++) {
+		User->CF[i] = toupper(User->CF[i]);
+	}
+	
+	if(!checkCFValidity(User->CF)) {
+		printf("\n\n Errore: CF non valido.");
+		return false;
+	}
+
+	FILE *IsleDriverData = fopen("./data/DriverLoginData.isle", "r+");
+
+	if(!IsleDriverData) {
+		fclose(IsleDriverData);
+		IsleDriverData = fopen("./data/DriverLoginData.isle", "w");
+		fclose(IsleDriverData);
+		IsleDriverData = fopen("./data/DriverLoginData.isle", "r+");
+	}
 
 	if(!IsleDriverData) error(1000);
 
-	fprintf(IsleDriverData, "%s %s\n", User->CF, User->Password);
+	String tmpCF;
+	String buff;
+
+	while(!feof(IsleDriverData)) {
+		fscanf(IsleDriverData, "%s %s", tmpCF, buff);
+		if(strcmp(tmpCF, User->CF) == 0) {
+			fclose(IsleDriverData);
+			printf("\n\n Errore: Utente gia' esistente.");
+			return false;
+		}
+	}
 	
-	fclose(IsleDriverData);	
+	fclose(IsleDriverData);
+	
+	IsleDriverData = fopen("./data/DriverLoginData.isle", "a");
+	
+	if(!IsleDriverData) error(1000);
+	
+	if(fprintf(IsleDriverData, "%s %s\n", User->CF, User->Password) >= 0) {
+		fclose(IsleDriverData);
+		return true;
+	} else {
+		fclose(IsleDriverData);
+		return false;
+	}
+
+	fclose(IsleDriverData);
+	return false;
 }
 
