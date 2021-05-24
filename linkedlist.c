@@ -127,6 +127,102 @@ bool searchBridge(Node_t **BridgeList, IdPair_t *VertexIdPair) {
 	return searchBridge(&((*BridgeList)->next), VertexIdPair);
 }
 
+int printResourcesList(Node_t **Head) {
+	
+	system("cls");
+	
+	Resource_t *tmpData;
+	
+	int i = 0;
+	
+	printf(ANSI_COLOR_BRIGHTRED " [Risorse esistenti]\n");
+	printf(" +---------------------------------------------+\n");
+	printf(" |   No. |     Nome risorsa     |     Peso     |\n");
+	printf(" +------------------------------+--------------+\n"ANSI_COLOR_BRIGHTYELLOW);
+	
+	Node_t *tmp = *Head;
+	
+	while(tmp != NULL) {
+		i++;
+		tmpData = tmp->Data;
+		
+		printf(ANSI_COLOR_BRIGHTRED " | " ANSI_COLOR_BRIGHTYELLOW "%4d. " ANSI_COLOR_BRIGHTRED "|" ANSI_COLOR_BRIGHTYELLOW " %20s "ANSI_COLOR_BRIGHTRED "|" ANSI_COLOR_BRIGHTYELLOW " %9.2lf kg "ANSI_COLOR_BRIGHTRED"|\n", i, tmpData->Name, tmpData->SpecificWeight);
+		printf(" +---------------------------------------------+\n" ANSI_COLOR_BRIGHTYELLOW);
+		tmp = tmp->next;
+	}
+	
+	return i;
+}
+
+void endInsResourcesFromFile(Node_t **Head) {
+	
+	FILE *IsleResourceData = fopen("./data/ResourcesList.isle", "r");
+	
+	if(!IsleResourceData) {
+		fclose(IsleResourceData);
+		IsleResourceData = fopen("./data/ResourcesList.isle", "w");
+		fclose(IsleResourceData);
+		IsleResourceData = fopen("./data/ResourcesList.isle", "r");
+	}
+	
+	if(!IsleResourceData) error(1000);
+	
+	fseek(IsleResourceData, 0L, SEEK_END);
+	long size = ftell(IsleResourceData);
+	
+	rewind(IsleResourceData);
+	
+	Resource_t *tmpResource;
+	
+	if(size != 0) {
+		while(!feof(IsleResourceData)) {
+			tmpResource = malloc(sizeof(Resource_t));
+			fscanf(IsleResourceData, "%s %lf\n", tmpResource->Name, &tmpResource->SpecificWeight);
+			tmpResource->Quantity = 1;
+			endIns(Head, tmpResource);
+		}
+	}
+	
+	fclose(IsleResourceData);
+}
+
+bool _deleteResourceAtPosition(Node_t **Head, int Pos, int CurrentPos) {
+	
+	if(*Head == NULL) return NULL;
+	
+	Node_t *Next = (*Head)->next;
+	
+	if(Pos == CurrentPos && CurrentPos == 1) {
+		free(*Head);
+		*Head = Next;
+		return true;
+	}
+	
+	if(Pos == (CurrentPos + 1)) {
+		(*Head)->next = Next->next;
+		free(Next);
+		return true;
+	}
+	
+	return _deleteResourceAtPosition(&((*Head)->next), Pos, CurrentPos + 1);
+}
+
+bool deleteResourceAtPosition(Node_t **Head, int Pos) {
+	return _deleteResourceAtPosition(Head, Pos, 1);
+}
+
+void writeListIntoResourcesFile(Node_t **List, FILE *IsleResourceData) {
+	if(*List == NULL) return;
+
+	Node_t *Next = (*List)->next;
+	Resource_t *tmpResource = (*List)->Data;
+	
+	fprintf(IsleResourceData, "%s %lf\n", tmpResource->Name, tmpResource->SpecificWeight);
+	
+	writeListIntoResourcesFile(&Next, IsleResourceData);
+}
+
+
 void _freeList(Node_t **Head) {
 	
 	if(*Head == NULL) return;

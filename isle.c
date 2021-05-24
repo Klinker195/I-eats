@@ -422,30 +422,6 @@ int isleStart(User_t *CurrentUser) {
 				
 			case 2:
 				// TODO: Debug mode
-				/*
-				TODO: Da rimuovere
-				system("cls");
-				printf("DEBUG MENU\n");
-				
-				while(1)
-				{
-					printf("1 per aggiungere un vertice al grafo\n");
-					scanf("%d", &l);
-					if(l==1)
-					{
-					addVertex(VertexList, AdjacentVertices, BridgeList, Data);
-					
-					tmprint=VertexList->Data;
-					printf("\n%d\n", &tmprint->ID);
-				
-					free(VertexList);
-					system("pause");
-				    }
-					else
-					break;	
-				}
-				break;
-				*/
 				
 			case 3:
 				exit(0);
@@ -491,15 +467,18 @@ void isleCustomer(User_t *ConnectedUser) {
 
 	bool exitCheck = false;
 
+	Node_t *ResourcesList = NULL;
+	endInsResourcesFromFile(&ResourcesList);
+
 	do {
 
 		system("MODE 120,55");
 
 		menuChoice = getVerticalInput(CustomerChoiceList, CUSTOMERCHOICELIST_SIZE, printCustomerChoice);
-
+		
 		switch(menuChoice) {
 			case 0:
-				// Option A
+				isleCustomerPlaceOrder(ConnectedUser, ResourcesList);
 				break;
 			case 1:
 				exit(EXIT_SUCCESS);
@@ -510,4 +489,132 @@ void isleCustomer(User_t *ConnectedUser) {
 
 	return;
 }
+
+void isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList) {
+	
+	if(!ResourcesList) {
+		system("cls");
+		printf("\n\n");
+		printf(" Errore: Nessuna risorsa disponibile, riprovare...");
+		sleep(3);
+		return;
+	}
+	
+	String intArg;
+	
+	int maxNum = printResourcesList(&ResourcesList);
+
+	int numChoice = 0;
+
+	int valueChoice = 0;
+
+	bool numChoiceCheck = false;
+	
+	Node_t *SelectedNumbers = NULL;
+	
+	Node_t *Order = NULL;
+	
+	do {
+
+		printf("\n\n");
+		printf(" Inserisci il numero relativo all'item che vuoi ordinare (0 per concludere): ");
+		gets(intArg);
+
+		numChoice = validateAtoi(intArg);
+
+		if(numChoice < 0 || numChoice > maxNum /* && !searchInt(&SelectedNumbers) */) {
+			printf("\n\n");
+			if(numChoice < 0 || numChoice) {
+				printf(" Errore: Numero selezionato non valido, riprovare...");
+				sleep(1);
+			} else {
+				printf(" Errore: Prodotto gia' selezionato, riprovare...");
+				sleep(1);
+			}
+			continue;
+		} else if(numChoice == 0) {
+			numChoiceCheck = true;
+			break;
+		} 
+		
+		printf("\n\n");
+		printf(" Inserisci la quantita' (max 10, 0 per concludere): ");
+		gets(intArg);
+		
+		valueChoice = validateAtoi(intArg);
+		
+		if(valueChoice < 0 || valueChoice > 10) {
+			printf("\n\n");
+			printf(" Errore: Non e' possibile selezionare piu' di 10 item per tipo, riprovare...");
+			sleep(2);
+			continue;
+		} else if(numChoice == 0) {
+			numChoiceCheck = true;
+		} else {
+			// Creazione Resource in malloc da inserire nella lista ordine, avrà come nome risorsa quello della risorsa alla posizione scelta dall'utente, stessa cosa per la quantità
+			// endIns della risorsa in lista Order.
+			endIns(&SelectedNumbers, &numChoice);
+		}
+		
+		printf("\n\n");
+		printf(" +-------------------------------------------------------------------------------------+");
+	
+	} while(!numChoiceCheck);
+}
+
+bool addResource(Resource_t *Resource, Node_t *ResourceList) {
+	int i = 0;
+	
+	if(Resource->SpecificWeight == 0) {
+		printf("\n\n Errore: Peso non valido.");
+		return false;
+	}
+	
+	for(i = 0; i < strlen(Resource->Name); i++) {
+		Resource->Name[i] = toupper(Resource->Name[i]);
+	}
+	
+	FILE *IsleResourceData = fopen("./data/ResourcesList.isle", "r+");
+
+	if(!IsleResourceData) {
+		fclose(IsleResourceData);
+		IsleResourceData = fopen("./data/ResourcesList.isle", "w");
+		fclose(IsleResourceData);
+		IsleResourceData = fopen("./data/ResourcesList.isle", "r+");
+	}
+
+	if(!IsleResourceData) error(1000);
+	
+	String tmpResourceName;
+	double buff;
+
+	while(!feof(IsleResourceData)) {
+		fscanf(IsleResourceData, "%s %lf", tmpResourceName, &buff);
+		if(strcmp(tmpResourceName, Resource->Name) == 0) {
+			fclose(IsleResourceData);
+			printf("\n\n Errore: Risorsa gia' esistente.");
+			return false;
+		}
+	}
+	
+	fclose(IsleResourceData);
+	
+	IsleResourceData = fopen("./data/ResourcesList.isle", "a");
+	
+	if(!IsleResourceData) error(1000);
+	
+	if(fprintf(IsleResourceData, "%s %lf\n", Resource->Name, Resource->SpecificWeight) >= 0) {
+		fclose(IsleResourceData);
+		endIns(&ResourceList, Resource);
+		return true;
+	} else {
+		fclose(IsleResourceData);
+		return false;
+	}
+
+	fclose(IsleResourceData);
+	return false;
+}
+
+
 

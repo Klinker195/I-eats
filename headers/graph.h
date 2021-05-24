@@ -23,6 +23,11 @@ void addVertex(Node_t **VertexList, void *Data);
 
 void addEdge(Node_t **VertexList, Node_t *BridgeList, Vertex_t *VertexSource, unsigned int VertexDestinationID, double maxWeight);
 
+void addVerticesFromFileData(Node_t **VertexList);
+
+void addEdgesFromFileData();
+
+void createGraphFromFileData(Node_t **VertexList);
 
 // DEPRECATED ???
 

@@ -28,6 +28,7 @@ typedef struct {
 typedef struct {
 	String Name;
 	double SpecificWeight;
+	unsigned int Quantity;
 } Resource_t;
 
 typedef struct {

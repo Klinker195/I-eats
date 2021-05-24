@@ -53,7 +53,7 @@ void addEdgesFromFileData() {
 }
 
 void createGraphFromFileData(Node_t **VertexList) {
-	addVertexFromFileData(Node_t **VertexList);
+	addVerticesFromFileData(VertexList);
 	addEdgesFromFileData();
 }
 
