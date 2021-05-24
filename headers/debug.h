@@ -18,4 +18,6 @@ void writeListIntoResourcesFile(Node_t **List, FILE *IsleResourceData);
 
 int printResourcesList(Node_t **Head);
 
+
+
 #endif

@@ -67,7 +67,5 @@ void checkAdjacentVertices(Node_t *VertexList, Node_t *BridgeList, Node_t *Adjac
 	
 }
 
-// Commento di riga 12
 
-// Hello
 

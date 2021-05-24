@@ -9,11 +9,32 @@
 #include "headers/cliui.h"
 #include "headers/utils.h"
 #include "headers/isle.h"
+#include "headers/datastructures.h"
 
 
 int isleStart(User_t *CurrentUser) {
 
 	int i = 0;
+	
+	//Debug variables
+	
+	Vertex_t *tmprint=NULL;
+	Node_t *tml;
+	int l = 0;
+	char P[7] = "Pippo";
+    Node_t *VertexList=NULL, *AdjacentVertices=NULL, *BridgeList=NULL; 
+	void *Data=NULL;
+	
+	VertexList= malloc(sizeof(Node_t));
+	VertexList->Data=NULL;
+	VertexList->Data=NULL;
+	AdjacentVertices= malloc(sizeof(Node_t));
+	AdjacentVertices->Data=NULL;
+	AdjacentVertices->next=NULL;
+	BridgeList= malloc(sizeof(Node_t));
+    BridgeList->Data=NULL;
+    BridgeList->next=NULL;
+
 
 	char clearBuffer;
 
@@ -397,9 +418,33 @@ int isleStart(User_t *CurrentUser) {
 						break;
 				}
 				break;
+				
+				
 			case 2:
 				// TODO: Debug mode
+				system("cls");
+				printf("DEBUG MENU\n");
+				
+				while(1)
+				{
+					printf("1 per aggiungere un vertice al grafo\n");
+					scanf("%d", &l);
+					if(l==1)
+					{
+					addVertex(VertexList, AdjacentVertices, BridgeList, Data);
+					
+					tmprint=VertexList->Data;
+					printf("\n%d\n", &tmprint->ID);
+				
+					free(VertexList);
+					system("pause");
+				    }
+					else
+					break;	
+				}
 				break;
+				
+				
 			case 3:
 				exit(0);
 				break;
