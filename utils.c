@@ -39,6 +39,7 @@ void error(int errorNumber) {
 			printf(" Impossibile allocare memoria.\n\n"ANSI_COLOR_RESET);
 			system("pause");
 			exit(errorNumber);
+			break;
 		default:
 		
 			break;

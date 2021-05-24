@@ -19,7 +19,12 @@ typedef struct {
 
 // TODO: Aggiungere prototipi funzioni grafi
 
-void addVertex(Node_t **VertexList, Node_t *AdjacentVertices, Node_t *BridgeList, void *Data);
+void addVertex(Node_t **VertexList, void *Data);
+
+void addEdge(Node_t **VertexList, Node_t *BridgeList, Vertex_t *VertexSource, unsigned int VertexDestinationID, double maxWeight);
+
+
+// DEPRECATED ???
 
 void checkAdjacentVertices(Node_t **VertexList, Node_t *BridgeList, Node_t *AdjacentVertices, unsigned int CurrentID);
 

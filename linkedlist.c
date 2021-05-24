@@ -106,6 +106,27 @@ void printVertexStringList(Node_t **VertexList) {
 	system("pause");
 }
 
+bool searchVertexID(Node_t **VertexList, unsigned int VertexID) {
+	if(*VertexList == NULL) return false;
+	
+	Vertex_t *tmpVertex = (*VertexList)->Data;
+	
+	if(VertexID == tmpVertex->ID) return true;
+	
+	return searchVertexID(&((*VertexList)->next), VertexID);
+}
+
+bool searchBridge(Node_t **BridgeList, IdPair_t *VertexIdPair) {
+	if(*BridgeList == NULL) return false;
+	
+	Edge_t *tmpBridge;
+	tmpBridge = (*BridgeList)->Data;
+	
+	if(VertexIdPair->x == tmpBridge->VertexPair.x && VertexIdPair->y == tmpBridge->VertexPair.y || VertexIdPair->y == tmpBridge->VertexPair.x && VertexIdPair->x == tmpBridge->VertexPair.y) return true;
+	
+	return searchBridge(&((*BridgeList)->next), VertexIdPair);
+}
+
 void _freeList(Node_t **Head) {
 	
 	if(*Head == NULL) return;

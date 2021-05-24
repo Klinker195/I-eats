@@ -12,6 +12,10 @@ void endIns(Node_t **Head, void *Data);
 
 void printVertexStringList(Node_t **VertexList);
 
+bool searchBridge(Node_t **BridgeList, IdPair_t *VertexIdPair);
+
+bool searchVertexID(Node_t **VertexList, unsigned int VertexID);
+
 void _freeList(Node_t **Head);
 
 void freeList(Node_t **Head);

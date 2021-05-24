@@ -63,8 +63,8 @@ int main(void) {
 	*/
 	
 	/*
-	TEST ADD VERTEX
-	*/
+	TEST ADD VERTEX OLD
+	
 	Node_t *VertexList = NULL;
 	Node_t *AdjacentVertices = NULL;
 	Node_t *BridgeList = NULL;
@@ -85,6 +85,7 @@ int main(void) {
 	addVertex(&VertexList, AdjacentVertices, NULL, *tmpData);
 	
 	printVertexStringList(&VertexList);
+	*/
 	
 	int Modality = isleStart(&ConnectedUser);
 	
