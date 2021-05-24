@@ -7,7 +7,7 @@
 
 // TODO: Aggiungere funzioni grafi (aggiunta, visualizzazione e rimozione)
 
-void addVertex(Node_t *VertexList, Node_t *AdjacentVertices, Node_t *BridgeList, void *Data) {
+void addVertex(Node_t **VertexList, Node_t *AdjacentVertices, Node_t *BridgeList, void *Data) {
 	Vertex_t *newVertex = malloc(sizeof(Vertex_t));
 	
 	if(!newVertex) error(1001);
@@ -19,21 +19,22 @@ void addVertex(Node_t *VertexList, Node_t *AdjacentVertices, Node_t *BridgeList,
 	newVertex->Explored = false;
 	newVertex->Visited = false;
 	
-	if(VertexList) {
-		// TODO: Controllare se esiste già il nodo
+	if(*VertexList) {
+		// TODO: Controllare se esiste già il nodo e creare un nuovo ponte
 	}
 	
 	if(!AdjacentVertices) {
 		checkAdjacentVertices(VertexList, BridgeList, AdjacentVertices, newVertex->ID);
 	}
 	
+	endIns(VertexList, newVertex);
 }
 
-void linkVertices(Node_t *VertexList, Node_t *BridgeList, unsigned int FirstID, unsigned int SecondID) {
-	if(VertexList == NULL) return;
+void linkVertices(Node_t **VertexList, Node_t *BridgeList, unsigned int FirstID, unsigned int SecondID) {
+	if(*VertexList == NULL) return;
 	
 	Vertex_t *tmpVertex; //= malloc(sizeof(Vertex_t));
-	tmpVertex = VertexList->Data;
+	tmpVertex = (*VertexList)->Data;
 	
 	if(tmpVertex->ID == SecondID) {
 		if(!checkVertexByID(tmpVertex->AdjacentVertices, FirstID)) {
@@ -41,7 +42,7 @@ void linkVertices(Node_t *VertexList, Node_t *BridgeList, unsigned int FirstID, 
 		}	
 	}
 	
-	linkVertices(VertexList->next, BridgeList, FirstID, SecondID);
+	linkVertices(&((*VertexList)->next), BridgeList, FirstID, SecondID);
 	
 }
 
@@ -54,7 +55,7 @@ bool checkVertexByID(Node_t *AdjacentVertices, unsigned int ID) {
 	checkVertexByID(AdjacentVertices->next, ID);
 }
 
-void checkAdjacentVertices(Node_t *VertexList, Node_t *BridgeList, Node_t *AdjacentVertices, unsigned int CurrentID) {
+void checkAdjacentVertices(Node_t **VertexList, Node_t *BridgeList, Node_t *AdjacentVertices, unsigned int CurrentID) {
 	
 	if(AdjacentVertices == NULL) return;
 	

@@ -82,6 +82,30 @@ int printPastAppointmentsList(Node_t **Head) {
 }
 */
 
+void printVertexStringList(Node_t **VertexList) {
+	system("cls");
+	
+	Vertex_t *tmpVertex;
+	String *tmpString;
+	
+	int i = 0;
+	
+	Node_t *tmp = *VertexList;
+	
+	printf( "[Vertex List]");
+	printf("\n\n");
+	while(tmp != NULL) {
+		tmpVertex = tmp->Data;
+		tmpString = tmpVertex->Data;
+		
+		printf(" - ID: %u | Isle Name: %s\n", tmpVertex->ID, *tmpString);
+		tmp = tmp->next;
+	}
+	
+	printf("\n\n");
+	system("pause");
+}
+
 void _freeList(Node_t **Head) {
 	
 	if(*Head == NULL) return;

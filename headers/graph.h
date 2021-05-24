@@ -19,13 +19,13 @@ typedef struct {
 
 // TODO: Aggiungere prototipi funzioni grafi
 
-void addVertex(Node_t *VertexList, Node_t *AdjacentVertices, Node_t *BridgeList, void *Data);
+void addVertex(Node_t **VertexList, Node_t *AdjacentVertices, Node_t *BridgeList, void *Data);
 
-void checkAdjacentVertices(Node_t *VertexList, Node_t *BridgeList, Node_t *AdjacentVertices, unsigned int CurrentID);
+void checkAdjacentVertices(Node_t **VertexList, Node_t *BridgeList, Node_t *AdjacentVertices, unsigned int CurrentID);
 
 bool checkVertexByID(Node_t *AdjacentVertices, unsigned int ID);
 
-void linkVertices(Node_t *VertexList, Node_t *BridgeList, unsigned int FirstID, unsigned int SecondID);
+void linkVertices(Node_t **VertexList, Node_t *BridgeList, unsigned int FirstID, unsigned int SecondID);
 
 
 #endif

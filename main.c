@@ -62,6 +62,30 @@ int main(void) {
 	printResourcesList(&ResourceHead);
 	*/
 	
+	/*
+	TEST ADD VERTEX
+	*/
+	Node_t *VertexList = NULL;
+	Node_t *AdjacentVertices = NULL;
+	Node_t *BridgeList = NULL;
+	
+	String *tmpData = malloc(sizeof(String));
+	strcpy(*tmpData, "TestIsle 1");
+	
+	addVertex(&VertexList, AdjacentVertices, NULL, *tmpData);
+	
+	if(AdjacentVertices != NULL) freeList(&AdjacentVertices); 
+	
+	unsigned int *tmpUnsignedInt = (unsigned int *)1001u;
+	endIns(&AdjacentVertices, tmpUnsignedInt);
+	
+	tmpData = malloc(sizeof(String));
+	strcpy(*tmpData, "TestIsle 2");
+	
+	addVertex(&VertexList, AdjacentVertices, NULL, *tmpData);
+	
+	printVertexStringList(&VertexList);
+	
 	int Modality = isleStart(&ConnectedUser);
 	
 	if(Modality == 0) {

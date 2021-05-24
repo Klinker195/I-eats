@@ -16,8 +16,8 @@ int isleStart(User_t *CurrentUser) {
 
 	int i = 0;
 	
-	//Debug variables
-	
+	// TESTING DI DEBUG
+	/*
 	Vertex_t *tmprint=NULL;
 	Node_t *tml;
 	int l = 0;
@@ -34,7 +34,7 @@ int isleStart(User_t *CurrentUser) {
 	BridgeList= malloc(sizeof(Node_t));
     BridgeList->Data=NULL;
     BridgeList->next=NULL;
-
+	*/
 
 	char clearBuffer;
 
@@ -422,6 +422,8 @@ int isleStart(User_t *CurrentUser) {
 				
 			case 2:
 				// TODO: Debug mode
+				/*
+				TODO: Da rimuovere
 				system("cls");
 				printf("DEBUG MENU\n");
 				
@@ -443,7 +445,7 @@ int isleStart(User_t *CurrentUser) {
 					break;	
 				}
 				break;
-				
+				*/
 				
 			case 3:
 				exit(0);
