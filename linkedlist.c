@@ -106,6 +106,16 @@ void printVertexStringList(Node_t **VertexList) {
 	system("pause");
 }
 
+Vertex_t *fetchVertexFromID(Node_t **VertexList, unsigned int VertexID) {
+	if(*VertexList == NULL) return NULL;
+	
+	Vertex_t *tmpVertex = (*VertexList)->Data;
+	
+	if(VertexID == tmpVertex->ID) return tmpVertex;
+	
+	return fetchVertexFromID(&((*VertexList)->next), VertexID);
+}
+
 bool searchVertexID(Node_t **VertexList, unsigned int VertexID) {
 	if(*VertexList == NULL) return false;
 	
@@ -152,6 +162,37 @@ int printResourcesList(Node_t **Head) {
 	}
 	
 	return i;
+}
+
+void endInsBridgesFromFile(Node_t **Head) {
+	
+	FILE *IsleExistingBridges = fopen("./data/islands/ExistingBridges.isle", "r");
+	
+	if(!IsleExistingBridges) {
+		fclose(IsleExistingBridges);
+		IsleExistingBridges = fopen("./data/islands/ExistingBridges.isle", "w");
+		fclose(IsleExistingBridges);
+		IsleExistingBridges = fopen("./data/islands/ExistingBridges.isle", "r");
+	}
+	
+	if(!IsleExistingBridges) error(1000);
+	
+	fseek(IsleExistingBridges, 0L, SEEK_END);
+	long size = ftell(IsleExistingBridges);
+	
+	rewind(IsleExistingBridges);
+	
+	Edge_t *tmpEdge;
+	
+	if(size != 0) {
+		while(!feof(IsleExistingBridges)) {
+			tmpEdge = malloc(sizeof(Edge_t));
+			fscanf(IsleExistingBridges, "%u %u %lf\n", &tmpEdge->VertexPair.x, &tmpEdge->VertexPair.y, &tmpEdge->MaxWeight);
+			endIns(Head, tmpEdge);
+		}
+	}
+	
+	fclose(IsleExistingBridges);
 }
 
 void endInsResourcesFromFile(Node_t **Head) {
@@ -221,7 +262,6 @@ void writeListIntoResourcesFile(Node_t **List, FILE *IsleResourceData) {
 	
 	writeListIntoResourcesFile(&Next, IsleResourceData);
 }
-
 
 void _freeList(Node_t **Head) {
 	

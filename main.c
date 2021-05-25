@@ -8,7 +8,6 @@
 #include "headers/cliui.h"
 #include "headers/utils.h"
 #include "headers/datastructures.h"
-#include "headers/debug.h"
 
 int main(void) {
 

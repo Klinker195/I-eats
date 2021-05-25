@@ -2,6 +2,7 @@
 #define LINKEDLIST_H
 
 #include "datastructures.h"
+#include "graph.h"
 #include "utils.h"
 
 void headIns(Node_t **Head, void* Data);
@@ -14,9 +15,13 @@ void printVertexStringList(Node_t **VertexList);
 
 bool searchBridge(Node_t **BridgeList, IdPair_t *VertexIdPair);
 
+Vertex_t *fetchVertexFromID(Node_t **VertexList, unsigned int VertexID);
+
 bool searchVertexID(Node_t **VertexList, unsigned int VertexID);
 
 int printResourcesList(Node_t **Head);
+
+void endInsBridgesFromFile(Node_t **Head);
 
 void endInsResourcesFromFile(Node_t **Head);
 

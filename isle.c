@@ -490,6 +490,7 @@ void isleCustomer(User_t *ConnectedUser) {
 	return;
 }
 
+// TODO: CustomerPlaceOrder da rifinire
 void isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList) {
 	
 	if(!ResourcesList) {
@@ -515,7 +516,11 @@ void isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList) {
 	Node_t *Order = NULL;
 	
 	do {
-
+		
+		system("cls");
+		printResourcesList(&ResourcesList);
+		// print riepilogo ordine
+		
 		printf("\n\n");
 		printf(" Inserisci il numero relativo all'item che vuoi ordinare (0 per concludere): ");
 		gets(intArg);

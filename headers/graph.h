@@ -21,13 +21,11 @@ typedef struct {
 
 void addVertex(Node_t **VertexList, void *Data);
 
-void addEdge(Node_t **VertexList, Node_t *BridgeList, Vertex_t *VertexSource, unsigned int VertexDestinationID, double maxWeight);
+void addEdge(Node_t **VertexList, Node_t *BridgeList, Vertex_t *VertexSource, Vertex_t *VertexDestination, double maxWeight);
 
-void addVerticesFromFileData(Node_t **VertexList);
+void addVerticesAndEdgesFromFileData(Node_t **VertexList);
 
-void addEdgesFromFileData();
-
-void createGraphFromFileData(Node_t **VertexList);
+void createGraphFromFileData(Node_t **VertexList, Node_t **BridgeList);
 
 // DEPRECATED ???
 
