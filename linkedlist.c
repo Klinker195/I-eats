@@ -137,6 +137,19 @@ bool searchBridge(Node_t **BridgeList, IdPair_t *VertexIdPair) {
 	return searchBridge(&((*BridgeList)->next), VertexIdPair);
 }
 
+bool tryBridge(Node_t **BridgeList, IdPair_t *VertexIdPair, double TotalWeight) {
+	if(*BridgeList == NULL) return false;
+	
+	Edge_t *tmpBridge;
+	tmpBridge = (*BridgeList)->Data;
+	
+	if(VertexIdPair->x == tmpBridge->VertexPair.x && VertexIdPair->y == tmpBridge->VertexPair.y || VertexIdPair->y == tmpBridge->VertexPair.x && VertexIdPair->x == tmpBridge->VertexPair.y) {
+		if(TotalWeight <= tmpBridge->MaxWeight) return true;
+	}
+	
+	return tryBridge(&((*BridgeList)->next), VertexIdPair, TotalWeight);
+}
+
 int printResourcesList(Node_t **Head) {
 	
 	system("cls");

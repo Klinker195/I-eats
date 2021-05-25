@@ -15,6 +15,8 @@ void printVertexStringList(Node_t **VertexList);
 
 bool searchBridge(Node_t **BridgeList, IdPair_t *VertexIdPair);
 
+bool tryBridge(Node_t **BridgeList, IdPair_t *VertexIdPair, double TotalWeight);
+
 Vertex_t *fetchVertexFromID(Node_t **VertexList, unsigned int VertexID);
 
 bool searchVertexID(Node_t **VertexList, unsigned int VertexID);

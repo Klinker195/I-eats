@@ -15,7 +15,6 @@ void addVertex(Node_t **VertexList, void *Data) {
 	newVertex->ID = fetchID();
 	newVertex->Data = Data;
 	newVertex->AdjacentVertices = NULL;
-	newVertex->Explored = false;
 	newVertex->Visited = false;
 	
 	endIns(VertexList, newVertex);
@@ -94,7 +93,7 @@ void addVerticesAndEdgesFromFileData(Node_t **VertexList) {
 	
 	String VertexID;
 	String FinalPath = "./data/islands/";
-	IsleInfo_t *IsleInfo;
+	String IsleName;
 	FILE *IsleVertex;
 	Vertex_t *newVertex;
 	unsigned int intVertexID;
@@ -110,16 +109,13 @@ void addVerticesAndEdgesFromFileData(Node_t **VertexList) {
 		if(!IsleVertex) error(1001);
 		
 		newVertex = malloc(sizeof(Vertex_t));
-		IsleInfo = malloc(sizeof(IsleInfo_t));
 		
 		intVertexID = atoi(VertexID);
 		
 		newVertex->ID = intVertexID;
-		fscanf(IsleVertex, "%s\n%s\n%lf", IsleInfo->Name, IsleInfo->Resource.Name, &IsleInfo->Resource.SpecificWeight);
-		IsleInfo->Resource.Quantity = 1;
-		newVertex->Data = IsleInfo;
+		fscanf(IsleVertex, "%s\n", IsleName);
+		newVertex->Data = IsleName;
 		newVertex->AdjacentVertices = NULL;
-		newVertex->Explored = false;
 		newVertex->Visited = false;
 		
 		fclose(IsleVertex);
@@ -166,61 +162,44 @@ void createGraphFromFileData(Node_t **VertexList, Node_t **BridgeList) {
 	endInsBridgesFromFile(BridgeList);
 }
 
-// DEPRECATED ???
-
-void linkVertices(Node_t **VertexList, Node_t *BridgeList, unsigned int FirstID, unsigned int SecondID) {
-	if(*VertexList == NULL) return;
+bool tryRoute(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, Vertex_t *Destination, double *TotalWeight) {
+	crawl(VertexList, BridgeList, Source, TotalWeight);
 	
-	Vertex_t *tmpVertex; //= malloc(sizeof(Vertex_t));
-	tmpVertex = (*VertexList)->Data;
-	
-	if(tmpVertex->ID == SecondID) {
-		if(!checkVertexByID(tmpVertex->AdjacentVertices, FirstID)) {
-			endIns(&(tmpVertex->AdjacentVertices), &FirstID);
-		}	
+	if(Destination->Visited) {
+		return true;
+	} else {
+		return false;
 	}
 	
-	linkVertices(&((*VertexList)->next), BridgeList, FirstID, SecondID);
 }
 
-bool checkVertexByID(Node_t *AdjacentVertices, unsigned int ID) {
-	if(AdjacentVertices == NULL) return false;
-	
-	unsigned int *tmpInt = AdjacentVertices->Data;
-	if(*tmpInt == ID) return true;
-	
-	checkVertexByID(AdjacentVertices->next, ID);
-}
-
-void checkAdjacentVertices(Node_t **VertexList, Node_t *BridgeList, Node_t *AdjacentVertices, unsigned int CurrentID) {
-	if(AdjacentVertices == NULL) return;
-	
-	unsigned int *tmpInt;
-	tmpInt = AdjacentVertices->Data;
-	
-	linkVertices(VertexList, BridgeList, CurrentID, *tmpInt);
-	
-	checkAdjacentVertices(VertexList, BridgeList, AdjacentVertices->next, CurrentID);
-}
-
-//COMMENTINO
-bool Funct(Node_t *VertexList, Vertex_t *Source, Vertex_t *Destination) {
-	
-}
-//looppa e per ogni nodo
-void crawl(Node_t *VertexList, Vertex_t *Source) {
+void crawl(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, double *TotalWeight) {
+	Source->Visited = true;
 	Node_t *tmpAdjacentVertices = Source->AdjacentVertices;
 	
 	if(!tmpAdjacentVertices) return;
 	
+	unsigned int *tmpID;
+	Vertex_t *tmpVertex;
+	IdPair_t tmpIdPair;
+	
 	while(!tmpAdjacentVertices) {
-		tmpAdjacentVertices=tmpAdjacentVertices->next;
+		tmpID = tmpAdjacentVertices->Data;
+		tmpVertex = fetchVertexFromID(VertexList, *tmpID);
 		
+		tmpIdPair.x = Source->ID;
+		tmpIdPair.y = tmpVertex->ID;
+		
+		if(!tmpVertex->Visited) {
+			if(tryBridge(BridgeList, &tmpIdPair, *TotalWeight)) {
+				crawl(VertexList, BridgeList, tmpVertex, TotalWeight);
+			}
+		}
+		
+		tmpAdjacentVertices = tmpAdjacentVertices->next;
 	}
 	
 }
-
-
 
 
 

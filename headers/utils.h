@@ -31,11 +31,6 @@ typedef struct {
 	unsigned int Quantity;
 } Resource_t;
 
-typedef struct {
-	String Name;
-	Resource_t Resource;
-} IsleInfo_t;
-
 bool searchCF(FILE *fp, String CF);
 
 void error(int errorNumber);

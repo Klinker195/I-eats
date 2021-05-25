@@ -7,7 +7,6 @@
 typedef struct {
 	unsigned int ID;
 	void *Data;
-	bool Explored;
 	bool Visited;
 	Node_t *AdjacentVertices;
 } Vertex_t;
@@ -27,13 +26,8 @@ void addVerticesAndEdgesFromFileData(Node_t **VertexList);
 
 void createGraphFromFileData(Node_t **VertexList, Node_t **BridgeList);
 
-// DEPRECATED ???
+bool tryRoute(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, Vertex_t *Destination, double *TotalWeight);
 
-void checkAdjacentVertices(Node_t **VertexList, Node_t *BridgeList, Node_t *AdjacentVertices, unsigned int CurrentID);
-
-bool checkVertexByID(Node_t *AdjacentVertices, unsigned int ID);
-
-void linkVertices(Node_t **VertexList, Node_t *BridgeList, unsigned int FirstID, unsigned int SecondID);
-
+void crawl(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, double *TotalWeight);
 
 #endif
