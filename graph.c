@@ -203,5 +203,24 @@ void checkAdjacentVertices(Node_t **VertexList, Node_t *BridgeList, Node_t *Adja
 	checkAdjacentVertices(VertexList, BridgeList, AdjacentVertices->next, CurrentID);
 }
 
+//COMMENTINO
+bool Funct(Node_t *VertexList, Vertex_t *Source, Vertex_t *Destination) {
+	
+}
+//looppa e per ogni nodo
+void crawl(Node_t *VertexList, Vertex_t *Source) {
+	Node_t *tmpAdjacentVertices = Source->AdjacentVertices;
+	
+	if(!tmpAdjacentVertices) return;
+	
+	while(!tmpAdjacentVertices) {
+		tmpAdjacentVertices=tmpAdjacentVertices->next;
+		
+	}
+	
+}
+
+
+
 
 
