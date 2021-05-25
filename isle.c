@@ -511,6 +511,8 @@ void isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList) {
 
 	bool numChoiceCheck = false;
 	
+	Node_t *OrderList = NULL;
+	
 	Node_t *SelectedNumbers = NULL;
 	
 	Node_t *Order = NULL;
@@ -556,9 +558,16 @@ void isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList) {
 		} else if(numChoice == 0) {
 			numChoiceCheck = true;
 		} else {
+			//Creazione lista dell'ordine
+			
 			// Creazione Resource in malloc da inserire nella lista ordine, avrà come nome risorsa quello della risorsa alla posizione scelta dall'utente, stessa cosa per la quantità
 			// endIns della risorsa in lista Order.
-			endIns(&SelectedNumbers, &numChoice);
+			
+			//vedere in linkedlist.c
+			endInsOrderFromList( numChoice, &ResourcesList, &OrderList);
+
+			//endIns(&SelectedNumbers, &numChoice);
+			
 		}
 		
 		printf("\n\n");

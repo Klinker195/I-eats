@@ -27,6 +27,8 @@ void endInsBridgesFromFile(Node_t **Head);
 
 void endInsResourcesFromFile(Node_t **Head);
 
+void endInsOrderFromList(int ID, Node_t **HeadResource, Node_t **HeadOrder);
+
 bool _deleteResourceAtPosition(Node_t **Head, int Pos, int CurrentPos);
 
 bool deleteResourceAtPosition(Node_t **Head, int Pos);

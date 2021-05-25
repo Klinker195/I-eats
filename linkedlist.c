@@ -240,6 +240,24 @@ void endInsResourcesFromFile(Node_t **Head) {
 	fclose(IsleResourceData);
 }
 
+//funzione per la creazione della lista dell'ordine
+void endInsOrderFromList(int N, Node_t **HeadResource, Node_t **HeadOrder){
+	
+	int i=1;
+	Resource_t *tmpOrder;
+	tmpOrder = malloc(sizeof(Resource_t));
+	
+	while(*HeadResource!=NULL){
+		if(i==N)
+		break;
+		i++;
+		//HeadResource = HeadResource->next;
+	}
+	
+	
+	endIns(HeadOrder, tmpOrder);
+}
+
 bool _deleteResourceAtPosition(Node_t **Head, int Pos, int CurrentPos) {
 	
 	if(*Head == NULL) return NULL;
