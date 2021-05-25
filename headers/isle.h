@@ -10,7 +10,7 @@ void isleDriver(User_t *ConnectedUser);
 
 void isleCustomer(User_t *ConnectedUser);
 
-void isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList);
+bool isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList);
 
 bool addResource(Resource_t *Resource, Node_t *ResourceList);
 

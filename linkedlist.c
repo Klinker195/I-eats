@@ -177,6 +177,33 @@ int printResourcesList(Node_t **Head) {
 	return i;
 }
 
+int printOrderRecapList(Node_t **Head) {
+	
+	//if(*Head == NULL) return 0;
+	
+	Resource_t *tmpData;
+	
+	int i = 0;
+	
+	printf(ANSI_COLOR_BRIGHTRED " [Riepilogo ordine]\n");
+	printf(" +--------------------------------------------------+\n");
+	printf(" |   No. |     Nome risorsa     |     Quantita'     |\n");
+	printf(" +------------------------------+-------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
+	
+	Node_t *tmp = *Head;
+	
+	while(tmp != NULL) {
+		i++;
+		tmpData = tmp->Data;
+		
+		printf(ANSI_COLOR_BRIGHTRED " | " ANSI_COLOR_BRIGHTYELLOW "%4d. " ANSI_COLOR_BRIGHTRED "|" ANSI_COLOR_BRIGHTYELLOW " %20s "ANSI_COLOR_BRIGHTRED "|" ANSI_COLOR_BRIGHTYELLOW " %17d "ANSI_COLOR_BRIGHTRED"|\n", i, tmpData->Name, tmpData->Quantity);
+		printf(" +--------------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
+		tmp = tmp->next;
+	}
+	
+	return i;
+}
+
 void endInsBridgesFromFile(Node_t **Head) {
 	
 	FILE *IsleExistingBridges = fopen("./data/islands/ExistingBridges.isle", "r");
@@ -258,6 +285,36 @@ void endInsOrderFromList(int N, Node_t **HeadResource, Node_t **HeadOrder){
 	endIns(HeadOrder, tmpOrder);
 }
 
+bool searchInt(Node_t **Head, int RequestedInteger) {
+	
+	if(*Head == NULL) return false;
+	
+	int *tmpInt = (*Head)->Data;
+	
+	if(RequestedInteger == *tmpInt) {
+		return true;
+	}
+	
+	return searchInt(&((*Head)->next), RequestedInteger);
+}
+
+Resource_t *_fetchResourceAtPosition(Node_t **Head, int Pos, int CurrentPos) {
+	
+	if(*Head == NULL) return NULL;
+	
+	if(Pos == CurrentPos) {
+		Resource_t *tmpResource = malloc(sizeof(Resource_t));
+		tmpResource = (*Head)->Data;
+		return tmpResource;
+	}
+	
+	return _fetchResourceAtPosition(&((*Head)->next), Pos, CurrentPos + 1);
+}
+
+Resource_t *fetchResourceAtPosition(Node_t **Head, int Pos) {
+	return _fetchResourceAtPosition(Head, Pos, 1);
+}
+
 bool _deleteResourceAtPosition(Node_t **Head, int Pos, int CurrentPos) {
 	
 	if(*Head == NULL) return NULL;
@@ -292,6 +349,29 @@ void writeListIntoResourcesFile(Node_t **List, FILE *IsleResourceData) {
 	fprintf(IsleResourceData, "%s %lf\n", tmpResource->Name, tmpResource->SpecificWeight);
 	
 	writeListIntoResourcesFile(&Next, IsleResourceData);
+}
+
+void _writeListIntoOrderFile(Node_t **List, String UserCF, FILE *IsleOrderData, int Position) {
+	if(*List == NULL) return;
+
+	Node_t *Next = (*List)->next;
+	Resource_t *tmpResource = (*List)->Data;
+
+	if(Position == 0) {
+		fprintf(IsleOrderData, "%s\n", UserCF);
+	}
+	
+	fprintf(IsleOrderData, "%s %d\n", tmpResource->Name, tmpResource->Quantity);
+	
+	if(Next == NULL) {
+		fprintf(IsleOrderData, "-\n", tmpResource->Name, tmpResource->Quantity);
+	}
+	
+	_writeListIntoOrderFile(&Next, UserCF, IsleOrderData, Position + 1);
+}
+
+void writeListIntoOrderFile(Node_t **List, String UserCF, FILE *IsleOrderData) {
+	_writeListIntoOrderFile(List, UserCF, IsleOrderData, 0);
 }
 
 void _freeList(Node_t **Head) {

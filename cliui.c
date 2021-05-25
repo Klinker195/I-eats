@@ -7,7 +7,7 @@ Choice_t StartupChoiceList[STARTUPCHOICELIST_SIZE] = { {"Effettuare il login", f
 Choice_t LoginRegistrationChoiceList[LOGINREGISTRATIONCHOICELIST_SIZE] = { {"Driver", false}, {"Cliente", false} };
 Choice_t DriverChoiceList[DRIVERCHOICELIST_SIZE] = { {"Seleziona ordine", false}, {"Cambia informazioni veicolo", false}, {"Esci", false}};
 Choice_t CustomerChoiceList[CUSTOMERCHOICELIST_SIZE] = { {"Effettua ordine", false}, {"Esci", false} };
-
+Choice_t ConfirmOrderChoiceList[CONFIRMORDERCHOICELIST_SIZE] = { {"Visualizza ordine", false}, {"Conferma ordine", false}, {"Annulla ordine", false} };
 
 void printMainMenu(Choice_t ChoiceList[], int TotalChoices) {
 	
@@ -61,10 +61,42 @@ void printMainMenu(Choice_t ChoiceList[], int TotalChoices) {
 	
 }
 
-
-
-
-
+void printOrderConfirmationChoice(Choice_t ChoiceList[], int TotalChoices) {
+	
+	system("cls");
+	
+	printf(ANSI_COLOR_BRIGHTRED"\n [Conferma ordine]\n");
+	
+	int i = 0;
+	
+	for(i = 0; i < TotalChoices; i++) {
+		
+		if(i == 0) {
+			printf(ANSI_COLOR_BRIGHTRED" +----------------------------------------------------+\n");
+		} else {
+			printf(ANSI_COLOR_BRIGHTRED" |----------------------------------------------------|\n");
+		}
+		
+		if(ChoiceList[i].Selected) {
+			printf(ANSI_COLOR_BRIGHTRED" |                                                    |\n");
+			printf(ANSI_COLOR_BRIGHTRED" |            +-------------------------+             |\n");
+			printf(ANSI_COLOR_BRIGHTRED" |            |"ANSI_COLOR_BRIGHTYELLOW" > | %19s "ANSI_COLOR_BRIGHTRED"|             |\n", ChoiceList[i].Text);
+			printf(ANSI_COLOR_BRIGHTRED" |            +-------------------------+             |\n");
+			printf(ANSI_COLOR_BRIGHTRED" |                                                    |\n");
+		} else {
+			printf(ANSI_COLOR_BRIGHTRED" |                                                    |\n");
+			printf(ANSI_COLOR_BRIGHTRED" |            +-------------------------+             |\n");
+			printf(ANSI_COLOR_BRIGHTRED" |            |   | %19s |             |\n", ChoiceList[i].Text);
+			printf(ANSI_COLOR_BRIGHTRED" |            +-------------------------+             |\n");
+			printf(ANSI_COLOR_BRIGHTRED" |                                                    |\n");
+		}
+		
+	}
+	
+	printf(" +----------------------------------------------------+\n"ANSI_COLOR_RESET);
+	
+	
+}
 
 void printLoginChoice(Choice_t ChoiceList[], int TotalChoices) {
 	

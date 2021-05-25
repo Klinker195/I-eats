@@ -490,8 +490,7 @@ void isleCustomer(User_t *ConnectedUser) {
 	return;
 }
 
-// TODO: CustomerPlaceOrder da rifinire
-void isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList) {
+bool isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList) {
 	
 	if(!ResourcesList) {
 		system("cls");
@@ -504,24 +503,21 @@ void isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList) {
 	String intArg;
 	
 	int maxNum = printResourcesList(&ResourcesList);
-
 	int numChoice = 0;
-
 	int valueChoice = 0;
-
 	bool numChoiceCheck = false;
-	
-	Node_t *OrderList = NULL;
+	int *tmpInt;
 	
 	Node_t *SelectedNumbers = NULL;
-	
 	Node_t *Order = NULL;
+	
+	Resource_t *tmpResource;
 	
 	do {
 		
 		system("cls");
 		printResourcesList(&ResourcesList);
-		// print riepilogo ordine
+		printOrderRecapList(&Order);
 		
 		printf("\n\n");
 		printf(" Inserisci il numero relativo all'item che vuoi ordinare (0 per concludere): ");
@@ -529,14 +525,14 @@ void isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList) {
 
 		numChoice = validateAtoi(intArg);
 
-		if(numChoice < 0 || numChoice > maxNum /* && !searchInt(&SelectedNumbers) */) {
+		if((numChoice < 0 || numChoice > maxNum) || searchInt(&SelectedNumbers, numChoice)) {
 			printf("\n\n");
-			if(numChoice < 0 || numChoice) {
+			if(numChoice < 0 || numChoice > maxNum) {
 				printf(" Errore: Numero selezionato non valido, riprovare...");
-				sleep(1);
+				sleep(2);
 			} else {
 				printf(" Errore: Prodotto gia' selezionato, riprovare...");
-				sleep(1);
+				sleep(2);
 			}
 			continue;
 		} else if(numChoice == 0) {
@@ -558,22 +554,62 @@ void isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList) {
 		} else if(numChoice == 0) {
 			numChoiceCheck = true;
 		} else {
-			//Creazione lista dell'ordine
+			tmpResource = fetchResourceAtPosition(&ResourcesList, numChoice);
+			tmpResource->Quantity = valueChoice;
 			
-			// Creazione Resource in malloc da inserire nella lista ordine, avrà come nome risorsa quello della risorsa alla posizione scelta dall'utente, stessa cosa per la quantità
-			// endIns della risorsa in lista Order.
+			endIns(&Order, tmpResource);
 			
-			//vedere in linkedlist.c
-			endInsOrderFromList( numChoice, &ResourcesList, &OrderList);
-
-			//endIns(&SelectedNumbers, &numChoice);
-			
+			tmpInt = malloc(sizeof(int));
+			*tmpInt = numChoice;
+			endIns(&SelectedNumbers, tmpInt);
 		}
 		
 		printf("\n\n");
 		printf(" +-------------------------------------------------------------------------------------+");
 	
 	} while(!numChoiceCheck);
+	
+	if(Order == NULL) {
+		printf("\n\n Ordine annullato. Reindirizzamento al menu' precedente...");
+		sleep(3);
+		return false;
+	}
+	
+	// TODO: Aggiungere richiesta destinazione
+	
+	system("cls");
+	
+	printOrderRecapList(&Order);
+	
+	printf("\n\n ");
+	system("pause");
+	
+	bool ChoiceMade = false;
+	
+	do {
+		
+		int Choice = getVerticalInput(ConfirmOrderChoiceList, CONFIRMORDERCHOICELIST_SIZE, printOrderConfirmationChoice);
+		
+		if(Choice == 0) {
+			system("cls");
+			printOrderRecapList(&Order);
+			printf("\n\n ");
+			system("pause");
+		} else if(Choice == 1) {
+			FILE *IsleOrderData = fopen("./data/IsleOrders.isle", "a");
+			if(!IsleOrderData) error(1001);
+			writeListIntoOrderFile(&Order, ConnectedUser->CF, IsleOrderData);
+			printf("\n\n Ordine effettuato con successo. Reindirizzamento al menu' precedente...");
+			sleep(3);
+			return true;
+		} else {
+			printf("\n\n Ordine annullato. Reindirizzamento al menu' precedente...");
+			sleep(3);
+			return false;
+		}
+		
+	} while(!ChoiceMade);
+	
 }
 
 bool addResource(Resource_t *Resource, Node_t *ResourceList) {
@@ -581,6 +617,7 @@ bool addResource(Resource_t *Resource, Node_t *ResourceList) {
 	
 	if(Resource->SpecificWeight == 0) {
 		printf("\n\n Errore: Peso non valido.");
+		sleep(2);
 		return false;
 	}
 	
