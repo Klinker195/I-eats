@@ -21,6 +21,7 @@
 #define DRIVERCHOICELIST_SIZE 3
 #define CUSTOMERCHOICELIST_SIZE 2
 #define CONFIRMORDERCHOICELIST_SIZE 3
+#define CHANGEVEHICLECHOICELIST_SIZE 4
 
 typedef struct {
 	const String Text;
@@ -32,8 +33,11 @@ extern Choice_t LoginRegistrationChoiceList[LOGINREGISTRATIONCHOICELIST_SIZE];
 extern Choice_t DriverChoiceList[DRIVERCHOICELIST_SIZE];
 extern Choice_t CustomerChoiceList[CUSTOMERCHOICELIST_SIZE];
 extern Choice_t ConfirmOrderChoiceList[CONFIRMORDERCHOICELIST_SIZE];
+extern Choice_t ChangeVehicleChoiceList[CHANGEVEHICLECHOICELIST_SIZE];
 
 void printMainMenu(Choice_t ChoiceList[], int TotalChoices);
+
+void printVehicleChangeChoice(Choice_t ChoiceList[], int TotalChoices);
 
 void printOrderConfirmationChoice(Choice_t ChoiceList[], int TotalChoices);
 

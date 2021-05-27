@@ -7,13 +7,13 @@
 
 // TODO: Aggiungere funzioni grafi (aggiunta, visualizzazione e rimozione)
 
-void addVertex(Node_t **VertexList, void *Data) {
+void addVertex(Node_t **VertexList, String IsleName) {
 	Vertex_t *newVertex = malloc(sizeof(Vertex_t));
 	
 	if(!newVertex) error(1001);
 	
 	newVertex->ID = fetchID();
-	newVertex->Data = Data;
+	strcpy(newVertex->IsleName, IsleName);
 	newVertex->AdjacentVertices = NULL;
 	newVertex->Visited = false;
 	
@@ -92,7 +92,7 @@ void addVerticesAndEdgesFromFileData(Node_t **VertexList) {
 	if(!IsleExistingIslands) error(1001);
 	
 	String VertexID;
-	String FinalPath = "./data/islands/";
+	String FinalPath;
 	String IsleName;
 	FILE *IsleVertex;
 	Vertex_t *newVertex;
@@ -100,6 +100,9 @@ void addVerticesAndEdgesFromFileData(Node_t **VertexList) {
 	
 	while(!feof(IsleExistingIslands)) {
 		fscanf(IsleExistingIslands, "%s", VertexID);
+		
+		strcpy(FinalPath, "");
+		strcpy(FinalPath, "./data/islands/");
 		
 		strcat(FinalPath, VertexID);
 		strcat(FinalPath, ".isle");
@@ -114,9 +117,11 @@ void addVerticesAndEdgesFromFileData(Node_t **VertexList) {
 		
 		newVertex->ID = intVertexID;
 		fscanf(IsleVertex, "%s\n", IsleName);
-		newVertex->Data = IsleName;
+		strcpy(newVertex->IsleName, IsleName);
 		newVertex->AdjacentVertices = NULL;
 		newVertex->Visited = false;
+		
+		endIns(VertexList, newVertex);
 		
 		fclose(IsleVertex);
 	}
@@ -124,11 +129,17 @@ void addVerticesAndEdgesFromFileData(Node_t **VertexList) {
 	rewind(IsleExistingIslands);
 
 	unsigned int tmpID;
+	unsigned int *tmpIDPointer;
 	Vertex_t *tmpVertexSource;
 	Vertex_t *tmpVertexDestination;
+	unsigned int *intVertexIDPointer;
+	String tmpBuff;
 
 	while(!feof(IsleExistingIslands)) {
 		fscanf(IsleExistingIslands, "%s", VertexID);
+		
+		strcpy(FinalPath, "");
+		strcpy(FinalPath, "./data/islands/");
 		
 		strcat(FinalPath, VertexID);
 		strcat(FinalPath, ".isle");
@@ -137,18 +148,22 @@ void addVerticesAndEdgesFromFileData(Node_t **VertexList) {
 		
 		if(!IsleVertex) error(1001);
 		
-		fscanf(IsleVertex, "%*\n%*\n%*\n");
+		fscanf(IsleVertex, "%s\n", tmpBuff);
 		
 		intVertexID = atoi(VertexID);
 		
-		tmpVertexSource = fetchVertexFromID(VertexList, intVertexID);
+		intVertexIDPointer = malloc(sizeof(unsigned int *));
 		
-		while(!feof(IsleExistingIslands)) {
+		*intVertexIDPointer = (unsigned int)intVertexID;
+		
+		tmpVertexSource = fetchVertexFromID(VertexList, *intVertexIDPointer);
+		
+		while(!feof(IsleVertex)) {
 			fscanf(IsleVertex, "%u", &tmpID);
-			tmpVertexDestination = fetchVertexFromID(VertexList, tmpID);
+			tmpIDPointer = malloc(sizeof(unsigned int *));
+			*tmpIDPointer = (unsigned int)tmpID;
 			
-			endIns(&(tmpVertexSource->AdjacentVertices), &tmpID);
-			endIns(&(tmpVertexDestination->AdjacentVertices), &intVertexID);
+			endIns(&(tmpVertexSource->AdjacentVertices), tmpIDPointer);
 		}
 		
 		fclose(IsleVertex);
@@ -162,18 +177,32 @@ void createGraphFromFileData(Node_t **VertexList, Node_t **BridgeList) {
 	endInsBridgesFromFile(BridgeList);
 }
 
-bool tryRoute(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, Vertex_t *Destination, double *TotalWeight) {
+void resetVisitedVertexList(Node_t **VertexList) {
+	if(*VertexList == NULL) return;
+	
+	Vertex_t *tmpVertex;
+	
+	tmpVertex = (*VertexList)->Data;
+	
+	tmpVertex->Visited = false;
+	
+	resetVisitedVertexList(&((*VertexList)->next));
+}
+
+bool tryRoute(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, Vertex_t *Destination, double TotalWeight) {
 	crawl(VertexList, BridgeList, Source, TotalWeight);
 	
 	if(Destination->Visited) {
+		//resetVisitedVertexList(VertexList);
 		return true;
 	} else {
+		//resetVisitedVertexList(VertexList);
 		return false;
 	}
 	
 }
 
-void crawl(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, double *TotalWeight) {
+void crawl(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, double TotalWeight) {
 	Source->Visited = true;
 	Node_t *tmpAdjacentVertices = Source->AdjacentVertices;
 	
@@ -183,7 +212,7 @@ void crawl(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, double *T
 	Vertex_t *tmpVertex;
 	IdPair_t tmpIdPair;
 	
-	while(!tmpAdjacentVertices) {
+	while(tmpAdjacentVertices != NULL) {
 		tmpID = tmpAdjacentVertices->Data;
 		tmpVertex = fetchVertexFromID(VertexList, *tmpID);
 		
@@ -191,7 +220,7 @@ void crawl(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, double *T
 		tmpIdPair.y = tmpVertex->ID;
 		
 		if(!tmpVertex->Visited) {
-			if(tryBridge(BridgeList, &tmpIdPair, *TotalWeight)) {
+			if(tryBridge(BridgeList, &tmpIdPair, TotalWeight)) {
 				crawl(VertexList, BridgeList, tmpVertex, TotalWeight);
 			}
 		}

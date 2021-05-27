@@ -11,14 +11,15 @@ typedef char String[STRING_LENGTH];
 extern const int adminKey;
 
 typedef struct {
-	String CF;
-	String Password;
-} User_t;
-
-typedef struct {
 	String Model;
 	double Weight;
 } Vehicle_t;
+
+typedef struct {
+	String CF;
+	String Password;
+	Vehicle_t Vehicle;
+} User_t;
 
 typedef struct {
 	unsigned int x;
@@ -30,6 +31,14 @@ typedef struct {
 	double SpecificWeight;
 	unsigned int Quantity;
 } Resource_t;
+
+#include "datastructures.h"
+
+typedef struct {
+	String CF;
+	unsigned int IsleID;
+	Node_t *Resources;
+} Order_t;
 
 bool searchCF(FILE *fp, String CF);
 

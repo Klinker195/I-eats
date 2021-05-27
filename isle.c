@@ -15,26 +15,6 @@
 int isleStart(User_t *CurrentUser) {
 
 	int i = 0;
-	
-	// TESTING DI DEBUG
-	/*
-	Vertex_t *tmprint=NULL;
-	Node_t *tml;
-	int l = 0;
-	char P[7] = "Pippo";
-    Node_t *VertexList=NULL, *AdjacentVertices=NULL, *BridgeList=NULL; 
-	void *Data=NULL;
-	
-	VertexList= malloc(sizeof(Node_t));
-	VertexList->Data=NULL;
-	VertexList->Data=NULL;
-	AdjacentVertices= malloc(sizeof(Node_t));
-	AdjacentVertices->Data=NULL;
-	AdjacentVertices->next=NULL;
-	BridgeList= malloc(sizeof(Node_t));
-    BridgeList->Data=NULL;
-    BridgeList->next=NULL;
-	*/
 
 	char clearBuffer;
 
@@ -83,7 +63,7 @@ int isleStart(User_t *CurrentUser) {
 						printf(" +--------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
 
 						printf("\n\n");
-						printf(" Inserisci il tuo codice fiscale: ");
+						printf(ANSI_COLOR_BRIGHTYELLOW" Inserisci il tuo codice fiscale: ");
 						gets(User.CF);
 
 						for(i = 0; i < strlen(User.CF); i++) {
@@ -91,30 +71,30 @@ int isleStart(User_t *CurrentUser) {
 						}
 
 						if(strlen(User.CF) != 16 || !checkCFValidity(User.CF)) {
-							printf("\n\n Errore: Il CF non e' valido.");
+							printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Errore: Il CF non e' valido.");
 
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 							strcpy(verifyPassword, "");
 
 							printf("\n\n");
-							printf(" Login fallito, reindirizzamento al menu' principale...");
+							printf(ANSI_COLOR_BRIGHTYELLOW" Login fallito, reindirizzamento al menu' principale...");
 							sleep(3);
 							continue;
 						}
 
 						printf("\n");
-						printf(" Inserisci la tua password: ");
+						printf(ANSI_COLOR_BRIGHTYELLOW" Inserisci la tua password: ");
 						gets(User.Password);
 
 						if(strlen(User.Password) < 1) {
-							printf("\n\n Errore: La password non e' valida.");
+							printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Errore: La password non e' valida.");
 
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 
 							printf("\n\n");
-							printf(" Login fallito, reindirizzamento al menu' principale...");
+							printf(ANSI_COLOR_BRIGHTYELLOW" Login fallito, reindirizzamento al menu' principale...");
 							sleep(3);
 							continue;
 						}
@@ -132,7 +112,7 @@ int isleStart(User_t *CurrentUser) {
 							strcpy(User.Password, "");
 
 							printf("\n\n");
-							printf(" Login fallito, reindirizzamento al menu' principale...");
+							printf(ANSI_COLOR_BRIGHTYELLOW" Login fallito, reindirizzamento al menu' principale...");
 							sleep(2);
 						}
 						
@@ -157,7 +137,7 @@ int isleStart(User_t *CurrentUser) {
 						printf(" +--------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
 
 						printf("\n\n");
-						printf(" Inserisci il tuo codice fiscale: ");
+						printf(ANSI_COLOR_BRIGHTYELLOW" Inserisci il tuo codice fiscale: ");
 						gets(User.CF);
 
 						for(i = 0; i < strlen(User.CF); i++) {
@@ -165,30 +145,30 @@ int isleStart(User_t *CurrentUser) {
 						}
 
 						if(strlen(User.CF) != 16 || !checkCFValidity(User.CF)) {
-							printf("\n\n Errore: Il CF non e' valido.");
+							printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Errore: Il CF non e' valido.");
 
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 							strcpy(verifyPassword, "");
 
 							printf("\n\n");
-							printf(" Login fallito, reindirizzamento al menu' principale...");
+							printf(ANSI_COLOR_BRIGHTYELLOW" Login fallito, reindirizzamento al menu' principale...");
 							sleep(3);
 							continue;
 						}
 
 						printf("\n");
-						printf(" Inserisci la tua password: ");
+						printf(ANSI_COLOR_BRIGHTYELLOW" Inserisci la tua password: ");
 						gets(User.Password);
 
 						if(strlen(User.Password) < 1) {
-							printf("\n\n Errore: La password non e' valida.");
+							printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Errore: La password non e' valida.");
 
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 
 							printf("\n\n");
-							printf(" Login fallito, reindirizzamento al menu' principale...");
+							printf(ANSI_COLOR_BRIGHTYELLOW" Login fallito, reindirizzamento al menu' principale...");
 							sleep(3);
 							continue;
 						}
@@ -204,7 +184,7 @@ int isleStart(User_t *CurrentUser) {
 							strcpy(User.Password, "");
 
 							printf("\n\n");
-							printf(" Login fallito, reindirizzamento al menu' principale...");
+							printf(ANSI_COLOR_BRIGHTYELLOW" Login fallito, reindirizzamento al menu' principale...");
 							sleep(2);
 						}
 						
@@ -242,26 +222,26 @@ int isleStart(User_t *CurrentUser) {
 						int tmpAdminKey;
 
 						printf("\n\n");
-						printf(" Inserisci la chiave di sicurezza: ");
+						printf(ANSI_COLOR_BRIGHTYELLOW" Inserisci la chiave di sicurezza: ");
 						gets(intArg);
 
 						tmpAdminKey = validateAtoi(intArg);
 
 						if(tmpAdminKey != adminKey) {
-							printf("\n\n Errore: La chiave di sicurezza non e' valida.");
+							printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Errore: La chiave di sicurezza non e' valida.");
 
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 							strcpy(verifyPassword, "");
 
 							printf("\n\n");
-							printf(" Registrazione fallita, reindirizzamento al menu' principale...");
+							printf(ANSI_COLOR_BRIGHTYELLOW" Registrazione fallita, reindirizzamento al menu' principale...");
 							sleep(3);
 							break;
 						}
 						
 						printf("\n");
-						printf(" Inserisci il tuo codice fiscale: ");
+						printf(ANSI_COLOR_BRIGHTYELLOW" Inserisci il tuo codice fiscale: ");
 						gets(User.CF);
 
 						for(i = 0; i < strlen(User.CF); i++) {
@@ -269,37 +249,37 @@ int isleStart(User_t *CurrentUser) {
 						}
 
 						if(strlen(User.CF) != 16 || !checkCFValidity(User.CF)) {
-							printf("\n\n Errore: Il CF non e' valido.");
+							printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Errore: Il CF non e' valido.");
 
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 							strcpy(verifyPassword, "");
 
 							printf("\n\n");
-							printf(" Registrazione fallita, reindirizzamento al menu' principale...");
+							printf(ANSI_COLOR_BRIGHTYELLOW" Registrazione fallita, reindirizzamento al menu' principale...");
 							sleep(3);
 							continue;
 						}
 
 						printf("\n");
-						printf(" Inserisci la tua password: ");
+						printf(ANSI_COLOR_BRIGHTYELLOW" Inserisci la tua password: ");
 						gets(verifyPassword);
 
 						if(strlen(verifyPassword) < 1) {
-							printf("\n\n Errore: La password non e' valida.");
+							printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Errore: La password non e' valida.");
 
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 							strcpy(verifyPassword, "");
 
 							printf("\n\n");
-							printf(" Registrazione fallita, reindirizzamento al menu' principale...");
+							printf(ANSI_COLOR_BRIGHTYELLOW" Registrazione fallita, reindirizzamento al menu' principale...");
 							sleep(3);
 							continue;
 						}
 
 						printf("\n");
-						printf(" Verifica la tua password: ");
+						printf(ANSI_COLOR_BRIGHTYELLOW" Verifica la tua password: ");
 						gets(User.Password);
 						
 						// Registration driver 
@@ -310,12 +290,12 @@ int isleStart(User_t *CurrentUser) {
 							strcpy(verifyPassword, "");
 
 							printf("\n\n");
-							printf(" Registrazione riuscita, reindirizzamento al menu' principale...");
+							printf(ANSI_COLOR_BRIGHTYELLOW" Registrazione riuscita, reindirizzamento al menu' principale...");
 							sleep(2);
 						} else {
 							
 							if(strcmp(verifyPassword, User.Password) != 0) {
-							printf("\n\n Errore: Le due password inserite devono coincidere.");
+							printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Errore: Le due password inserite devono coincidere.");
 							}
 
 							strcpy(User.CF, "");
@@ -323,7 +303,7 @@ int isleStart(User_t *CurrentUser) {
 							strcpy(verifyPassword, "");
 
 							printf("\n\n");
-							printf(" Registrazione fallita, reindirizzamento al menu' principale...");
+							printf(ANSI_COLOR_BRIGHTYELLOW" Registrazione fallita, reindirizzamento al menu' principale...");
 							sleep(3);
 						}
 						
@@ -349,7 +329,7 @@ int isleStart(User_t *CurrentUser) {
 						printf(" +----------------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
 						
 						printf("\n\n");
-						printf(" Inserisci il tuo codice fiscale: ");
+						printf(ANSI_COLOR_BRIGHTYELLOW" Inserisci il tuo codice fiscale: ");
 						gets(User.CF);
 
 						for(i = 0; i < strlen(User.CF); i++) {
@@ -357,36 +337,36 @@ int isleStart(User_t *CurrentUser) {
 						}
 
 						if(strlen(User.CF) != 16 || !checkCFValidity(User.CF)) {
-							printf("\n\n Errore: Il CF non e' valido.");
+							printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Errore: Il CF non e' valido.");
 
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 							strcpy(verifyPassword, "");
 
 							printf("\n\n");
-							printf(" Registrazione fallita, reindirizzamento al menu' principale...");
+							printf(ANSI_COLOR_BRIGHTYELLOW" Registrazione fallita, reindirizzamento al menu' principale...");
 							sleep(3);
 							break;
 						}
 
 						printf("\n");
-						printf(" Inserisci la tua password: ");
+						printf(ANSI_COLOR_BRIGHTYELLOW" Inserisci la tua password: ");
 						gets(verifyPassword);
 
 						if(strlen(verifyPassword) < 1) {
-							printf("\n\n Errore: La password non e' valida.");
+							printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Errore: La password non e' valida.");
 
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
 							strcpy(verifyPassword, "");
 
 							printf("\n\n");
-							printf(" Registrazione fallita, reindirizzamento al menu' principale...");
+							printf(ANSI_COLOR_BRIGHTYELLOW" Registrazione fallita, reindirizzamento al menu' principale...");
 							sleep(3);
 							break;
 						}
 						printf("\n");
-						printf(" Verifica la tua password: ");
+						printf(ANSI_COLOR_BRIGHTYELLOW" Verifica la tua password: ");
 						gets(User.Password);
 						
 						// Registration customer 
@@ -397,12 +377,12 @@ int isleStart(User_t *CurrentUser) {
 							strcpy(verifyPassword, "");
 
 							printf("\n\n");
-							printf(" Registrazione riuscita, reindirizzamento al menu' principale...");
+							printf(ANSI_COLOR_BRIGHTYELLOW" Registrazione riuscita, reindirizzamento al menu' principale...");
 							sleep(2);
 						} else {
 
 							if(strcmp(verifyPassword, User.Password) != 0) {
-								printf("\n\n Errore: Le due password inserite devono coincidere.");
+								printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Errore: Le due password inserite devono coincidere.");
 							}
 
 							strcpy(User.CF, "");
@@ -410,7 +390,7 @@ int isleStart(User_t *CurrentUser) {
 							strcpy(verifyPassword, "");
 
 							printf("\n\n");
-							printf(" Registrazione fallita, reindirizzamento al menu' principale...");
+							printf(ANSI_COLOR_BRIGHTYELLOW" Registrazione fallita, reindirizzamento al menu' principale...");
 							sleep(3);
 							break;
 						}
@@ -450,10 +430,50 @@ void isleDriver(User_t *ConnectedUser) {
 				// Option A
 				break;
 			case 1:
-				// Option B
+				isleDriverChangeVehicleModel(ConnectedUser);
 				break;
 			case 2:
 				exit(EXIT_SUCCESS);
+				break;
+		}
+
+	} while(!exitCheck);
+
+	return;
+}
+
+void isleDriverChangeVehicleModel(User_t *ConnectedUser) {
+	int menuChoice;
+
+	bool exitCheck = false;
+
+	do {
+
+		system("MODE 120,55");
+
+		menuChoice = getVerticalInput(ChangeVehicleChoiceList, CHANGEVEHICLECHOICELIST_SIZE, printVehicleChangeChoice);
+
+		switch(menuChoice) {
+			case 0:
+				swapUserVehicle(ConnectedUser, "Rotom-Autocarro");
+				printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Veicolo correttamente cambiato in %s. Reindirizzamento al menu' principale...", ConnectedUser->Vehicle.Model);
+				sleep(3);
+				exitCheck = true;
+				break;
+			case 1:
+				swapUserVehicle(ConnectedUser, "Rotom-Furgone");
+				printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Veicolo correttamente cambiato in %s. Reindirizzamento al menu' principale...", ConnectedUser->Vehicle.Model);
+				sleep(3);
+				exitCheck = true;
+				break;
+			case 2:
+				swapUserVehicle(ConnectedUser, "Rotom-Apecar");
+				printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Veicolo correttamente cambiato in %s. Reindirizzamento al menu' principale...", ConnectedUser->Vehicle.Model);
+				sleep(3);
+				exitCheck = true;
+				break;
+			case 3:
+				exitCheck = true;
 				break;
 		}
 
@@ -470,6 +490,12 @@ void isleCustomer(User_t *ConnectedUser) {
 	Node_t *ResourcesList = NULL;
 	endInsResourcesFromFile(&ResourcesList);
 
+	Node_t *BridgeList = NULL;
+	endInsBridgesFromFile(&BridgeList);
+	
+	Node_t *VertexList = NULL;
+	addVerticesAndEdgesFromFileData(&VertexList);
+
 	do {
 
 		system("MODE 120,55");
@@ -478,7 +504,7 @@ void isleCustomer(User_t *ConnectedUser) {
 		
 		switch(menuChoice) {
 			case 0:
-				isleCustomerPlaceOrder(ConnectedUser, ResourcesList);
+				isleCustomerPlaceOrder(ConnectedUser, ResourcesList, VertexList);
 				break;
 			case 1:
 				exit(EXIT_SUCCESS);
@@ -490,12 +516,20 @@ void isleCustomer(User_t *ConnectedUser) {
 	return;
 }
 
-bool isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList) {
+bool isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList, Node_t *VertexList) {
 	
 	if(!ResourcesList) {
 		system("cls");
 		printf("\n\n");
-		printf(" Errore: Nessuna risorsa disponibile, riprovare...");
+		printf(ANSI_COLOR_BRIGHTYELLOW" Errore: Nessuna risorsa disponibile, riprovare...");
+		sleep(3);
+		return;
+	}
+	
+	if(!checkOrderUniqueness(ConnectedUser->CF)) {
+		system("cls");
+		printf("\n\n");
+		printf(ANSI_COLOR_BRIGHTYELLOW" Errore: E' gia' presente un ordine per il CF %s, reindirizzamento al menu' principale...", ConnectedUser->CF);
 		sleep(3);
 		return;
 	}
@@ -507,6 +541,7 @@ bool isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList) {
 	int valueChoice = 0;
 	bool numChoiceCheck = false;
 	int *tmpInt;
+	Vertex_t *tmpVertex;
 	
 	Node_t *SelectedNumbers = NULL;
 	Node_t *Order = NULL;
@@ -563,9 +598,6 @@ bool isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList) {
 			*tmpInt = numChoice;
 			endIns(&SelectedNumbers, tmpInt);
 		}
-		
-		printf("\n\n");
-		printf(" +-------------------------------------------------------------------------------------+");
 	
 	} while(!numChoiceCheck);
 	
@@ -575,7 +607,46 @@ bool isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList) {
 		return false;
 	}
 	
+	freeList(&SelectedNumbers);
+	
 	// TODO: Aggiungere richiesta destinazione
+	
+	bool DestinationChoiceMade = false;
+	maxNum = printVertexList(&VertexList);
+	numChoice = 0;
+	
+	do {
+		
+		system("cls");
+		printVertexList(&VertexList);
+		
+		printf("\n\n");
+		printf(" Inserisci il numero relativo all'isola dove consegnare le merci (0 per annullare): ");
+		gets(intArg);
+
+		numChoice = validateAtoi(intArg);
+
+		if(numChoice < 0 || numChoice > maxNum) {
+			printf("\n\n");
+			printf(" Errore: Numero selezionato non valido, riprovare...");
+			sleep(2);
+			continue;
+		} else if(numChoice == 0) {
+			DestinationChoiceMade = true;
+			break;
+		} else {
+			tmpVertex = fetchVertexAtPosition(&VertexList, numChoice);
+			DestinationChoiceMade = true;
+			break;
+		}
+	
+	} while(!DestinationChoiceMade);
+	
+	if(numChoice = 0) {
+		printf("\n\n Ordine annullato. Reindirizzamento al menu' precedente...");
+		sleep(3);
+		return false;
+	}
 	
 	system("cls");
 	
@@ -598,12 +669,15 @@ bool isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList) {
 		} else if(Choice == 1) {
 			FILE *IsleOrderData = fopen("./data/IsleOrders.isle", "a");
 			if(!IsleOrderData) error(1001);
-			writeListIntoOrderFile(&Order, ConnectedUser->CF, IsleOrderData);
-			printf("\n\n Ordine effettuato con successo. Reindirizzamento al menu' precedente...");
+			writeListIntoOrderFile(&Order, ConnectedUser->CF, tmpVertex->ID, IsleOrderData);
+			fclose(IsleOrderData);
+			freeList(&Order);
+			printf(ANSI_COLOR_BRIGHTYELLOW "\n\n Ordine effettuato con successo. Reindirizzamento al menu' precedente...");
 			sleep(3);
 			return true;
 		} else {
-			printf("\n\n Ordine annullato. Reindirizzamento al menu' precedente...");
+			freeList(&Order);
+			printf(ANSI_COLOR_BRIGHTYELLOW "\n\n Ordine annullato. Reindirizzamento al menu' precedente...");
 			sleep(3);
 			return false;
 		}
@@ -616,7 +690,7 @@ bool addResource(Resource_t *Resource, Node_t *ResourceList) {
 	int i = 0;
 	
 	if(Resource->SpecificWeight == 0) {
-		printf("\n\n Errore: Peso non valido.");
+		printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Errore: Peso non valido.");
 		sleep(2);
 		return false;
 	}
@@ -643,7 +717,7 @@ bool addResource(Resource_t *Resource, Node_t *ResourceList) {
 		fscanf(IsleResourceData, "%s %lf", tmpResourceName, &buff);
 		if(strcmp(tmpResourceName, Resource->Name) == 0) {
 			fclose(IsleResourceData);
-			printf("\n\n Errore: Risorsa gia' esistente.");
+			printf(ANSI_COLOR_BRIGHTYELLOW"\n\n Errore: Risorsa gia' esistente.");
 			return false;
 		}
 	}
@@ -667,5 +741,75 @@ bool addResource(Resource_t *Resource, Node_t *ResourceList) {
 	return false;
 }
 
+void swapUserVehicle(User_t *ConnectedUser, String Model) {
+	Node_t *VehicleList = NULL;
+	
+	endInsVehiclesFromFile(&VehicleList);
+	
+	Vehicle_t *tmpVehicle;
+	tmpVehicle = fetchVehicleFromModel(&VehicleList, Model);
+	
+	strcpy(ConnectedUser->Vehicle.Model, tmpVehicle->Model);
+	ConnectedUser->Vehicle.Weight = tmpVehicle->Weight;
+	
+	Node_t *VehicleOwnerList = NULL;
+	endInsVehicleOwnerFromFile(&VehicleOwnerList);
+	
+	User_t *tmpUser;
+	Node_t *tmpNode = VehicleOwnerList;
+	
+	while(tmpNode != NULL) {
+		tmpUser = tmpNode->Data;
+		if(strncmp(ConnectedUser->CF, tmpUser->CF, 16) == 0) {
+			strcpy(tmpUser->Vehicle.Model, ConnectedUser->Vehicle.Model);
+			tmpUser->Vehicle.Weight = ConnectedUser->Vehicle.Weight;
+		}
+		tmpNode = tmpNode->next;
+	}
+	
+	FILE *IsleVehicleOwners = fopen("./data/VehiclesCFs.isle", "w");
+	
+	if(!IsleVehicleOwners) error(1000);
+	
+	writeListIntoVehicleOwnersFile(&VehicleOwnerList, IsleVehicleOwners);
+	
+	fclose(IsleVehicleOwners);
+	
+	freeList(&VehicleOwnerList);
+	freeList(&VehicleList);
+}
 
+bool checkOrderUniqueness(String CF) {
+	
+	FILE *IsleOrdersData = fopen("./data/IsleOrders.isle", "r");
+	
+	if(!IsleOrdersData) {
+		fclose(IsleOrdersData);
+		IsleOrdersData = fopen("./data/IsleOrders.isle", "w");
+		fclose(IsleOrdersData);
+		IsleOrdersData = fopen("./data/IsleOrders.isle", "r");
+	}
+	
+	if(!IsleOrdersData) error(1000);
+	
+	fseek(IsleOrdersData, 0L, SEEK_END);
+	long size = ftell(IsleOrdersData);
+	
+	rewind(IsleOrdersData);
+	
+	String tmpCF;
+	
+	if(size != 0) {
+		while(!feof(IsleOrdersData)) {
+			fscanf(IsleOrdersData, "%s\n", tmpCF);
+			if(strncmp(CF, tmpCF, 16) == 0) {
+				fclose(IsleOrdersData);
+				return false;
+			}
+		}
+	}
+	
+	fclose(IsleOrdersData);
+	return true;
+}
 

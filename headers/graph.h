@@ -6,7 +6,7 @@
 
 typedef struct {
 	unsigned int ID;
-	void *Data;
+	String IsleName;
 	bool Visited;
 	Node_t *AdjacentVertices;
 } Vertex_t;
@@ -18,7 +18,7 @@ typedef struct {
 
 // TODO: Aggiungere prototipi funzioni grafi
 
-void addVertex(Node_t **VertexList, void *Data);
+void addVertex(Node_t **VertexList, String IsleName);
 
 void addEdge(Node_t **VertexList, Node_t *BridgeList, Vertex_t *VertexSource, Vertex_t *VertexDestination, double maxWeight);
 
@@ -26,8 +26,10 @@ void addVerticesAndEdgesFromFileData(Node_t **VertexList);
 
 void createGraphFromFileData(Node_t **VertexList, Node_t **BridgeList);
 
-bool tryRoute(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, Vertex_t *Destination, double *TotalWeight);
+void resetVisitedVertexList(Node_t **VertexList);
 
-void crawl(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, double *TotalWeight);
+bool tryRoute(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, Vertex_t *Destination, double TotalWeight);
+
+void crawl(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, double TotalWeight);
 
 #endif

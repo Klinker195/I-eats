@@ -15,6 +15,35 @@ int main(void) {
 	
 	srand(time(NULL));
 	
+	system("MODE 120,55");
+	
+	/*
+	Node_t *BridgeList = NULL;
+	endInsBridgesFromFile(&BridgeList);
+	
+	Node_t *VertexList = NULL;
+	
+	addVerticesAndEdgesFromFileData(&VertexList);
+	
+	printBridgeStringList(&BridgeList); 
+	
+	system("pause");
+	
+	
+	bool check = tryRoute(&VertexList, &BridgeList, fetchVertexFromID(&VertexList, 1001), fetchVertexFromID(&VertexList, 1004), 300);
+	
+	if(check) {
+		printf("\n Arrivato a destinazione con successo!\n\n");
+	} else {
+		printf("\n Impossibile arrivare a destinazione.\n\n");
+	}
+	
+	system("pause");
+	
+	printVertexList(&VertexList);
+	
+	system("pause");
+	*/
 	/*
 	TEST FETCHID
 	
