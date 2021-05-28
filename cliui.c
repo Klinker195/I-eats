@@ -73,28 +73,28 @@ void printVehicleChangeChoice(Choice_t ChoiceList[], int TotalChoices) {
 	for(i = 0; i < TotalChoices; i++) {
 		
 		if(i == 0) {
-			printf(ANSI_COLOR_BRIGHTRED" +----------------------------------------------------+\n");
+			printf(ANSI_COLOR_BRIGHTRED" +----------------------------------------------------------+\n");
 		} else {
-			printf(ANSI_COLOR_BRIGHTRED" |----------------------------------------------------|\n");
+			printf(ANSI_COLOR_BRIGHTRED" |----------------------------------------------------------|\n");
 		}
 		
 		if(ChoiceList[i].Selected) {
-			printf(ANSI_COLOR_BRIGHTRED" |                                                    |\n");
-			printf(ANSI_COLOR_BRIGHTRED" |            +-------------------------+             |\n");
-			printf(ANSI_COLOR_BRIGHTRED" |            |"ANSI_COLOR_BRIGHTYELLOW" > | %19s "ANSI_COLOR_BRIGHTRED"|             |\n", ChoiceList[i].Text);
-			printf(ANSI_COLOR_BRIGHTRED" |            +-------------------------+             |\n");
-			printf(ANSI_COLOR_BRIGHTRED" |                                                    |\n");
+			printf(ANSI_COLOR_BRIGHTRED" |                                                          |\n");
+			printf(ANSI_COLOR_BRIGHTRED" |            +--------------------------------+            |\n");
+			printf(ANSI_COLOR_BRIGHTRED" |            |"ANSI_COLOR_BRIGHTYELLOW" > | %26s "ANSI_COLOR_BRIGHTRED"|            |\n", ChoiceList[i].Text);
+			printf(ANSI_COLOR_BRIGHTRED" |            +--------------------------------+            |\n");
+			printf(ANSI_COLOR_BRIGHTRED" |                                                          |\n");
 		} else {
-			printf(ANSI_COLOR_BRIGHTRED" |                                                    |\n");
-			printf(ANSI_COLOR_BRIGHTRED" |            +-------------------------+             |\n");
-			printf(ANSI_COLOR_BRIGHTRED" |            |   | %19s |             |\n", ChoiceList[i].Text);
-			printf(ANSI_COLOR_BRIGHTRED" |            +-------------------------+             |\n");
-			printf(ANSI_COLOR_BRIGHTRED" |                                                    |\n");
+			printf(ANSI_COLOR_BRIGHTRED" |                                                          |\n");
+			printf(ANSI_COLOR_BRIGHTRED" |            +--------------------------------+            |\n");
+			printf(ANSI_COLOR_BRIGHTRED" |            |   | %26s |            |\n", ChoiceList[i].Text);
+			printf(ANSI_COLOR_BRIGHTRED" |            +--------------------------------+            |\n");
+			printf(ANSI_COLOR_BRIGHTRED" |                                                          |\n");
 		}
 		
 	}
 	
-	printf(" +----------------------------------------------------+\n"ANSI_COLOR_RESET);
+	printf(" +----------------------------------------------------------+\n"ANSI_COLOR_RESET);
 	
 	
 }

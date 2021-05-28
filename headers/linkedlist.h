@@ -13,6 +13,8 @@ void endIns(Node_t **Head, void *Data);
 
 int printVertexList(Node_t **VertexList);
 
+int printOrderList(Node_t **OrderList);
+
 void printBridgeStringList(Node_t **BridgeList);
 
 bool searchBridge(Node_t **BridgeList, IdPair_t *VertexIdPair);
@@ -28,6 +30,8 @@ int printResourcesList(Node_t **Head);
 int printOrderRecapList(Node_t **Head);
 
 void endInsBridgesFromFile(Node_t **Head);
+
+void endInsOrderFromFile(Node_t **Head);
 
 void endInsVehicleOwnerFromFile(Node_t **Head);
 

@@ -17,6 +17,16 @@ int main(void) {
 	
 	system("MODE 120,55");
 	
+	// TODO: Fix endInsOrderFromFile and delete debug
+	
+	Node_t *OrderList = NULL;
+	
+	endInsOrderFromFile(&OrderList);
+	
+	printOrderList(&OrderList);
+	
+	system("pause");
+	
 	/*
 	Node_t *BridgeList = NULL;
 	endInsBridgesFromFile(&BridgeList);

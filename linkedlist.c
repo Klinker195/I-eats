@@ -124,6 +124,48 @@ int printVertexList(Node_t **VertexList) {
 	
 	return i;
 }
+
+int printOrderList(Node_t **OrderList) {
+	
+	system("cls");
+	
+	Order_t *tmpOrder;
+	Node_t *ResourceList;
+	Resource_t *tmpResource;
+	
+	int i = 0;
+	
+	printf(ANSI_COLOR_BRIGHTRED " [Elenco degli ordini]\n");
+	
+	Node_t *tmp = *OrderList;
+	
+	while(tmp != NULL) {
+		i++;
+		tmpOrder = tmp->Data;
+		
+		printf(ANSI_COLOR_BRIGHTRED" +----------------------------------------------+\n");
+		printf(" |   No. |   ID Isola   |      Richiedente      |\n");
+		printf(" +----------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
+		
+		printf(ANSI_COLOR_BRIGHTRED " | " ANSI_COLOR_BRIGHTYELLOW "%4d. " ANSI_COLOR_BRIGHTRED "|" ANSI_COLOR_BRIGHTYELLOW " %12u "ANSI_COLOR_BRIGHTRED "|" ANSI_COLOR_BRIGHTYELLOW " %20s "ANSI_COLOR_BRIGHTRED"|\n", i, tmpOrder->IsleID, tmpOrder->CF);
+		
+		ResourceList = tmpOrder->Resources;
+		
+		printf(" +---------------------------------------------+\n");
+		printf(" |    "ANSI_COLOR_BRIGHTYELLOW"|"ANSI_COLOR_BRIGHTRED"  |       Risorsa       |       Quantita'       |\n");
+		printf(" +---------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
+		while(ResourceList != NULL) {
+			tmpResource = ResourceList->Data;
+			printf(ANSI_COLOR_BRIGHTRED " | "ANSI_COLOR_BRIGHTYELLOW "   +"ANSI_COLOR_BRIGHTRED"------------"ANSI_COLOR_BRIGHTYELLOW"> "ANSI_COLOR_BRIGHTRED"|"ANSI_COLOR_BRIGHTYELLOW" %s "ANSI_COLOR_BRIGHTRED"|"ANSI_COLOR_BRIGHTYELLOW" %d "ANSI_COLOR_BRIGHTRED"|\n", tmpResource->Name, tmpResource->Quantity);
+			ResourceList = ResourceList->next;
+		}
+		
+		printf(" +-----------------------------------------------+\n\n" ANSI_COLOR_BRIGHTYELLOW);
+		tmp = tmp->next;
+	}
+	
+	return i;
+}
 /*
 void printVertexStringList(Node_t **VertexList) {
 	system("cls");
@@ -380,6 +422,49 @@ void endInsBridgesFromFile(Node_t **Head) {
 	}
 	
 	fclose(IsleExistingBridges);
+}
+
+void endInsOrderFromFile(Node_t **Head) {
+	
+	FILE *IsleOrderData = fopen("./data/IsleOrders.isle", "r");
+	
+	if(!IsleOrderData) {
+		fclose(IsleOrderData);
+		IsleOrderData = fopen("./data/IsleOrders.isle", "w");
+		fclose(IsleOrderData);
+		IsleOrderData = fopen("./data/IsleOrders.isle", "r");
+	}
+	
+	if(!IsleOrderData) error(1000);
+	
+	fseek(IsleOrderData, 0L, SEEK_END);
+	long size = ftell(IsleOrderData);
+	
+	rewind(IsleOrderData);
+	
+	Order_t *tmpOrder;
+	Resource_t *tmpResource;
+	
+	if(size != 0) {
+		while(!feof(IsleOrderData)) {
+			tmpOrder = malloc(sizeof(Order_t));
+			fscanf(IsleOrderData, "%s\n%u\n", tmpOrder->CF, &tmpOrder->IsleID);
+			// TODO: Fix function
+			while(!feof(IsleOrderData)) {
+				tmpResource = malloc(sizeof(Resource_t));
+				fscanf(IsleOrderData, "%s %d\n", tmpResource->Name, &tmpResource->Quantity);
+				if(tmpResource->Name[0] == '-') {
+					free(tmpResource);
+					break;
+				} else {
+					endIns(&(tmpOrder->Resources), tmpResource);
+				}
+			}
+			endIns(Head, tmpOrder);
+		}
+	}
+	
+	fclose(IsleOrderData);
 }
 
 void endInsResourcesFromFile(Node_t **Head) {
