@@ -1,8 +1,8 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include "datastructures.h"
 #include "utils.h"
+#include "datastructures.h"
 
 typedef struct {
 	unsigned int ID;
@@ -16,9 +16,7 @@ typedef struct {
 	double MaxWeight;
 } Edge_t;
 
-// TODO: Aggiungere prototipi funzioni grafi
-
-void addVertex(Node_t **VertexList, String IsleName);
+unsigned int addVertex(Node_t **VertexList, String IsleName);
 
 void addEdge(Node_t **VertexList, Node_t *BridgeList, Vertex_t *VertexSource, Vertex_t *VertexDestination, double maxWeight);
 

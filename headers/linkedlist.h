@@ -3,7 +3,6 @@
 
 #include "datastructures.h"
 #include "graph.h"
-#include "utils.h"
 
 void headIns(Node_t **Head, void* Data);
 
@@ -25,6 +24,8 @@ Vertex_t *fetchVertexFromID(Node_t **VertexList, unsigned int VertexID);
 
 bool searchVertexID(Node_t **VertexList, unsigned int VertexID);
 
+int countOrderItems(Node_t **OrderItems);
+
 int printResourcesList(Node_t **Head);
 
 int printOrderRecapList(Node_t **Head);
@@ -41,15 +42,39 @@ void endInsResourcesFromFile(Node_t **Head);
 
 bool searchInt(Node_t **Head, int RequestedInteger);
 
+Vertex_t *getRandomStartingVertex(Node_t **Head);
+
 Vehicle_t *fetchVehicleFromModel(Node_t **Head, String Model);
 
 Vertex_t *_fetchVertexAtPosition(Node_t **Head, int Pos, int CurrentPos);
 
 Vertex_t *fetchVertexAtPosition(Node_t **Head, int Pos);
 
+Order_t *_fetchOrderAtPosition(Node_t **Head, int Pos, int CurrentPos);
+
+Order_t *fetchOrderAtPosition(Node_t **Head, int Pos);
+
 Resource_t *_fetchResourceAtPosition(Node_t **Head, int Pos, int CurrentPos);
 
 Resource_t *fetchResourceAtPosition(Node_t **Head, int Pos);
+
+bool _deleteBridgeAtVertexID(Node_t **Head, unsigned int VertexID, int CurrentPos);
+
+bool deleteBridgeAtVertexID(Node_t **Head, unsigned int VertexID);
+
+bool _deleteIntAtVertexID(Node_t **Head, unsigned int VertexID, int CurrentPos);
+
+bool deleteIntAtVertexID(Node_t **Head, unsigned int VertexID);
+	
+bool deleteAdjacentVerticesAtVertexID(Node_t **Head, unsigned int VertexID);
+	
+bool _deleteVertexAtPosition(Node_t **Head, int Pos, int CurrentPos);
+
+bool deleteVertexAtPosition(Node_t **Head, int Pos);
+
+bool _deleteOrderAtPosition(Node_t **Head, int Pos, int CurrentPos);
+
+bool deleteOrderAtPosition(Node_t **Head, int Pos);
 
 bool _deleteResourceAtPosition(Node_t **Head, int Pos, int CurrentPos);
 
@@ -59,9 +84,23 @@ void writeListIntoVehicleOwnersFile(Node_t **List, FILE *IsleVehicleOwners);
 
 void writeListIntoResourcesFile(Node_t **List, FILE *IsleResourceData);
 
-void _writeListIntoOrderFile(Node_t **List, String UserCF, unsigned int VertexID, FILE *IsleOrderData, int Position);
+void _writeVertexListIntoIsleFolderAndFile(Node_t **List, FILE *IsleIslandsData);
 
-void writeListIntoOrderFile(Node_t **List, String UserCF, unsigned int VertexID, FILE *IsleOrderData);
+void writeVertexListIntoIsleFolderAndFile(Node_t **List, FILE *IsleIslandsData);
+
+void removeAllIslandFiles(Node_t **List);
+
+void writeBridgeListIntoBridgeFile(Node_t **List, FILE *IsleBridgeData);
+
+void writeOrderListIntoOrderFile(Node_t **List, FILE *IsleOrderData);
+
+void _writeListIntoOrderFile(Node_t **List, String UserCF, unsigned int VertexID, int ItemsQuantity, FILE *IsleOrderData, int Position);
+
+void writeListIntoOrderFile(Node_t **List, String UserCF, unsigned int VertexID, int ItemsQuantity, FILE *IsleOrderData);
+
+double _calcTotalWeight(Node_t **ResourceList);
+
+double calcTotalWeight(Vehicle_t Vehicle, Node_t **ResourceList);
 
 void _freeList(Node_t **Head);
 

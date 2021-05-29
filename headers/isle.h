@@ -8,13 +8,15 @@ int isleStart(User_t *ConnectedUser);
 
 void isleDriver(User_t *ConnectedUser);
 
+void isleDriverTryOrder(User_t *ConnectedUser, Node_t *OrderList, Node_t *VertexList, Node_t *BridgeList);
+
 void isleDriverChangeVehicleModel(User_t *ConnectedUser);
 
 void isleCustomer(User_t *ConnectedUser);
 
-bool isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList, Node_t *VertexList);
+void isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList, Node_t *VertexList);
 
-bool addResource(Resource_t *Resource, Node_t *ResourceList);
+void addResource(Resource_t *Resource, Node_t *ResourceList);
 
 void swapUserVehicle(User_t *ConnectedUser, String Model);
 

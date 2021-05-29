@@ -15,10 +15,11 @@ int main(void) {
 	
 	srand(time(NULL));
 	
-	system("MODE 120,55");
+	//system("MODE 120,55");
 	
-	// TODO: Fix endInsOrderFromFile and delete debug
+	fullscreen();
 	
+	/*
 	Node_t *OrderList = NULL;
 	
 	endInsOrderFromFile(&OrderList);
@@ -26,6 +27,7 @@ int main(void) {
 	printOrderList(&OrderList);
 	
 	system("pause");
+	*/
 	
 	/*
 	Node_t *BridgeList = NULL;
@@ -129,8 +131,10 @@ int main(void) {
 	
 	if(Modality == 0) {
 		isleDriver(&ConnectedUser);
-	} else {
+	} else if(Modality == 1) {
 		isleCustomer(&ConnectedUser);
+	} else {
+		isleDebug();
 	}
 	
 	//system("pause");

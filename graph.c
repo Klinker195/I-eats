@@ -5,9 +5,7 @@
 #include "headers/datastructures.h"
 #include "headers/cliui.h"
 
-// TODO: Aggiungere funzioni grafi (aggiunta, visualizzazione e rimozione)
-
-void addVertex(Node_t **VertexList, String IsleName) {
+unsigned int addVertex(Node_t **VertexList, String IsleName) {
 	Vertex_t *newVertex = malloc(sizeof(Vertex_t));
 	
 	if(!newVertex) error(1001);
@@ -18,6 +16,7 @@ void addVertex(Node_t **VertexList, String IsleName) {
 	newVertex->Visited = false;
 	
 	endIns(VertexList, newVertex);
+	return newVertex->ID;
 }
 
 void addEdge(Node_t **VertexList, Node_t *BridgeList, Vertex_t *VertexSource, Vertex_t *VertexDestination, double maxWeight) {
@@ -36,49 +35,25 @@ void addEdge(Node_t **VertexList, Node_t *BridgeList, Vertex_t *VertexSource, Ve
 			if(!searchBridge(&BridgeList, tmpIdPair)) {
 				newBridge = malloc(sizeof(Edge_t));
 				newBridge->MaxWeight = maxWeight;
+				newBridge->VertexPair.x = VertexSource->ID;
+				newBridge->VertexPair.y = VertexDestination->ID;
 				endIns(&BridgeList, newBridge);
 			} else {
 				printf(ANSI_COLOR_BRIGHTYELLOW "\n\n Errore: Ponte gia' esistente. Creazione del ponte ignorata.\n\n");
 			}
 		} else {
-			printf(ANSI_COLOR_BRIGHTYELLOW "\n\n Errore: Collegamento gia' esistente. Creazione del'arco ignorata.\n\n");
+			printf(ANSI_COLOR_BRIGHTYELLOW "\n\n Errore: Collegamento gia' esistente. Creazione dell'arco ignorata.\n\n");
 			sleep(2);
 			return;
 		}
 	} else {
-		printf(ANSI_COLOR_BRIGHTYELLOW "\n\n Errore: Vertice non presente nel grafo. Creazione del'arco ignorata.\n\n");
+		printf(ANSI_COLOR_BRIGHTYELLOW "\n\n Errore: Vertice non presente nel grafo. Creazione dell'arco ignorata.\n\n");
 		sleep(2);
 		return;
 	}
 }
 
-/*
-DEPRECATED
-void addEdge(Node_t **VertexList, Node_t *BridgeList, Vertex_t *VertexSource, unsigned int VertexDestinationID, double maxWeight) {
-	IdPair_t *tmpIdPair;
-	Edge_t *newBridge;
-	
-	if(searchVertexID(VertexList, VertexDestinationID)) {
-		endIns(&(VertexSource->AdjacentVertices), &VertexDestinationID);
-		tmpIdPair = malloc(sizeof(IdPair_t));
-		tmpIdPair->x = VertexSource->ID;
-		tmpIdPair->y = VertexDestinationID;
-		if(!searchBridge(&BridgeList, tmpIdPair)) {
-			newBridge = malloc(sizeof(Edge_t));
-			newBridge->MaxWeight = maxWeight;
-			endIns(&BridgeList, newBridge);
-		} else {
-			printf(ANSI_COLOR_BRIGHTYELLOW "\n\n Errore: Ponte gia' esistente. Creazione del ponte ignorata.\n\n");
-		}
-	}
-}
-*/
-
-// TODO: Funzioni Graph da finire
-
 void addVerticesAndEdgesFromFileData(Node_t **VertexList) {
-	// Apertura di tutti i file contenuti all'interno della cartella ./data/islands tramite l'utilizzo di un file di supporto che contiene tutti gli ID presenti nella cartella
-	// Creazione vertice da ogni file
 	
 	FILE *IsleExistingIslands = fopen("./data/islands/ExistingIslands.isle", "r");
 	
@@ -193,10 +168,10 @@ bool tryRoute(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, Vertex
 	crawl(VertexList, BridgeList, Source, TotalWeight);
 	
 	if(Destination->Visited) {
-		//resetVisitedVertexList(VertexList);
+		resetVisitedVertexList(VertexList);
 		return true;
 	} else {
-		//resetVisitedVertexList(VertexList);
+		resetVisitedVertexList(VertexList);
 		return false;
 	}
 	

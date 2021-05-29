@@ -6,13 +6,22 @@ typedef struct Node {
 	struct Node *next;
 } Node_t;
 
+#include "utils.h"
+
+typedef struct {
+	String CF;
+	unsigned int IsleID;
+	int ItemsQuantity;
+	Node_t *Resources;
+} Order_t;
+
 Node_t *createNode(void *Data);
 
 void swapNodeData(void **a, void **b);
 
 //#include "queue.h"
-#include "linkedlist.h"
-#include "graph.h"
 //#include "heap.h"
+#include "graph.h"
+#include "linkedlist.h"
 
 #endif

@@ -86,6 +86,8 @@ int printVertexList(Node_t **VertexList) {
 	
 	system("cls");
 	
+	
+	
 	Vertex_t *tmpVertex;
 	Node_t *AdjacencyList;
 	unsigned int *tmpID;
@@ -129,43 +131,52 @@ int printOrderList(Node_t **OrderList) {
 	
 	system("cls");
 	
+	
+	
 	Order_t *tmpOrder;
 	Node_t *ResourceList;
 	Resource_t *tmpResource;
 	
-	int i = 0;
+	int i = 1;
 	
 	printf(ANSI_COLOR_BRIGHTRED " [Elenco degli ordini]\n");
 	
 	Node_t *tmp = *OrderList;
 	
 	while(tmp != NULL) {
-		i++;
 		tmpOrder = tmp->Data;
 		
 		printf(ANSI_COLOR_BRIGHTRED" +----------------------------------------------+\n");
 		printf(" |   No. |   ID Isola   |      Richiedente      |\n");
 		printf(" +----------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
 		
-		printf(ANSI_COLOR_BRIGHTRED " | " ANSI_COLOR_BRIGHTYELLOW "%4d. " ANSI_COLOR_BRIGHTRED "|" ANSI_COLOR_BRIGHTYELLOW " %12u "ANSI_COLOR_BRIGHTRED "|" ANSI_COLOR_BRIGHTYELLOW " %20s "ANSI_COLOR_BRIGHTRED"|\n", i, tmpOrder->IsleID, tmpOrder->CF);
+		printf(ANSI_COLOR_BRIGHTRED " | " ANSI_COLOR_BRIGHTYELLOW "%4d. " ANSI_COLOR_BRIGHTRED "|" ANSI_COLOR_BRIGHTYELLOW " %12u "ANSI_COLOR_BRIGHTRED "|" ANSI_COLOR_BRIGHTYELLOW " %21s "ANSI_COLOR_BRIGHTRED"|\n", i, tmpOrder->IsleID, tmpOrder->CF);
 		
 		ResourceList = tmpOrder->Resources;
 		
-		printf(" +---------------------------------------------+\n");
-		printf(" |    "ANSI_COLOR_BRIGHTYELLOW"|"ANSI_COLOR_BRIGHTRED"  |       Risorsa       |       Quantita'       |\n");
-		printf(" +---------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
+		printf(" +----------------------------------------------+\n");
+		printf(" |    "ANSI_COLOR_BRIGHTYELLOW"|"ANSI_COLOR_BRIGHTRED"  |   Quantita'  |        Risorsa        |\n");
+		printf(" +----------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
 		while(ResourceList != NULL) {
 			tmpResource = ResourceList->Data;
-			printf(ANSI_COLOR_BRIGHTRED " | "ANSI_COLOR_BRIGHTYELLOW "   +"ANSI_COLOR_BRIGHTRED"------------"ANSI_COLOR_BRIGHTYELLOW"> "ANSI_COLOR_BRIGHTRED"|"ANSI_COLOR_BRIGHTYELLOW" %s "ANSI_COLOR_BRIGHTRED"|"ANSI_COLOR_BRIGHTYELLOW" %d "ANSI_COLOR_BRIGHTRED"|\n", tmpResource->Name, tmpResource->Quantity);
+			printf(ANSI_COLOR_BRIGHTRED " | "ANSI_COLOR_BRIGHTYELLOW "   +"ANSI_COLOR_BRIGHTRED"-"ANSI_COLOR_BRIGHTYELLOW">"ANSI_COLOR_BRIGHTRED"|"ANSI_COLOR_BRIGHTYELLOW" %12d "ANSI_COLOR_BRIGHTRED"|"ANSI_COLOR_BRIGHTYELLOW" %21s "ANSI_COLOR_BRIGHTRED"|\n", tmpResource->Quantity, tmpResource->Name);
 			ResourceList = ResourceList->next;
 		}
 		
-		printf(" +-----------------------------------------------+\n\n" ANSI_COLOR_BRIGHTYELLOW);
+		printf(ANSI_COLOR_BRIGHTRED" +----------------------------------------------+\n\n" ANSI_COLOR_BRIGHTYELLOW);
+		i++;
 		tmp = tmp->next;
 	}
 	
 	return i;
 }
+
+int countOrderItems(Node_t **OrderItems) {
+	if(*OrderItems == NULL) return 0;
+	
+	return 1 + countOrderItems(&((*OrderItems)->next));
+}
+
 /*
 void printVertexStringList(Node_t **VertexList) {
 	system("cls");
@@ -301,6 +312,8 @@ int printOrderRecapList(Node_t **Head) {
 	Resource_t *tmpData;
 	
 	int i = 0;
+	
+	
 	
 	printf(ANSI_COLOR_BRIGHTRED " [Riepilogo ordine]\n");
 	printf(" +--------------------------------------------------+\n");
@@ -444,21 +457,19 @@ void endInsOrderFromFile(Node_t **Head) {
 	
 	Order_t *tmpOrder;
 	Resource_t *tmpResource;
+	int i = 0;
 	
 	if(size != 0) {
 		while(!feof(IsleOrderData)) {
 			tmpOrder = malloc(sizeof(Order_t));
-			fscanf(IsleOrderData, "%s\n%u\n", tmpOrder->CF, &tmpOrder->IsleID);
-			// TODO: Fix function
-			while(!feof(IsleOrderData)) {
+			tmpOrder->Resources = NULL;
+			fscanf(IsleOrderData, "%s\n%u\n%d\n", tmpOrder->CF, &tmpOrder->IsleID, &tmpOrder->ItemsQuantity);
+			i = 0;
+			while(!feof(IsleOrderData) && i != tmpOrder->ItemsQuantity) {
 				tmpResource = malloc(sizeof(Resource_t));
 				fscanf(IsleOrderData, "%s %d\n", tmpResource->Name, &tmpResource->Quantity);
-				if(tmpResource->Name[0] == '-') {
-					free(tmpResource);
-					break;
-				} else {
-					endIns(&(tmpOrder->Resources), tmpResource);
-				}
+				endIns(&(tmpOrder->Resources), tmpResource);
+				i++;
 			}
 			endIns(Head, tmpOrder);
 		}
@@ -512,6 +523,18 @@ bool searchInt(Node_t **Head, int RequestedInteger) {
 	return searchInt(&((*Head)->next), RequestedInteger);
 }
 
+Vertex_t *getRandomStartingVertex(Node_t **Head) {
+	if(*Head == NULL) return NULL;
+	
+	if((rand() % 100 + 1) > 50) {
+		Vertex_t *tmpVertex = malloc(sizeof(Vertex_t));
+		tmpVertex = (*Head)->Data;
+		return tmpVertex;
+	}
+	
+	return getRandomStartingVertex(&((*Head)->next));
+}
+
 Vehicle_t *fetchVehicleFromModel(Node_t **Head, String Model) {
 	if(*Head == NULL) return NULL;
 	
@@ -539,6 +562,23 @@ Vertex_t *fetchVertexAtPosition(Node_t **Head, int Pos) {
 	return _fetchVertexAtPosition(Head, Pos, 1);
 }
 
+Order_t *_fetchOrderAtPosition(Node_t **Head, int Pos, int CurrentPos) {
+	
+	if(*Head == NULL) return NULL;
+	
+	if(Pos == CurrentPos) {
+		Order_t *tmpOrder = malloc(sizeof(Order_t));
+		tmpOrder = (*Head)->Data;
+		return tmpOrder;
+	}
+	
+	return _fetchOrderAtPosition(&((*Head)->next), Pos, CurrentPos + 1);
+}
+
+Order_t *fetchOrderAtPosition(Node_t **Head, int Pos) {
+	return _fetchOrderAtPosition(Head, Pos, 1);
+}
+
 Resource_t *_fetchResourceAtPosition(Node_t **Head, int Pos, int CurrentPos) {
 	
 	if(*Head == NULL) return NULL;
@@ -554,6 +594,122 @@ Resource_t *_fetchResourceAtPosition(Node_t **Head, int Pos, int CurrentPos) {
 
 Resource_t *fetchResourceAtPosition(Node_t **Head, int Pos) {
 	return _fetchResourceAtPosition(Head, Pos, 1);
+}
+
+bool _deleteBridgeAtVertexID(Node_t **Head, unsigned int VertexID, int CurrentPos) {
+	if(*Head == NULL) return NULL;
+	
+	Node_t *Next = (*Head)->next;
+	
+	Edge_t *tmpBridge = (*Head)->Data;
+	
+	if((tmpBridge->VertexPair.x == VertexID || tmpBridge->VertexPair.y == VertexID) && CurrentPos == 1) {
+		free(*Head);
+		*Head = Next;
+		return true;
+	}
+	
+	Edge_t *tmpNextBridge = Next->Data;
+	
+	if(tmpNextBridge->VertexPair.x == VertexID || tmpNextBridge->VertexPair.y == VertexID) {
+		(*Head)->next = Next->next;
+		free(Next);
+		return true;
+	}
+	
+	return _deleteBridgeAtVertexID(&Next, VertexID, CurrentPos + 1);
+}
+
+bool deleteBridgeAtVertexID(Node_t **Head, unsigned int VertexID) {
+	return _deleteBridgeAtVertexID(Head, VertexID, 1);
+}
+
+bool _deleteIntAtVertexID(Node_t **Head, unsigned int VertexID, int CurrentPos) {
+	if(*Head == NULL) return NULL;
+	
+	Node_t *Next = (*Head)->next;
+	unsigned int *tmpInt = (*Head)->Data;
+	
+	if(*tmpInt == VertexID && CurrentPos == 1) {
+		free(*Head);
+		*Head = Next;
+		return true;
+	}
+	
+	unsigned int *tmpNextInt = Next->Data;
+	
+	if(*tmpNextInt == VertexID) {
+		(*Head)->next = Next->next;
+		free(Next);
+		return true;
+	}
+	
+	return _deleteIntAtVertexID(&Next, VertexID, CurrentPos + 1);
+}
+
+bool deleteIntAtVertexID(Node_t **Head, unsigned int VertexID) {
+	return _deleteIntAtVertexID(Head, VertexID, 1);
+}
+
+bool deleteAdjacentVerticesAtVertexID(Node_t **Head, unsigned int VertexID) {
+	if(*Head == NULL) return NULL;
+	
+	Node_t *Next = (*Head)->next;
+	
+	Vertex_t *tmpVertex = (*Head)->Data;
+	
+	deleteIntAtVertexID(&(tmpVertex->AdjacentVertices), VertexID);
+	
+	return deleteAdjacentVerticesAtVertexID(&Next, VertexID);
+}
+
+bool _deleteVertexAtPosition(Node_t **Head, int Pos, int CurrentPos) {
+	if(*Head == NULL) return NULL;
+	
+	Node_t *Next = (*Head)->next;
+	
+	if(Pos == CurrentPos && CurrentPos == 1) {
+		free(*Head);
+		*Head = Next;
+		return true;
+	}
+	
+	if(Pos == (CurrentPos + 1)) {
+		(*Head)->next = Next->next;
+		free(Next);
+		return true;
+	}
+	
+	return _deleteVertexAtPosition(&((*Head)->next), Pos, CurrentPos + 1);
+}
+
+bool deleteVertexAtPosition(Node_t **Head, int Pos) {
+	return _deleteVertexAtPosition(Head, Pos, 1);
+}
+
+bool _deleteOrderAtPosition(Node_t **Head, int Pos, int CurrentPos) {
+	
+	if(*Head == NULL) return NULL;
+	
+	Node_t *Next = (*Head)->next;
+	
+	if(Pos == CurrentPos && CurrentPos == 1) {
+		free(*Head);
+		*Head = Next;
+		return true;
+	}
+	
+	if(Pos == (CurrentPos + 1)) {
+		(*Head)->next = Next->next;
+		free(Next);
+		return true;
+	}
+	
+	return _deleteOrderAtPosition(&((*Head)->next), Pos, CurrentPos + 1);
+}
+
+bool deleteOrderAtPosition(Node_t **Head, int Pos) {
+	return _deleteOrderAtPosition(Head, Pos, 1);
 }
 
 bool _deleteResourceAtPosition(Node_t **Head, int Pos, int CurrentPos) {
@@ -603,27 +759,131 @@ void writeListIntoResourcesFile(Node_t **List, FILE *IsleResourceData) {
 	writeListIntoResourcesFile(&Next, IsleResourceData);
 }
 
-void _writeListIntoOrderFile(Node_t **List, String UserCF, unsigned int VertexID, FILE *IsleOrderData, int Position) {
+void _writeVertexListIntoIsleFolderAndFile(Node_t **List, FILE *IsleIslandsData) {
+	if(*List == NULL) return;
+
+	Node_t *Next = (*List)->next;
+	Vertex_t *tmpVertex = (*List)->Data;
+	Node_t *AdjacentVertices = tmpVertex->AdjacentVertices;
+	unsigned int *tmpID;
+	
+	String StringID;
+	
+	itoa(tmpVertex->ID, StringID, 10);
+	String FinalPath = "./data/islands/";
+	strcat(FinalPath, StringID);
+	strcat(FinalPath, ".isle");
+	
+	FILE* IsleSingleIsleData = fopen(FinalPath, "w");
+	
+	if(!IsleSingleIsleData) error(1000);
+	
+	fprintf(IsleSingleIsleData, "%s\n", tmpVertex->IsleName);
+	
+	while(AdjacentVertices != NULL) {
+		tmpID = AdjacentVertices->Data;
+		if(AdjacentVertices->next == NULL) {
+			fprintf(IsleSingleIsleData, "%u", *tmpID);
+		} else {
+			fprintf(IsleSingleIsleData, "%u\n", *tmpID);
+		}
+		AdjacentVertices = AdjacentVertices->next;
+	}
+	
+	fprintf(IsleIslandsData, "%u\n", tmpVertex->ID);
+	
+	fclose(IsleSingleIsleData);
+	
+	_writeVertexListIntoIsleFolderAndFile(&Next, IsleIslandsData);
+}
+
+void writeVertexListIntoIsleFolderAndFile(Node_t **List, FILE *IsleIslandsData) {
+	removeAllIslandFiles(List);
+	_writeVertexListIntoIsleFolderAndFile(List, IsleIslandsData);
+}
+
+void removeAllIslandFiles(Node_t **List) {
+	if(*List == NULL) return;
+	
+	Node_t *Next = (*List)->next;
+	Vertex_t *tmpVertex = (*List)->Data;
+	
+	String StringID;
+	
+	itoa(tmpVertex->ID, StringID, 10);
+	String FinalPath = "./data/islands/";
+	strcat(FinalPath, StringID);
+	strcat(FinalPath, ".isle");
+	
+	remove(FinalPath);
+	
+	removeAllIslandFiles(&Next);
+}
+
+void writeBridgeListIntoBridgeFile(Node_t **List, FILE *IsleBridgeData) {
+	if(*List == NULL) return;
+
+	Node_t *Next = (*List)->next;
+	Edge_t *tmpBridge = (*List)->Data;
+	
+	fprintf(IsleBridgeData, "%u %u %lf\n", tmpBridge->VertexPair.x, tmpBridge->VertexPair.y, tmpBridge->MaxWeight);
+	
+	writeBridgeListIntoBridgeFile(&Next, IsleBridgeData);
+}
+
+void writeOrderListIntoOrderFile(Node_t **List, FILE *IsleOrderData) {
+	if(*List == NULL) return;
+
+	Node_t *Next = (*List)->next;
+	Order_t *tmpOrder = (*List)->Data;
+	
+	fprintf(IsleOrderData, "%s\n%u\n%d\n", tmpOrder->CF, tmpOrder->IsleID, tmpOrder->ItemsQuantity);
+	
+	Node_t *tmp;
+	Resource_t *tmpResource;
+	
+	tmp = tmpOrder->Resources;
+	int i = 0;
+	
+	while(tmp != NULL && i < tmpOrder->ItemsQuantity) {
+		tmpResource = tmp->Data;
+		fprintf(IsleOrderData, "%s %d\n", tmpResource->Name, tmpResource->Quantity);
+		tmp = tmp->next;
+		i++;
+	}
+	
+	writeOrderListIntoOrderFile(&Next, IsleOrderData);
+}
+
+void _writeListIntoOrderFile(Node_t **List, String UserCF, unsigned int VertexID, int ItemsQuantity, FILE *IsleOrderData, int Position) {
 	if(*List == NULL) return;
 
 	Node_t *Next = (*List)->next;
 	Resource_t *tmpResource = (*List)->Data;
 
 	if(Position == 0) {
-		fprintf(IsleOrderData, "%s\n%d\n", UserCF, VertexID);
+		fprintf(IsleOrderData, "%s\n%u\n%d\n", UserCF, VertexID, ItemsQuantity);
 	}
 	
 	fprintf(IsleOrderData, "%s %d\n", tmpResource->Name, tmpResource->Quantity);
 	
-	if(Next == NULL) {
-		fprintf(IsleOrderData, "-\n", tmpResource->Name, tmpResource->Quantity);
-	}
-	
-	_writeListIntoOrderFile(&Next, UserCF, VertexID, IsleOrderData, Position + 1);
+	_writeListIntoOrderFile(&Next, UserCF, VertexID, ItemsQuantity, IsleOrderData, Position + 1);
 }
 
-void writeListIntoOrderFile(Node_t **List, String UserCF, unsigned int VertexID, FILE *IsleOrderData) {
-	_writeListIntoOrderFile(List, UserCF, VertexID, IsleOrderData, 0);
+void writeListIntoOrderFile(Node_t **List, String UserCF, unsigned int VertexID, int ItemsQuantity, FILE *IsleOrderData) {
+	_writeListIntoOrderFile(List, UserCF, VertexID, ItemsQuantity, IsleOrderData, 0);
+}
+
+double _calcTotalWeight(Node_t **ResourceList) {
+	if(*ResourceList == NULL) return 0;
+	
+	Resource_t *tmpResource = (*ResourceList)->Data;
+	
+	return (tmpResource->Quantity * tmpResource->SpecificWeight) + _calcTotalWeight(&((*ResourceList)->next));
+}
+
+double calcTotalWeight(Vehicle_t Vehicle, Node_t **ResourceList) {
+	return Vehicle.Weight + _calcTotalWeight(ResourceList);
 }
 
 void _freeList(Node_t **Head) {
