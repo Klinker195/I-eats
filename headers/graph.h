@@ -8,6 +8,7 @@ typedef struct {
 	unsigned int ID;
 	String IsleName;
 	bool Visited;
+	bool Explored;
 	Node_t *AdjacentVertices;
 } Vertex_t;
 
@@ -24,10 +25,12 @@ void addVerticesAndEdgesFromFileData(Node_t **VertexList);
 
 void createGraphFromFileData(Node_t **VertexList, Node_t **BridgeList);
 
+void resetVisitedExploredVertexList(Node_t **VertexList);
+
 void resetVisitedVertexList(Node_t **VertexList);
 
 bool tryRoute(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, Vertex_t *Destination, double TotalWeight);
 
-void crawl(Node_t **VertexList, Node_t **BridgeList, Vertex_t *Source, double TotalWeight);
+void crawl(Node_t **VertexList, Node_t **BridgeList, Vertex_t *StartingSource, Vertex_t *Source, Vertex_t *Destination, double TotalWeight, Node_t **MinimumList, Node_t **tmpMinimumList);
 
 #endif

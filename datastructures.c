@@ -14,11 +14,3 @@ Node_t *createNode(void *Data) {
 	
 	return newNode;
 }
-
-void swapNodeData(void **a, void **b) {
-	void *tmp;
-	
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}

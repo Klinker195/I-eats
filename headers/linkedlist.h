@@ -10,6 +10,10 @@ void _endIns(Node_t **Head, int Pos, void* Data);
 
 void endIns(Node_t **Head, void *Data);
 
+void copyList(Node_t **Destination, Node_t **Source);
+
+int printMinimumRouteList(Node_t **VertexList);
+
 int printVertexList(Node_t **VertexList);
 
 int printOrderList(Node_t **OrderList);
@@ -42,6 +46,8 @@ void endInsResourcesFromFile(Node_t **Head);
 
 bool searchInt(Node_t **Head, int RequestedInteger);
 
+int countList(Node_t **Head);
+
 Vertex_t *getRandomStartingVertex(Node_t **Head);
 
 Vehicle_t *fetchVehicleFromModel(Node_t **Head, String Model);
@@ -57,6 +63,8 @@ Order_t *fetchOrderAtPosition(Node_t **Head, int Pos);
 Resource_t *_fetchResourceAtPosition(Node_t **Head, int Pos, int CurrentPos);
 
 Resource_t *fetchResourceAtPosition(Node_t **Head, int Pos);
+
+void fetchAndSetSpecificWeightFromFile(Node_t **ResourceOrderList, FILE *IsleResourceData);
 
 bool _deleteBridgeAtVertexID(Node_t **Head, unsigned int VertexID, int CurrentPos);
 
@@ -75,6 +83,10 @@ bool deleteVertexAtPosition(Node_t **Head, int Pos);
 bool _deleteOrderAtPosition(Node_t **Head, int Pos, int CurrentPos);
 
 bool deleteOrderAtPosition(Node_t **Head, int Pos);
+
+bool _deleteOrderAtCF(Node_t **Head, String UserCF, int CurrentPos);
+
+bool deleteOrderAtCF(Node_t **Head, String UserCF);
 
 bool _deleteResourceAtPosition(Node_t **Head, int Pos, int CurrentPos);
 

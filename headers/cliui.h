@@ -20,12 +20,12 @@
 
 #define STARTUPCHOICELIST_SIZE 4
 #define LOGINREGISTRATIONCHOICELIST_SIZE 2
-#define DRIVERCHOICELIST_SIZE 3
-#define CUSTOMERCHOICELIST_SIZE 2
+#define DRIVERCHOICELIST_SIZE 4
+#define CUSTOMERCHOICELIST_SIZE 3
 #define CONFIRMORDERCHOICELIST_SIZE 3
 #define CHANGEVEHICLECHOICELIST_SIZE 4
 #define CONFIRMDRIVERORDERCHOICELIST_SIZE 3
-#define DEBUGCHOICELIST_SIZE 8
+#define DEBUGCHOICELIST_SIZE 9
 
 typedef struct {
 	const String Text;
@@ -66,5 +66,7 @@ void printOrder(Order_t *Order);
 int getVerticalInput(Choice_t ChoiceList[], int TotalChoices, void (*printOptions)(Choice_t[], int));
 
 void printCamionAnimation();
+
+void printMap();
 
 #endif

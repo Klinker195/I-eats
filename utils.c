@@ -144,6 +144,14 @@ unsigned int fetchID() {
 	return newID;
 }
 
+int findMin(int FirstValue, int SecondValue) {
+	if(FirstValue <= SecondValue) {
+		return 0;
+	} else {
+		return 1;
+	}
+}
+
 bool nanosleep(LONGLONG ns) {
 	/* Declarations */
 	HANDLE timer;	/* Timer handle */

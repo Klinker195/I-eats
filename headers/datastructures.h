@@ -17,10 +17,6 @@ typedef struct {
 
 Node_t *createNode(void *Data);
 
-void swapNodeData(void **a, void **b);
-
-//#include "queue.h"
-//#include "heap.h"
 #include "graph.h"
 #include "linkedlist.h"
 

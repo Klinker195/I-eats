@@ -32,8 +32,6 @@ int isleStart(User_t *CurrentUser) {
 
 	do {
 
-		//system("MODE 120,55");
-
 		startupChoice = getVerticalInput(StartupChoiceList, STARTUPCHOICELIST_SIZE, printMainMenu);
 
 		switch(startupChoice) {
@@ -98,8 +96,6 @@ int isleStart(User_t *CurrentUser) {
 							sleep(3);
 							continue;
 						}
-						
-						// Login driver
 						
 						if(driverLogin(&User))  {
 							loginDone = true;
@@ -172,8 +168,6 @@ int isleStart(User_t *CurrentUser) {
 							sleep(3);
 							continue;
 						}
-						
-						//Login customer
 						
 						if(customerLogin(&User))  {
 							loginDone = true;
@@ -282,8 +276,6 @@ int isleStart(User_t *CurrentUser) {
 						printf(ANSI_COLOR_BRIGHTYELLOW" Verifica la tua password: ");
 						gets(User.Password);
 						
-						// Registration driver 
-						
 						if(strcmp(verifyPassword, User.Password) == 0 && driverRegistration(User)) {
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
@@ -369,8 +361,6 @@ int isleStart(User_t *CurrentUser) {
 						printf(ANSI_COLOR_BRIGHTYELLOW" Verifica la tua password: ");
 						gets(User.Password);
 						
-						// Registration customer 
-						
 						if(strcmp(verifyPassword, User.Password) == 0 && customerRegistration(User)) {
 							strcpy(User.CF, "");
 							strcpy(User.Password, "");
@@ -422,11 +412,9 @@ void isleDriver(User_t *ConnectedUser) {
 	Node_t *VertexList = NULL;
 	Node_t *OrderList = NULL;
 
+	setUserVehicle(ConnectedUser);
+	
 	do {
-		
-
-
-		//system("MODE 120,55");
 
 		menuChoice = getVerticalInput(DriverChoiceList, DRIVERCHOICELIST_SIZE, printDriverChoice);
 
@@ -446,12 +434,17 @@ void isleDriver(User_t *ConnectedUser) {
 				freeList(&ResourcesList);
 				freeList(&BridgeList);
 				freeList(&VertexList);
-				freeList(&OrderList);
 				break;
 			case 1:
 				isleDriverChangeVehicleModel(ConnectedUser);
+				setUserVehicle(ConnectedUser);
 				break;
 			case 2:
+				printMap();
+				printf("\n\n ");
+				system("pause");
+				break;
+			case 3:
 				freeList(&ResourcesList);
 				freeList(&BridgeList);
 				freeList(&VertexList);
@@ -513,10 +506,22 @@ void isleDriverTryOrder(User_t *ConnectedUser, Node_t *OrderList, Node_t *Vertex
 	
 	} while(!numChoiceCheck);
 	
-	printOrder(Order);
+	FILE *IsleResourceData = fopen("./data/ResourcesList.isle", "r");
 	
-	printf("\n\n ");
-	system("pause");
+	if(!IsleResourceData) {
+		IsleResourceData = fopen("./data/ResourcesList.isle", "w");
+		fclose(IsleResourceData);
+		IsleResourceData = fopen("./data/ResourcesList.isle", "w");
+		fclose(IsleResourceData);
+	} 
+	
+	if(!IsleResourceData) error(1000);
+	
+	fetchAndSetSpecificWeightFromFile(&(Order->Resources), IsleResourceData);
+	
+	fclose(IsleResourceData);
+	
+	printOrder(Order);
 	
 	bool ChoiceMade = false;
 	
@@ -539,15 +544,16 @@ void isleDriverTryOrder(User_t *ConnectedUser, Node_t *OrderList, Node_t *Vertex
 			
 			double TotalWeight = calcTotalWeight(ConnectedUser->Vehicle, &(Order->Resources));
 			
+			printf(ANSI_COLOR_BRIGHTYELLOW "\n\n Partenza in corso dall'Isola %s [ID: %u] con un peso complessivo di %.2lf kg...", StartingVertex->IsleName, StartingVertex->ID, TotalWeight);
+			sleep(4);
+			
+			if(!(StartingVertex->ID == DestinationVertex->ID)) printCamionAnimation();
+			
 			if(tryRoute(&VertexList, &BridgeList, StartingVertex, DestinationVertex, TotalWeight)) {
-				
-				printf(ANSI_COLOR_BRIGHTYELLOW "\n\n Partenza in corso dall'Isola %s con un peso complessivo di %.2lf kg...", StartingVertex->IsleName, TotalWeight);
-				sleep(4);
-				
-				printCamionAnimation();
-				
-				printf(ANSI_COLOR_BRIGHTYELLOW "\n\n Arrivo all'Isola %s...", DestinationVertex->IsleName);
-				sleep(3);
+				if(!(StartingVertex->ID == DestinationVertex->ID)) {
+					printf(ANSI_COLOR_BRIGHTYELLOW "\n\n Arrivo all'Isola %s [ID: %u]...", DestinationVertex->IsleName, DestinationVertex->ID);
+					sleep(3);
+				}
 				
 				deleteOrderAtPosition(&OrderList, numChoice);
 				
@@ -564,19 +570,17 @@ void isleDriverTryOrder(User_t *ConnectedUser, Node_t *OrderList, Node_t *Vertex
 				return;
 			} else {
 				
-				printf(ANSI_COLOR_BRIGHTYELLOW "\n\n Partenza in corso dall'Isola %s con un peso complessivo di %.2lf kg...", StartingVertex->IsleName, TotalWeight);
-				sleep(4);
-				
-				printCamionAnimation();
-				
 				printf(ANSI_COLOR_BRIGHTYELLOW "\n\n L'isola non e' raggiungibile. Reindirizzamento al menu' precedente...");
 				sleep(3);
+				freeList(&OrderList);
+				
 				return;
 			}
 		} else {
 			ChoiceMade = true;
 			printf(ANSI_COLOR_BRIGHTYELLOW "\n\n Completamento ordine annullato. Reindirizzamento al menu' precedente...");
 			sleep(3);
+			freeList(&OrderList);
 			return;
 		}
 		
@@ -590,8 +594,6 @@ void isleDriverChangeVehicleModel(User_t *ConnectedUser) {
 	bool exitCheck = false;
 
 	do {
-
-		//system("MODE 120,55");
 
 		menuChoice = getVerticalInput(ChangeVehicleChoiceList, CHANGEVEHICLECHOICELIST_SIZE, printVehicleChangeChoice);
 
@@ -632,10 +634,9 @@ void isleCustomer(User_t *ConnectedUser) {
 	Node_t *ResourcesList = NULL;
 	Node_t *BridgeList = NULL;
 	Node_t *VertexList = NULL;
+	Node_t *OrderList = NULL;
 
 	do {
-
-		//system("MODE 120,55");
 
 		menuChoice = getVerticalInput(CustomerChoiceList, CUSTOMERCHOICELIST_SIZE, printCustomerChoice);
 		
@@ -655,6 +656,22 @@ void isleCustomer(User_t *ConnectedUser) {
 				freeList(&VertexList);
 				break;
 			case 1:
+				if(checkOrderUniqueness(ConnectedUser->CF)) {
+					system("cls");
+					printf("\n\n");
+					printf(ANSI_COLOR_BRIGHTYELLOW" Nessun ordine esistente. Reindirizzamento al menu' precedente...");
+					sleep(3);
+				} else {
+					OrderList = NULL;
+					endInsOrderFromFile(&OrderList);
+					isleCustomerDeleteOrder(&OrderList, ConnectedUser->CF);
+					system("cls");
+					printf("\n\n");
+					printf(ANSI_COLOR_BRIGHTYELLOW" Ordine eliminato con successo. Reindirizzamento al menu' precedente...");
+					sleep(3);
+				}
+				break;
+			case 2:
 				exit(EXIT_SUCCESS);
 				break;
 		}
@@ -861,16 +878,10 @@ void isleDebug() {
 
 	do {
 
-		//system("MODE 140,55");
-
 		menuChoice = getVerticalInput(DebugChoiceList, DEBUGCHOICELIST_SIZE, printDebugChoice);
 		
 		switch(menuChoice) {
 			case 0:
-				//ResourcesList = NULL;
-				//endInsResourcesFromFile(&ResourcesList);
-				//BridgeList = NULL;
-				//endInsBridgesFromFile(&BridgeList);
 				VertexList = NULL;
 				addVerticesAndEdgesFromFileData(&VertexList);
 				
@@ -879,10 +890,6 @@ void isleDebug() {
 				printf("\n\n ");
 				system("pause");
 				
-				//isleCustomerPlaceOrder(ConnectedUser, ResourcesList, VertexList);
-				
-				//freeList(&ResourcesList);
-				//freeList(&BridgeList);
 				freeList(&VertexList);
 				break;
 			case 1:
@@ -1171,6 +1178,9 @@ void isleDebug() {
 					freeList(&ResourcesList);
 					break;
 				} else {
+					printf("\n\n");
+					printf(" Creazione risorsa completata. Reindirizzamento al menu' precedente...");
+					sleep(3);
 					addResource(tmpResource, ResourcesList);
 				}
 				
@@ -1227,9 +1237,18 @@ void isleDebug() {
 				
 				fclose(IsleResourceData);
 				
+				printf("\n\n");
+				printf(" Cancellazione risorsa completata. Reindirizzamento al menu' precedente...");
+				sleep(3);
+				
 				freeList(&ResourcesList);
 				break;
 			case 7:
+				printMap();
+				printf("\n\n ");
+				system("pause");
+				break;
+			case 8:
 				exit(EXIT_SUCCESS);
 				break;
 		}
@@ -1237,6 +1256,18 @@ void isleDebug() {
 	} while(!exitCheck);
 
 	return;
+}
+
+void isleCustomerDeleteOrder(Node_t **OrderList, String UserCF) {
+	deleteOrderAtCF(OrderList, UserCF);
+	
+	FILE *IsleOrderData = fopen("./data/IsleOrders.isle", "w");
+	
+	if(!IsleOrderData) error(1000);
+	
+	writeOrderListIntoOrderFile(OrderList, IsleOrderData);
+	
+	fclose(IsleOrderData);
 }
 
 void addResource(Resource_t *Resource, Node_t *ResourceList) {
@@ -1292,6 +1323,40 @@ void addResource(Resource_t *Resource, Node_t *ResourceList) {
 
 	fclose(IsleResourceData);
 	return;
+}
+
+void setUserVehicle(User_t *ConnectedUser) {
+	
+	Node_t *VehicleOwnerList = NULL;
+	endInsVehicleOwnerFromFile(&VehicleOwnerList);
+	
+	User_t *tmpUser;
+	Node_t *tmpNode = VehicleOwnerList;
+	
+	while(tmpNode != NULL) {
+		tmpUser = tmpNode->Data;
+		if(strncmp(ConnectedUser->CF, tmpUser->CF, 16) == 0) {
+			strcpy(ConnectedUser->Vehicle.Model, tmpUser->Vehicle.Model);
+		}
+		tmpNode = tmpNode->next;
+	}
+	
+	Node_t *VehicleList = NULL;
+	endInsVehiclesFromFile(&VehicleList);
+	
+	Vehicle_t *tmpVehicle;
+	tmpNode = VehicleList;
+	
+	while(tmpNode != NULL) {
+		tmpVehicle = tmpNode->Data;
+		if(strcmp(ConnectedUser->Vehicle.Model, tmpVehicle->Model) == 0) {
+			ConnectedUser->Vehicle.Weight = tmpVehicle->Weight;
+		}
+		tmpNode = tmpNode->next;
+	}
+	
+	freeList(&VehicleOwnerList);
+	freeList(&VehicleList);
 }
 
 void swapUserVehicle(User_t *ConnectedUser, String Model) {

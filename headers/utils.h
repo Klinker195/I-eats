@@ -45,4 +45,6 @@ bool checkCFValidity(String CF);
 
 unsigned int fetchID();
 
+int findMin(int FirstValue, int SecondValue);
+
 #endif

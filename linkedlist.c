@@ -44,49 +44,60 @@ void endIns(Node_t **Head, void *Data) {
 	return;
 }
 
-/*
-int printPastAppointmentsList(Node_t **Head) {
+void copyList(Node_t **Destination, Node_t **Source) {
+	if(*Source == NULL) return;
+	
+	endIns(Destination, (*Source)->Data);
+	
+	return copyList(Destination, &((*Source)->next));
+}
+
+int printMinimumRouteList(Node_t **VertexList) {
 	
 	system("cls");
 	
-	FixedAppointment_t *tmpData;
+	Vertex_t *tmpVertex;
+	Node_t *AdjacencyList;
+	unsigned int *tmpID;
 	
 	int i = 0;
 	
-	printf(ANSI_COLOR_CYAN " [Storico appuntamenti]\n");
-	printf(" +-------------------------------------------------------------------------------------------------------+\n");
-	printf(" |   No. |    Codice fiscale    |          Data          |          Orario          |     Positivita'    |\n");
-	printf(" +-------------------------------------------------------------------------------------------------------+\n"ANSI_COLOR_RESET);
+	printf(ANSI_COLOR_BRIGHTRED " [Percorso minimo da effettuare]\n");
+
 	
-	Node_t *tmp = *Head;
-	String tmpHour;
+	Node_t *tmp = *VertexList;
 	
 	while(tmp != NULL) {
 		i++;
-		tmpData = tmp->Data;
+		tmpVertex = tmp->Data;
 		
-		if(tmpData->Hour == Morning) {
-			strcpy(tmpHour, "Mattina");
-		} else if(tmpData->Hour == Afternoon) {
-			strcpy(tmpHour, "Pomeriggio");
-		} else {
-			strcpy(tmpHour, "Sera");
+		printf(ANSI_COLOR_BRIGHTRED" +---------------------------------------------+\n");
+		printf(" |   No. |   ID Isola   |      Nome Isola      |\n");
+		printf(" +---------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
+		
+		printf(ANSI_COLOR_BRIGHTRED " | " ANSI_COLOR_BRIGHTYELLOW "%4d. " ANSI_COLOR_BRIGHTRED "|" ANSI_COLOR_BRIGHTYELLOW " %12u "ANSI_COLOR_BRIGHTRED "|" ANSI_COLOR_BRIGHTYELLOW " %20s "ANSI_COLOR_BRIGHTRED"|\n", i, tmpVertex->ID, tmpVertex->IsleName);
+		
+		AdjacencyList = tmpVertex->AdjacentVertices;
+		
+		printf(" +---------------------------------------------+\n");
+		printf(" |    "ANSI_COLOR_BRIGHTYELLOW"|"ANSI_COLOR_BRIGHTRED"  |             Collegamenti            |\n");
+		printf(" +---------------------------------------------+\n"ANSI_COLOR_BRIGHTYELLOW);
+		while(AdjacencyList != NULL) {
+			tmpID = AdjacencyList->Data;
+			printf(ANSI_COLOR_BRIGHTRED " | "ANSI_COLOR_BRIGHTYELLOW "   +"ANSI_COLOR_BRIGHTRED"---------------------------------"ANSI_COLOR_BRIGHTYELLOW"> %4u "ANSI_COLOR_BRIGHTRED"|\n", *tmpID);
+			AdjacencyList = AdjacencyList->next;
 		}
 		
-		printf(ANSI_COLOR_CYAN " | " ANSI_COLOR_RESET "%4d. " ANSI_COLOR_CYAN "|" ANSI_COLOR_RESET " %20s "ANSI_COLOR_CYAN"|"ANSI_COLOR_RESET"       %4d/%2d/%2d       "ANSI_COLOR_CYAN"|"ANSI_COLOR_RESET"%15s           "ANSI_COLOR_CYAN"|"ANSI_COLOR_RESET"%14s      "ANSI_COLOR_CYAN"|\n", i, tmpData->CF, tmpData->Date.Year, tmpData->Date.Month, tmpData->Date.Day, tmpHour, tmpData->isPositive ? "POSITIVO" : "NEGATIVO");
-		printf(" +-------------------------------------------------------------------------------------------------------+\n" ANSI_COLOR_RESET);
+		printf(" +---------------------------------------------+\n\n" ANSI_COLOR_BRIGHTYELLOW);
 		tmp = tmp->next;
 	}
 	
 	return i;
 }
-*/
 
 int printVertexList(Node_t **VertexList) {
 	
 	system("cls");
-	
-	
 	
 	Vertex_t *tmpVertex;
 	Node_t *AdjacencyList;
@@ -130,8 +141,6 @@ int printVertexList(Node_t **VertexList) {
 int printOrderList(Node_t **OrderList) {
 	
 	system("cls");
-	
-	
 	
 	Order_t *tmpOrder;
 	Node_t *ResourceList;
@@ -177,41 +186,6 @@ int countOrderItems(Node_t **OrderItems) {
 	return 1 + countOrderItems(&((*OrderItems)->next));
 }
 
-/*
-void printVertexStringList(Node_t **VertexList) {
-	system("cls");
-	
-	Vertex_t *tmpVertex;
-	Node_t *AdjacencyList;
-	unsigned int *tmpID;
-	
-	int i = 0;
-	
-	Node_t *tmp = *VertexList;
-	
-	printf( "[Vertex List]");
-	printf("\n\n");
-	while(tmp != NULL) {
-		tmpVertex = tmp->Data;
-		
-		printf(" - ID: %u | Isle Name: %s | Visited? %d", tmpVertex->ID, tmpVertex->IsleName, tmpVertex->Visited);
-		
-		AdjacencyList = tmpVertex->AdjacentVertices;
-		
-		while(AdjacencyList != NULL) {
-			tmpID = AdjacencyList->Data;
-			printf("\n      - %u", *tmpID);
-			AdjacencyList = AdjacencyList->next;
-		}
-		
-		printf("\n");
-		
-		tmp = tmp->next;
-	}
-	
-	printf("\n\n");
-}
-*/
 void printBridgeStringList(Node_t **BridgeList) {
 	system("cls");
 	
@@ -523,16 +497,14 @@ bool searchInt(Node_t **Head, int RequestedInteger) {
 	return searchInt(&((*Head)->next), RequestedInteger);
 }
 
+int countList(Node_t **Head) {
+	if(*Head == NULL) return 0;
+
+	return 1 + countList(&((*Head)->next));
+}
+
 Vertex_t *getRandomStartingVertex(Node_t **Head) {
-	if(*Head == NULL) return NULL;
-	
-	if((rand() % 100 + 1) > 50) {
-		Vertex_t *tmpVertex = malloc(sizeof(Vertex_t));
-		tmpVertex = (*Head)->Data;
-		return tmpVertex;
-	}
-	
-	return getRandomStartingVertex(&((*Head)->next));
+	return fetchVertexAtPosition(Head, (rand() % countList(Head)) + 1);
 }
 
 Vehicle_t *fetchVehicleFromModel(Node_t **Head, String Model) {
@@ -596,8 +568,27 @@ Resource_t *fetchResourceAtPosition(Node_t **Head, int Pos) {
 	return _fetchResourceAtPosition(Head, Pos, 1);
 }
 
+void fetchAndSetSpecificWeightFromFile(Node_t **ResourceOrderList, FILE *IsleResourceData) {
+	if(*ResourceOrderList == NULL) return;
+	
+	Resource_t buffResource;
+	
+	Resource_t *tmpResource = (*ResourceOrderList)->Data;
+	
+	while(!feof(IsleResourceData)) {
+		fscanf(IsleResourceData, "%s %lf\n", buffResource.Name, &buffResource.SpecificWeight);
+		if(strcmp(buffResource.Name, tmpResource->Name) == 0) {
+			tmpResource->SpecificWeight = buffResource.SpecificWeight;
+		}
+	}
+	
+	rewind(IsleResourceData);
+	
+	fetchAndSetSpecificWeightFromFile(&((*ResourceOrderList)->next), IsleResourceData);
+}
+
 bool _deleteBridgeAtVertexID(Node_t **Head, unsigned int VertexID, int CurrentPos) {
-	if(*Head == NULL) return NULL;
+	if(*Head == NULL) return false;
 	
 	Node_t *Next = (*Head)->next;
 	
@@ -625,7 +616,7 @@ bool deleteBridgeAtVertexID(Node_t **Head, unsigned int VertexID) {
 }
 
 bool _deleteIntAtVertexID(Node_t **Head, unsigned int VertexID, int CurrentPos) {
-	if(*Head == NULL) return NULL;
+	if(*Head == NULL) return false;
 	
 	Node_t *Next = (*Head)->next;
 	unsigned int *tmpInt = (*Head)->Data;
@@ -652,7 +643,7 @@ bool deleteIntAtVertexID(Node_t **Head, unsigned int VertexID) {
 }
 
 bool deleteAdjacentVerticesAtVertexID(Node_t **Head, unsigned int VertexID) {
-	if(*Head == NULL) return NULL;
+	if(*Head == NULL) return false;
 	
 	Node_t *Next = (*Head)->next;
 	
@@ -664,7 +655,7 @@ bool deleteAdjacentVerticesAtVertexID(Node_t **Head, unsigned int VertexID) {
 }
 
 bool _deleteVertexAtPosition(Node_t **Head, int Pos, int CurrentPos) {
-	if(*Head == NULL) return NULL;
+	if(*Head == NULL) return false;
 	
 	Node_t *Next = (*Head)->next;
 	
@@ -689,7 +680,7 @@ bool deleteVertexAtPosition(Node_t **Head, int Pos) {
 
 bool _deleteOrderAtPosition(Node_t **Head, int Pos, int CurrentPos) {
 	
-	if(*Head == NULL) return NULL;
+	if(*Head == NULL) return false;
 	
 	Node_t *Next = (*Head)->next;
 	
@@ -712,9 +703,36 @@ bool deleteOrderAtPosition(Node_t **Head, int Pos) {
 	return _deleteOrderAtPosition(Head, Pos, 1);
 }
 
+bool _deleteOrderAtCF(Node_t **Head, String UserCF, int CurrentPos) {
+	if(*Head == NULL) return false;
+	
+	Node_t *Next = (*Head)->next;
+	Order_t *tmpOrder = (*Head)->Data;
+	
+	if(strncmp(tmpOrder->CF, UserCF, 16) == 0 && CurrentPos == 1) {
+		free(*Head);
+		*Head = Next;
+		return true;
+	}
+	
+	Order_t *tmpNextOrder = Next->Data;
+	
+	if(strncmp(tmpNextOrder->CF, UserCF, 16) == 0) {
+		(*Head)->next = Next->next;
+		free(Next);
+		return true;
+	}
+	
+	return _deleteOrderAtCF(&Next, UserCF, CurrentPos + 1);
+}
+
+bool deleteOrderAtCF(Node_t **Head, String UserCF) {
+	return _deleteOrderAtCF(Head, UserCF, 1);
+}
+
 bool _deleteResourceAtPosition(Node_t **Head, int Pos, int CurrentPos) {
 	
-	if(*Head == NULL) return NULL;
+	if(*Head == NULL) return false;
 	
 	Node_t *Next = (*Head)->next;
 	

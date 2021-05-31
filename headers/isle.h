@@ -16,7 +16,11 @@ void isleCustomer(User_t *ConnectedUser);
 
 void isleCustomerPlaceOrder(User_t *ConnectedUser, Node_t *ResourcesList, Node_t *VertexList);
 
+void isleCustomerDeleteOrder(Node_t **OrderList, String UserCF);
+
 void addResource(Resource_t *Resource, Node_t *ResourceList);
+
+void setUserVehicle(User_t *ConnectedUser);
 
 void swapUserVehicle(User_t *ConnectedUser, String Model);
 
