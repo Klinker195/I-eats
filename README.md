@@ -1,4 +1,4 @@
-# I-eats 🚚🗺️ (Graph-Oriented Logistics Simulation - CLI, C / Windows)
+# I-eats 🚚 (Graph-Oriented Logistics Simulation - CLI - Windows)
 
 > **I-eats** is a *finished* academic / learning project: a Windows console (CLI) simulation of a multi-role logistics network set on a set of **islands connected by bridges**. Users log in either as **Customer** (placing resource orders originating from islands) or **Driver** (fulfilling and navigating orders). The core engine models islands and bridges as a **graph with capacity constraints**, persisting data in simple file-based storage ("*.isle" data plus credential archives).
 
